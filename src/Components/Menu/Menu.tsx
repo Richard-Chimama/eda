@@ -5,6 +5,8 @@ import { TbReport, TbReportSearch } from "react-icons/tb";
 import { CgFileDocument } from "react-icons/cg";
 import { motion } from "framer-motion";
 
+const Size = 480
+
 const Menu = () => {
   const navigate = useNavigate();
   const [screenWidth, setScrrenWidth] = useState(0);
@@ -28,7 +30,7 @@ const Menu = () => {
             whileHover={{ scale: 1.1}}
         >
         <S.Menu className="menu-button" onClick={() => navigate("/fiche")}>
-          {screenWidth > 420 && (
+          {screenWidth > Size && (
             <CgFileDocument className="icon-menu" color={"white"} size={110} />
           )}
           <div className="label-menu" >
@@ -40,7 +42,7 @@ const Menu = () => {
             whileHover={{ scale: 1.1}}
         >
         <S.Menu className="menu-button" onClick={() => navigate("/recherche")} >
-          {screenWidth > 420 && (
+          {screenWidth > Size && (
             <TbReportSearch className="icon-menu" color={"white"} size={110} />
           )}
           <div className="label-menu" >
@@ -52,7 +54,7 @@ const Menu = () => {
             whileHover={{ scale: 1.1}}
         >
         <S.Menu className="menu-button" onClick={() => navigate("/rapport")}>
-          {screenWidth > 420 && (
+          {screenWidth > Size && (
             <TbReport className="icon-menu" color={"white"} size={110} />
           )}
           <div className="label-menu" >

@@ -30,7 +30,7 @@ export const Menu = styled.div`
     justify-content: center;
     align-items: center;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 480px) {
       position: unset;
       background-color: #228558;
       color: #fff;
@@ -43,7 +43,7 @@ export const Menu = styled.div`
         display: none;
         color: red;
        
-        @media screen and (max-width: 420px) {
+        @media screen and (max-width: 480px) {
         }        
     }
   }
@@ -61,7 +61,7 @@ export const MenuComponent = styled.div`
     width: 100%;
   }
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 480px) {
     min-width: none;
     & > div{
     height: 40px;

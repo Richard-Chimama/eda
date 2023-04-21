@@ -6,7 +6,7 @@
 
 
 
-@media screen and (max-width: 420px){
+@media screen and (max-width: 480px){
   .menu{
     display: flex;
     flex-direction: column;
