@@ -1,1 +1,26 @@
+:root{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+
+
+@media screen and (max-width: 420px){
+  .menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 100px;
+    width: 90%;
+    height: 40px;
+    margin-top: 30%;
+    margin-right: 5%;
+    margin-left: 5%;
+    gap: 1rem;
+  }
+  .menu-button{
+    width: 100%;
+  }
+
+}
