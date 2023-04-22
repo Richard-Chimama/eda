@@ -23,7 +23,7 @@ const Menu = () => {
   window.onresize = handleScreenResize;
 
   return (
-    <>
+    <div style={{height: "500px"}}>
       <S.H1>MAIN MENU</S.H1>
       <S.MenuComponent className="menu">
         <motion.div
@@ -63,7 +63,7 @@ const Menu = () => {
         </S.Menu>
         </motion.div>
       </S.MenuComponent>
-    </>
+    </div>
   );
 };
 
