@@ -22,6 +22,7 @@ const Form = () => {
   const [ta, setTA] = useState("");
   const [contactPerson, setContactPerson] = useState("");
   const [telephone, setTelephone] = useState("");
+  const [temperature, setTemperature] = useState("");
 
   return (
     <S.Container>
@@ -183,6 +184,16 @@ const Form = () => {
             value={age}
             required
             onChange={(e) => setAge(e.target.value)}
+          />
+        </S.Label>
+        <S.Label htmlFor="temperature-input">
+          <span>T°</span>
+          <input
+            type="text"
+            name="age-input"
+            value={temperature}
+            required
+            onChange={(e) => setTemperature(e.target.value)}
           />
         </S.Label>
         <S.Label htmlFor="poids-input">
