@@ -7,6 +7,7 @@ import Template from './Template'
 import Fiche from './Pages/Fiche/Fiche'
 import Recherche from './Pages/Recherche/Recherche'
 import Rapport from './Pages/Rapport/Rapport'
+import VerfiryHospital from './Pages/VerifyHospital/VerfiryHospital'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,9 @@ const router = createBrowserRouter([
       {
         path:"/rapport",
         element: <Rapport />
+      },{
+        path: "/check-hospital",
+        element: <VerfiryHospital />
       }
     ]
   }
