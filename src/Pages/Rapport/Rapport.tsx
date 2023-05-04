@@ -8,7 +8,7 @@ const Rapport = () => {
         <h3>Rapport</h3>
         This page is under development!!!
         <br />
-        <button onClick={()=>navigate("/")}>Go back</button>
+        <button onClick={()=>navigate("/main")}>Go back</button>
     </div>
   )
 }

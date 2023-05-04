@@ -8,7 +8,7 @@ const Recherche = () => {
         <h3>Recherche</h3>
         This page is under development!!!
         <br />
-        <button onClick={()=>navigate("/")}>Go back</button>
+        <button onClick={()=>navigate("/main")}>Go back</button>
     </div>
   )
 }

@@ -11,7 +11,7 @@ const Fiche = () => {
     <S.Container>
         <p style={{color:"red"}}>This page is under development😉</p>
 
-        <button onClick={()=>navigate("/")}>Go back</button>
+        <button onClick={()=>navigate("/main")}>Go back</button>
         <br />
       <S.Title>FICHE</S.Title>
       <Form />

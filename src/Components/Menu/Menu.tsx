@@ -29,7 +29,7 @@ const Menu = () => {
         <motion.div
             whileHover={{ scale: 1.1}}
         >
-        <S.Menu className="menu-button" onClick={() => navigate("/fiche")}>
+        <S.Menu className="menu-button" onClick={() => navigate("/main/fiche")}>
           {screenWidth > Size && (
             <CgFileDocument className="icon-menu" color={"white"} size={110} />
           )}
@@ -41,7 +41,7 @@ const Menu = () => {
         <motion.div
             whileHover={{ scale: 1.1}}
         >
-        <S.Menu className="menu-button" onClick={() => navigate("/recherche")} >
+        <S.Menu className="menu-button" onClick={() => navigate("/main/recherche")} >
           {screenWidth > Size && (
             <TbReportSearch className="icon-menu" color={"white"} size={110} />
           )}
@@ -53,7 +53,7 @@ const Menu = () => {
         <motion.div
             whileHover={{ scale: 1.1}}
         >
-        <S.Menu className="menu-button" onClick={() => navigate("/rapport")}>
+        <S.Menu className="menu-button" onClick={() => navigate("/main/rapport")}>
           {screenWidth > Size && (
             <TbReport className="icon-menu" color={"white"} size={110} />
           )}
