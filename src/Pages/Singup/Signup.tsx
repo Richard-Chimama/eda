@@ -1,8 +1,6 @@
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { auth } from '../../Auth';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import * as S from "./styled"
 
 
@@ -75,16 +73,6 @@ const Signup: FunctionComponent = () => {
       },
       onCompleted: data =>{
         localStorage.setItem("token", data.signUp)
-        /* client.writeQuery({
-          query: gql`
-            query isLoggedIn{
-              isLoggedIn
-            }
-          `,
-          data:{
-            isLoggedIn: userState
-          }
-        }) */
         navigate("/main")
       }
     })
