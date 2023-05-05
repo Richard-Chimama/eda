@@ -5,7 +5,7 @@ import Footer from './Components/Footer/Footer'
 import Nav from './Components/Nav/Nav'
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider, ApolloLink, concat, gql } from '@apollo/client';
 
-const uri = "http://127.0.0.1:5001/eda-server/us-central1/App/api"
+const uri = "https://eda-d2eae.web.app/eda-d2eae/us-central1/App/api"
 const httpLink = new HttpLink({uri})
 const cache = new InMemoryCache()
 
@@ -15,6 +15,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
     headers: {
       ...headers,
       authorization: localStorage.getItem('token') || null,
+      
     }
   }));
 
