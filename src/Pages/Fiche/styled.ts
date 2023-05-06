@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Theme from "../../Theme";
 
 export const Container = styled.div`
   display: flex;
@@ -8,7 +9,7 @@ export const Container = styled.div`
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  @media (min-width: 760px) {
+  @media (min-width: ${Theme.Devices.Mobile}px) {
     width: 80%;
   }
 `;

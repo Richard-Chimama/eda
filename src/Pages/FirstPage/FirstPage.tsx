@@ -1,13 +1,15 @@
 import React from 'react'
-import Footer from '../Components/Footer/Footer'
-import Nav from '../Components/Nav/Nav'
+import Footer from '../../Components/Footer/Footer'
+import Nav from '../../Components/Nav/Nav'
 import { Link } from 'react-router-dom'
+import * as S from "./styled"
+import Button from '../../Components/Button'
 
 const FirstPage = () => {
   return (
-    <div>
+    <S.container>
       <Nav />
-      <section style={{ height: "100vh" }}>
+      <S.content>
         <h1>
           Bienvenue au projet <b>Eda</b>
         </h1>
@@ -15,15 +17,15 @@ const FirstPage = () => {
         <br />
         <p>Pour gére votre hôpital et vos donné, créez un compte</p>
         <Link to="/enregistrer">
-          <button>Commencer</button>
+          <Button label="Commencer" />
         </Link>
 
         <br />
         <br />
         <i style={{color:"red"}}>This page is under development 😉</i>
-      </section>
+      </S.content>
       <Footer />
-    </div>
+    </S.container>
   );
 }
 
