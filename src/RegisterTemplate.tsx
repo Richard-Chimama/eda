@@ -6,7 +6,7 @@ import Nav from './Components/Nav/Nav'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: "https://eda-d2eae.web.app/eda-d2eae/us-central1/App/api",
+  uri: "https://eda-server4-production.up.railway.app/api",
   cache: new InMemoryCache(),
   connectToDevTools: true
 })
