@@ -1,31 +1,12 @@
 import React, {FunctionComponent, useState} from 'react'
 import * as S from "./styled.js"
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../Components/Button/';
+import api from "../../API"
 
-const REGISTER_HOSPITAL = gql`
-  mutation NewHospital(
-    $name: String!
-    $address: String!
-    $city: String!
-    $category: String!
-  ) {
-    newHospital(
-      name: $name
-      address: $address
-      city: $city
-      category: $category
-    ) {
-      id
-    }
-  }
-`;
 
-const checkHospital:any = gql`
-    query checkHospital($name: String!){
-     checkHospital(name:$name)
-    }
-`
+
 
 const RegistorHospital: FunctionComponent = () => {
     const navigate = useNavigate()
@@ -35,13 +16,17 @@ const RegistorHospital: FunctionComponent = () => {
         hospital_name:"",
         address_name:"",
         city_name:"",
-        category: ""
+        category: "clinique"
     })
     
-    const {loading: checkHospitalLoading,error: checkHospitalError,data: checkHospitalData} = useQuery(checkHospital,{
-        variables: {name: inputs.hospital_name.trim().toLowerCase()},
-    })
-   const [registerHospital, {loading, error, data}] = useMutation(REGISTER_HOSPITAL)
+    const {
+      loading: checkHospitalLoading,
+      error: checkHospitalError,
+      data: checkHospitalData,
+    } = useQuery(api.Queries.checkHospital, {
+      variables: { name: inputs.hospital_name.trim().toLowerCase() },
+    });
+   const [registerHospital, {loading, error, data}] = useMutation(api.Mutations.REGISTER_HOSPITAL)
 
     const handleChange = (event: any) => {
         const name = event.target.name
@@ -78,8 +63,8 @@ const RegistorHospital: FunctionComponent = () => {
       <h2></h2>
       {isError && <div>{errorMessage}</div>}
       <S.Form onSubmit={handleSubmit}>
-        <label>
-          NOM DE STRUCTURE MEDICALE:
+        <S.Label>
+          <span>NOM DE STRUCTURE MEDICALE:</span>
           <input
             type="text"
             id="hospital_name"
@@ -89,12 +74,11 @@ const RegistorHospital: FunctionComponent = () => {
             onChange={handleChange}
             required
           />
-          <br />
           { checkHospitalLoading && <div>loading..</div>}
           { (!checkHospitalLoading && checkHospitalData?.checkHospital) && <span> name already registered</span>}
-        </label>
-        <label>
-          ADRESSE:
+        </S.Label>
+        <S.Label>
+          <span>ADRESSE:</span>
           <input
             type="text"
             id="address-name"
@@ -104,9 +88,9 @@ const RegistorHospital: FunctionComponent = () => {
             onChange={handleChange}
             required
           />
-        </label>
-        <label>
-          COMMUNE:
+        </S.Label>
+        <S.Label>
+          <span>COMMUNE:</span>
           <input
             type="text"
             id="city_name"
@@ -116,9 +100,9 @@ const RegistorHospital: FunctionComponent = () => {
             onChange={handleChange}
             required
           />
-        </label>
-        <label>
-          CATEGORIE:
+        </S.Label>
+        <S.Label>
+          <span>CATEGORIE:</span>
           <select
             name="category"
             value={inputs.category}
@@ -130,9 +114,10 @@ const RegistorHospital: FunctionComponent = () => {
             <option value="centre de santé">Centre de santé</option>
             <option value="hopital de référence">Hopital de référence</option>
           </select>
-        </label>
+        </S.Label>
 
-        <input type="submit" value="Enregistrer" />
+        <Button type="submit" value="Enregistrer"  />
+
       </S.Form>
     </S.Container>
   );

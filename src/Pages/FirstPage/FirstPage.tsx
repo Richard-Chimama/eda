@@ -17,7 +17,7 @@ const FirstPage = () => {
         <br />
         <p>Pour gére votre hôpital et vos donné, créez un compte</p>
         <Link to="/enregistrer">
-          <Button label="Commencer" />
+          <Button value="Commencer" />
         </Link>
 
         <br />

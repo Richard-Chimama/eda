@@ -2,28 +2,9 @@ import { useMutation, gql, useApolloClient } from '@apollo/client';
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from "./styled"
+import api from "../../API"
 
 
-
-const REGISTER_USER = gql`
-  mutation signUp(
-    $username: String!
-    $email: String!
-    $password: String!
-    $role: String!
-    $hospital: String!
-    $cnop: String
-  ) {
-    signUp(
-      username: $username
-      email: $email
-      password: $password
-      role: $role
-      hospital: $hospital
-      cnop: $cnop
-    )
-  }
-`;
 
 
 const Signup: FunctionComponent = () => {
@@ -43,7 +24,7 @@ const Signup: FunctionComponent = () => {
     password2: "",
   })
 
-  const [registerUSER, {loading, error, data}] = useMutation(REGISTER_USER)
+  const [registerUSER, {loading, error, data}] = useMutation(api.Mutations.REGISTER_USER)
 
 
 
@@ -170,7 +151,7 @@ if(data){
             onChange={handleChange}
             required
           />
-          {isMatch && <span style={{color: "red"}}>the password doesn't match!</span>}
+          {isMatch && <span style={{color: "red"}}>Le mot de passe ne correspond pas!</span>}
         </S.Label>
         <br />
         <input type="submit" value="send" />

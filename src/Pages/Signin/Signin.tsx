@@ -2,18 +2,10 @@ import React, {useState} from 'react'
 import { useMutation, gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import * as S from "./styled"
+import api from "../../API"
+import Button from '../../Components/Button';
 
-const SIGNIN_USER = gql`
-    mutation signIn(
-        $email: String!,
-        $password: String!
-    ){
-        signIn(
-            email: $email,
-            password: $password
-        )
-    }
-`
+
 
 const Signin: React.FC = () => {
     const navigate = useNavigate()
@@ -22,7 +14,7 @@ const Signin: React.FC = () => {
         password: ""
     })
 
-    const [signinUSER, {loading, error, data}] = useMutation(SIGNIN_USER)
+    const [signinUSER, {loading, error, data}] = useMutation(api.Mutations.SIGNIN_USER)
 
     const handleChange = (event:any)=>{
         const name = event.target.name
@@ -48,16 +40,16 @@ const Signin: React.FC = () => {
     <S.Container>
         <S.Form onSubmit={handleSubmit}>
         <i style={{color:"red"}}>This page is under development 😉</i>
-            <label>
-                Email:
+            <S.Label>
+                <span>Email:</span>
                 <input type="email" name="email" value={inputs.email} onChange={handleChange}  />
-            </label>
-            <label>
-                Mot de passe:
+            </S.Label>
+            <S.Label>
+                <span>Mot de passe:</span>
                 <input type="text" name="password"  value={inputs.password} onChange={handleChange}  />
-            </label>
+            </S.Label>
 
-            <input type="submit" value="envoyer" />
+            <Button type="submit" value="envoyer" />
         </S.Form>
     </S.Container>
   )

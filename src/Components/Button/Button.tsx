@@ -3,16 +3,18 @@ import * as S from './styled'
 
 
 interface Props{
-    label: string,
+    value: string | number | readonly string[] | undefined,
+    type?: "button" | "submit" | "reset" | undefined,
     onPress?: ()=>void
 }
 
 const Button: React.FC<Props> = ({
-    label,
+    value,
+    type,
     onPress
 }) => {
   return (
-    <S.Button onClick={onPress}>{label}</S.Button>
+    <S.Button type={type} onClick={onPress}>{value}</S.Button>
   )
 }
 

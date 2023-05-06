@@ -5,17 +5,16 @@ export const container = styled.div`
 
 `
 export const content = styled.div`
-    height: 80vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-    padding: 0 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
     text-align: center;
 
     @media (min-width: ${Theme.Devices.Mobile}px) {
-    width: 80%;
     text-align: none;
   }
 `
