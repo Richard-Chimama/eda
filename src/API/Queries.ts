@@ -6,6 +6,27 @@ const checkHospital:any = gql`
     }
 `
 
+const findSingleUser:any = gql`
+    query User($email:String!){
+        user(email: $email){
+            id
+            username
+            cnop
+            email
+            role
+            avatar
+            hospital{
+                id
+                name
+                city
+                createdAt
+                updatedAt
+            }
+        }
+    }
+`
+
 export default {
-    checkHospital
+    checkHospital,
+    findSingleUser
 }

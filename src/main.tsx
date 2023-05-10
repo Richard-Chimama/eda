@@ -1,17 +1,69 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM, { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Template from './Template'
+import Template from './Tenplates/Template'
 import Fiche from './Pages/Fiche/Fiche'
 import Recherche from './Pages/Recherche/Recherche'
 import Rapport from './Pages/Rapport/Rapport'
 import Signup from './Pages/Singup/Signup'
 import RegistorHospital from './Pages/RegisterHospital'
-import RegisterTemplate from './RegisterTemplate'
+import RegisterTemplate from './Tenplates/RegisterTemplate'
 import Signin from './Pages/Signin/Signin'
 import FirstPage from './Pages/FirstPage'
+
+import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, HttpLink, concat } from '@apollo/client';
+import Dashboard from './Pages/Admin/Dashboard'
+import AdminTemplate from './Tenplates/AdminTemplate'
+
+const cache = new InMemoryCache()
+const httpLink = new HttpLink({uri:"https://eda-server4-production.up.railway.app/api" })
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+      authorization: localStorage.getItem('token') || null,
+      
+    }
+  }));
+
+  return forward(operation);
+})
+
+const link = ()=>{
+  if(!!localStorage.getItem('token'))return concat(authMiddleware, httpLink)
+  else return httpLink 
+}
+
+
+const client = new ApolloClient({
+  //uri: "https://eda-server4-production.up.railway.app/api",
+  link: link(),
+  cache: cache,
+  resolvers: {},
+  connectToDevTools: true
+})
+
+interface propData{
+  isLoggedIn: any
+}
+
+const data: propData = {
+  isLoggedIn: !!localStorage.getItem('token')
+}
+
+cache.writeQuery({
+  query: gql`
+    query isLoginStatus {
+      isLoggedIn @client
+    }
+  `,
+  data: data
+})
+
 
 const router = createBrowserRouter([
   {
@@ -57,11 +109,34 @@ const router = createBrowserRouter([
       }
     ]
 
+  },
+  {
+    path:"/admin",
+    element: <AdminTemplate />,
+    children: [
+      {
+        path:"/admin",
+        element: <Dashboard />
+      }
+    ]
   }
 ])
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+export const MyContext = React.createContext({
+  data:[
+    {user: false}
+  ]
+})
+const localData = {
+  data: []
+}
+
+createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+    <ApolloProvider client={client}>
+      <MyContext.Provider value={localData}>
+      <RouterProvider router={router} />
+      </MyContext.Provider>
+    </ApolloProvider>
+  </React.StrictMode>
+);

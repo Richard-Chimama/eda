@@ -4,6 +4,7 @@ import Nav from '../../Components/Nav/Nav'
 import { Link } from 'react-router-dom'
 import * as S from "./styled"
 import Button from '../../Components/Button'
+import { useApolloClient } from '@apollo/client'
 
 const FirstPage = () => {
   return (

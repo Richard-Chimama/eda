@@ -1,6 +1,6 @@
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
 import * as S from "./styled"
 import api from "../../API"
 
@@ -64,7 +64,7 @@ const Signup: FunctionComponent = () => {
       },
       onCompleted: data =>{
         localStorage.setItem("token", data.signUp)
-        navigate("/main")
+        navigate("/main", {state:redirect})
       }
     })
     

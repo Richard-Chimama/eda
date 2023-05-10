@@ -18,6 +18,11 @@ const RegistorHospital: FunctionComponent = () => {
         city_name:"",
         category: "clinique"
     })
+
+    const COMMUNE = ["bandalungwa", "Barumbu", "Gombe", "Kalamu", "Kasa-Vubu", "Kimbanseke",
+                    "kinshasa", "kintambo", "kisenso", "lemba", "limete", "lingwala", "makala",
+                    "maluku", "masina", "matete","mont-ngafula", "ndjili", "ngaba", "ngaliema",
+                    "ngiri-ngiri", "nsele", "selembao"]
     
     const {
       loading: checkHospitalLoading,
@@ -58,8 +63,8 @@ const RegistorHospital: FunctionComponent = () => {
 
   return (
     <S.Container>
-       <i style={{color:"red"}}>This page is under development 😉</i>
-       <button onClick={()=> navigate("/")}>Go back</button>
+      <i style={{ color: "red" }}>This page is under development 😉</i>
+      <button onClick={() => navigate("/")}>Go back</button>
       <h2></h2>
       {isError && <div>{errorMessage}</div>}
       <S.Form onSubmit={handleSubmit}>
@@ -74,8 +79,10 @@ const RegistorHospital: FunctionComponent = () => {
             onChange={handleChange}
             required
           />
-          { checkHospitalLoading && <div>loading..</div>}
-          { (!checkHospitalLoading && checkHospitalData?.checkHospital) && <span> name already registered</span>}
+          {checkHospitalLoading && <div>loading..</div>}
+          {!checkHospitalLoading && checkHospitalData?.checkHospital && (
+            <span> name already registered</span>
+          )}
         </S.Label>
         <S.Label>
           <span>ADRESSE:</span>
@@ -91,15 +98,18 @@ const RegistorHospital: FunctionComponent = () => {
         </S.Label>
         <S.Label>
           <span>COMMUNE:</span>
-          <input
-            type="text"
-            id="city_name"
+          <select
             name="city_name"
-            placeholder="nom"
             value={inputs.city_name}
             onChange={handleChange}
             required
-          />
+          >
+            {COMMUNE.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
         </S.Label>
         <S.Label>
           <span>CATEGORIE:</span>
@@ -116,8 +126,7 @@ const RegistorHospital: FunctionComponent = () => {
           </select>
         </S.Label>
 
-        <Button type="submit" value="Enregistrer"  />
-
+        <Button type="submit" value="Enregistrer" />
       </S.Form>
     </S.Container>
   );

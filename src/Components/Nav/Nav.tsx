@@ -1,32 +1,72 @@
-import React from 'react'
+import React, { useEffect, useState, useContext} from 'react'
 import styled from "styled-components"
-import { Link } from 'react-router-dom'
-import {useQuery, gql } from "@apollo/client"
+import { Link, useNavigate } from 'react-router-dom'
+import { gql, useApolloClient } from "@apollo/client"
+import { MyContext } from '../../main'
 
 
 //local query
-/* const IS_LOGGED_IN = gql`
+const IS_LOGGED_IN = gql`
   query isLoggedIn{
     isLoggedIn @client
   }
-` */
+`
+
+interface propData{
+  isLoggedIn: any
+}
+
+const data: propData = {
+  isLoggedIn: !!localStorage.getItem('token')
+}
+
 
 const Nav = () => {
-  // const {data:userState} = useQuery(IS_LOGGED_IN)
+  const client = useApolloClient()
+  const user = useContext(MyContext)
+  const navigate = useNavigate()
+  const [isLoggedIn, setIsLoggedIn] = useState(null)
+  const [buttonClicked, setButtonClicked] = useState(false)
+
+  
+
+  
+  useEffect(() => {
+    const state = client.readQuery({query: IS_LOGGED_IN })
+    setIsLoggedIn(()=>state.isLoggedIn)
+    
+  })
+
+  const handleButtonClick = ()=>{
+    setButtonClicked(!buttonClicked)
+  }
+
+const handleLogout = ()=>{
+  localStorage.removeItem("token")
+  client.writeQuery({
+    query: gql`
+    query isLoginStatus{
+      isLoggedIn @client
+    }
+    `,
+    data: data
+  })
+  navigate("/")
+}
 
   return (
     <Container>
       <Auth>
-        {false ? (
-          <Link to="/enregistrer/signin">
-            <button>deconnecter</button>
+        {isLoggedIn ? (
+          <Link to="/" reloadDocument>
+          <button onClick={handleLogout}>deconnecter</button>
           </Link>
         ) : (
           <div>
-            <Link to="/enregistrer">
+            <Link to="/enregistrer" onClick={handleButtonClick}>
               <button>inscrire</button>
             </Link>
-            <Link to="/enregistrer/signin">
+            <Link to="/enregistrer/signin" onClick={handleButtonClick}>
               <button>connecter</button>
             </Link>
           </div>
