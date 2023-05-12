@@ -16,6 +16,7 @@ import FirstPage from './Pages/FirstPage'
 import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, HttpLink, concat } from '@apollo/client';
 import Dashboard from './Pages/Admin/Dashboard'
 import AdminTemplate from './Tenplates/AdminTemplate'
+import Users from './Pages/Admin/Users/Users'
 
 const cache = new InMemoryCache()
 const httpLink = new HttpLink({uri:"https://eda-server4-production.up.railway.app/api" })
@@ -117,7 +118,11 @@ const router = createBrowserRouter([
       {
         path:"/admin",
         element: <Dashboard />
-      }
+      },
+      {
+        path:"/admin/users",
+        element: <Users />
+      },
     ]
   }
 ])

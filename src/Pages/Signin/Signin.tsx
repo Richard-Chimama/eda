@@ -8,6 +8,7 @@ import Button from '../../Components/Button';
 
 
 const Signin: React.FC = () => {
+    let userHospital:string
     const navigate = useNavigate()
     const [inputs, setInputs] = useState({
         email: "",
@@ -26,11 +27,14 @@ const Signin: React.FC = () => {
     const {error: roleError, data:userRole} = useQuery(api.Queries.findSingleUser, {
         variables:{email: inputs.email.trim()}
     })
-    console.log(roleError)
-    console.log(userRole)
+  
 
     const handleSubmit = async(event:any)=>{
         event.preventDefault()
+
+        if(userRole){
+            userHospital = userRole.user.hospital[0].id
+        }
 
         signinUSER({
             variables:{
@@ -39,6 +43,7 @@ const Signin: React.FC = () => {
             },
             onCompleted:(data)=>{
                 localStorage.setItem("token", data.signIn)
+                localStorage.setItem("hospitalID", userHospital)
                 if(userRole !== undefined && userRole.user.role =="admin"){
                     navigate("/admin", {state:redirect})
                 }else{
@@ -64,6 +69,7 @@ const Signin: React.FC = () => {
                 <span>Mot de passe:</span>
                 <input type="text" name="password"  value={inputs.password} onChange={handleChange}  />
             </S.Label>
+            {error && <p style={{color:"red", fontSize:"12px"}}>{error.message}!!</p>}
 
             <Button type="submit" value="envoyer" />
         </S.Form>

@@ -9,7 +9,7 @@ import api from "../../API"
 
 const Signup: FunctionComponent = () => {
   const navigate = useNavigate()
-  const hospitalID = useParams()
+  const hospitalID:any = useParams()
   const client = useApolloClient()
   const userState = {isLoggedIn:true}
 
@@ -19,13 +19,12 @@ const Signup: FunctionComponent = () => {
     username: '',
     email: " ",
     cnop: " ",
-    role: " ",
+    role: "admin",
     password1: "",
     password2: "",
   })
 
   const [registerUSER, {loading, error, data}] = useMutation(api.Mutations.REGISTER_USER)
-
 
 
   const handleChange = (event: any) => {
@@ -53,20 +52,30 @@ const Signup: FunctionComponent = () => {
 
   const handleSubmit = async (e:any)=>{
     e.preventDefault()
-    registerUSER({
-      variables:{
-        username: inputs.username,
-        email: inputs.email,
-        password: inputs.password2,
-        role: inputs.role,
-        hospital: hospitalID.id,
-        cnop: inputs.cnop
-      },
-      onCompleted: data =>{
-        localStorage.setItem("token", data.signUp)
-        navigate("/main", {state:redirect})
-      }
-    })
+    if(hospitalID.id == undefined || hospitalID.id === "" ){
+      console.log("your hospital is not registered")
+    }else{
+      registerUSER({
+        variables:{
+          username: inputs.username,
+          email: inputs.email,
+          password: inputs.password2,
+          role: inputs.role,
+          hospital: hospitalID.id,
+          cnop: inputs.cnop
+        },
+        onCompleted: data =>{
+          if(!!localStorage.getItem("token") && !!localStorage.getItem("hospitalID")){
+            navigate("/admin/users", {state:redirect})
+          }else{
+            localStorage.setItem("token", data.signUp)
+            localStorage.setItem("hospitalID", hospitalID.id)
+            navigate("/main", {state:redirect})
+          }
+        }
+      })
+
+    }
     
   }
 

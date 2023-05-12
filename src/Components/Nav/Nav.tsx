@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext} from 'react'
 import styled from "styled-components"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 import { gql, useApolloClient } from "@apollo/client"
 import { MyContext } from '../../main'
 
@@ -41,8 +41,10 @@ const Nav = () => {
     setButtonClicked(!buttonClicked)
   }
 
-const handleLogout = ()=>{
+const handleLogout = (e:any)=>{
+  e.preventDefault()
   localStorage.removeItem("token")
+  localStorage.removeItem("hospitalID")
   client.writeQuery({
     query: gql`
     query isLoginStatus{
@@ -51,7 +53,7 @@ const handleLogout = ()=>{
     `,
     data: data
   })
-  navigate("/")
+  navigate("/", {state: redirect})
 }
 
   return (
