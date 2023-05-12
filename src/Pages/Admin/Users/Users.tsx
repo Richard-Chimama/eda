@@ -12,7 +12,7 @@ const Users = () => {
     if(data){
          result = data.users.filter((user:any) => {
             if(user.hospital.length > 0){
-                return user.hospital.some(hospital => hospital.id === id)
+                return user.hospital.some((hospital:any) => hospital.id === id)
             }
         } )
     }
