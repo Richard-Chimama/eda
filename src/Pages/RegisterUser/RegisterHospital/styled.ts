@@ -1,27 +1,26 @@
 import styled from 'styled-components'
-import Theme from '../../Theme';
-
+import Theme from '../../../Theme';
 
 export const Container = styled.div`
+    padding-top: 2rem;
+    padding-bottom: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 100vh;
-
 `
 
 export const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
 
-    @media (min-width: ${Theme.Devices.Mobile}px) {
+  @media (min-width: ${Theme.Devices.Mobile}px) {
     width: 60%;
   }
-`
+`;
 export const Label = styled.label`
   display: flex;
   flex-direction: column;

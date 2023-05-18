@@ -2,7 +2,7 @@ import { useMutation, gql, useApolloClient } from '@apollo/client';
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import { redirect, useNavigate, useParams } from 'react-router-dom';
 import * as S from "./styled"
-import api from "../../API"
+import api from "../../../API"
 
 
 

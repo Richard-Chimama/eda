@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import { useMutation, gql, useQuery } from '@apollo/client';
 import { redirect, useNavigate } from 'react-router-dom';
 import * as S from "./styled"
-import api from "../../API"
-import Button from '../../Components/Button';
+import api from "../../../API"
+import Button from '../../../Components/Button';
 
 
 

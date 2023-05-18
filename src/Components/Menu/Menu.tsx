@@ -3,6 +3,7 @@ import * as S from "./styled";
 import { useNavigate } from "react-router-dom";
 import { TbReport, TbReportSearch } from "react-icons/tb";
 import { CgFileDocument } from "react-icons/cg";
+import {FaUserPlus} from "react-icons/fa"
 import { motion } from "framer-motion";
 
 const Size = 480
@@ -23,24 +24,19 @@ const Menu = () => {
   window.onresize = handleScreenResize;
 
   return (
-    <div style={{height: "500px"}}>
+    <S.Container >
       <S.H1>MAIN MENU</S.H1>
       <S.MenuComponent className="menu">
-        <motion.div
-            whileHover={{ scale: 1.1}}
-        >
-        <S.Menu className="menu-button" onClick={() => navigate("/main/fiche")}>
+
+      <S.Menu className="menu-button" onClick={() => navigate("/main/enregistrer_patient")}>
           {screenWidth > Size && (
-            <CgFileDocument className="icon-menu" color={"white"} size={110} />
+            <FaUserPlus className="icon-menu" color={"white"} size={110} />
           )}
           <div className="label-menu" >
-            FICHE DE CONSULTATION
+            ENREGISTRER UN PATIENT
           </div>
         </S.Menu>
-        </motion.div>
-        <motion.div
-            whileHover={{ scale: 1.1}}
-        >
+      
         <S.Menu className="menu-button" onClick={() => navigate("/main/recherche")} >
           {screenWidth > Size && (
             <TbReportSearch className="icon-menu" color={"white"} size={110} />
@@ -49,10 +45,6 @@ const Menu = () => {
             RECHERCHE PATIENT
           </div>
         </S.Menu>
-        </motion.div>
-        <motion.div
-            whileHover={{ scale: 1.1}}
-        >
         <S.Menu className="menu-button" onClick={() => navigate("/main/rapport")}>
           {screenWidth > Size && (
             <TbReport className="icon-menu" color={"white"} size={110} />
@@ -61,9 +53,10 @@ const Menu = () => {
             RAPPORT
           </div>
         </S.Menu>
-        </motion.div>
+      
       </S.MenuComponent>
-    </div>
+      
+    </S.Container>
   );
 };
 

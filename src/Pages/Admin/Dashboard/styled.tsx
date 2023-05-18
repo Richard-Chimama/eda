@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const container = styled.div`
+ 
+`
+
 export const Menu = styled.div`
   position: relative;
   display: flex;
@@ -33,7 +37,7 @@ export const Menu = styled.div`
     @media screen and (max-width: 480px) {
       position: unset;
       background-color: #228558;
-      color: #fff;
+      color: #f8f4f4;
       height: 100%;
       bottom: none;
       border-radius: 10px;
@@ -42,32 +46,24 @@ export const Menu = styled.div`
     & > .icon-menu{
         display: none;
         color: red;
-       
-        @media screen and (max-width: 480px) {
-        }        
     }
   }
 `;
 
 export const MenuComponent = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
   align-items: center;
   gap: 1.5rem;
+  height: 100%;
   width: 80%;
   margin-right: 10%;
   margin-left: 10%;
+  margin-bottom: 5rem;
 
   & > div{
     width: 100%;
   }
 
-  @media screen and (max-width: 480px) {
-    min-width: none;
-    & > div{
-    height: 40px;
 
-    &> div{
-        height: 40px;
-  }
-  }
 `;

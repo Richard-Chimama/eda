@@ -1,22 +1,27 @@
 import styled from 'styled-components'
-import Theme from '../../Theme';
+import Theme from '../../../Theme';
 
 
-export const Content = styled.div`
-    width: 100%;
-  @media (min-width: ${Theme.Devices.Mobile}px) {
-    width: 760px;
-    margin: 0 auto;
-  }
-`;
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+
+`
+
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-`
+    width: 80%;
 
+    @media (min-width: ${Theme.Devices.Mobile}px) {
+    width: 60%;
+  }
+`
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
@@ -24,11 +29,10 @@ export const Label = styled.label`
   padding-top: 10px;
   padding-bottom: 10px;
   margin-left: 10px;
-  width: 80%;
+  width: 100%;
 
   @media (min-width: ${Theme.Devices.Mobile}px) {
     text-align: left;
-    width: 100%;
   }
 
   & > span {

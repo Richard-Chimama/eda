@@ -4,29 +4,37 @@ import App from './App'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Template from './Tenplates/Template'
-import Fiche from './Pages/Fiche/Fiche'
-import Recherche from './Pages/Recherche/Recherche'
-import Rapport from './Pages/Rapport/Rapport'
-import Signup from './Pages/Singup/Signup'
-import RegistorHospital from './Pages/RegisterHospital'
+import Fiche from './Pages/Main/Fiche/Fiche'
+import Recherche from './Pages/Main/Recherche/Recherche'
+import Rapport from './Pages/Main/Rapport/Rapport'
+import Signup from './Pages/RegisterUser/Singup/Signup'
+import RegistorHospital from './Pages/RegisterUser/RegisterHospital'
 import RegisterTemplate from './Tenplates/RegisterTemplate'
-import Signin from './Pages/Signin/Signin'
+import Signin from './Pages/RegisterUser/Signin/Signin'
 import FirstPage from './Pages/FirstPage'
 
 import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, HttpLink, concat } from '@apollo/client';
 import Dashboard from './Pages/Admin/Dashboard'
 import AdminTemplate from './Tenplates/AdminTemplate'
 import Users from './Pages/Admin/Users/Users'
+import RegisterPatient from './Pages/Main/RegisterPatient'
+import { createUploadLink } from "apollo-upload-client"
+import Patients from './Pages/Admin/Patients'
 
+//http://localhost:6002/api
+//"https://eda-server4-production.up.railway.app/api"
 const cache = new InMemoryCache()
-const httpLink = new HttpLink({uri:"https://eda-server4-production.up.railway.app/api" })
+const httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
   operation.setContext(({ headers = {} }) => ({
     headers: {
       ...headers,
+      accept: 'application/json',
       authorization: localStorage.getItem('token') || null,
+      'Apollo-Require-Preflight': currentTimeStamp.toString(), 
       
     }
   }));
@@ -80,7 +88,7 @@ const router = createBrowserRouter([
         element: <App />
       },
       {
-        path:"/main/fiche",
+        path:"/main/fiche/:id",
         element: <Fiche />
       },
       {
@@ -90,6 +98,10 @@ const router = createBrowserRouter([
       {
         path:"/main/rapport",
         element: <Rapport />
+      },
+      {
+        path:"/main/enregistrer_patient",
+        element: <RegisterPatient />
       }
       
     ]
@@ -122,6 +134,10 @@ const router = createBrowserRouter([
       {
         path:"/admin/users",
         element: <Users />
+      },
+      {
+        path:"/admin/patients",
+        element: <Patients />
       },
     ]
   }

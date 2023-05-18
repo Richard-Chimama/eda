@@ -8,13 +8,15 @@ export const Menu = styled.div`
   height: 200px;
   background-color: #228558;
   border-radius: 10px;
-  width: 100%;
-  min-width: 135px;
+  width: 250px;
+  min-width: 250px;
   border: 1px solid #228558;
   padding-top: 10px;
   cursor: pointer;
 
-  & > .label-menu {
+  @media screen and (max-width: 480px) {}   
+
+  & .label-menu {
     position: absolute;
     background-color: #fff;
     color: #228558;
@@ -41,19 +43,17 @@ export const Menu = styled.div`
 
     & > .icon-menu{
         display: none;
-        color: red;
-       
-        @media screen and (max-width: 480px) {
-        }        
+        color: red;     
     }
   }
 `;
 
 export const MenuComponent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 2rem;
   width: 80%;
+  height:100%;
   margin-right: 10%;
   margin-left: 10%;
 
@@ -65,6 +65,7 @@ export const MenuComponent = styled.div`
     min-width: none;
     & > div{
     height: 40px;
+    }
 
     &> div{
         height: 40px;
@@ -75,4 +76,8 @@ export const MenuComponent = styled.div`
 export const H1 = styled.h1`
     text-align: center;
     color: #228558;
+`
+
+export const Container = styled.div`
+  margin-bottom: 5rem;
 `

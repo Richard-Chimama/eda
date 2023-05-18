@@ -89,10 +89,39 @@ const findAllHospitals: any = gql`
   }
 `;
 
+const findAllPatients: any = gql`
+  query Patients {
+    patients {
+      id
+      createdAt
+      code
+      area
+      gender
+      date_of_birth
+      last_name
+      contact_person
+      contact_person_phone_number
+      first_name
+      patient_phone_number
+      middle_name
+      street_address
+      updatedAt
+      id_card
+      avatar
+      hospital {
+        id
+        name
+        city
+      }
+    }
+  }
+`;
+
 export default {
     checkHospital,
     findSingleUser,
     findHospitalById,
     findAllUsers,
-    findAllHospitals
+    findAllHospitals,
+    findAllPatients
 }

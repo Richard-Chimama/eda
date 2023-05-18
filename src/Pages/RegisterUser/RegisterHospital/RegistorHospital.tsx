@@ -2,8 +2,8 @@ import React, {FunctionComponent, useState} from 'react'
 import * as S from "./styled.js"
 import { useMutation, useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../Components/Button/';
-import api from "../../API"
+import Button from '../../../Components/Button';
+import api from "../../../API"
 
 
 
