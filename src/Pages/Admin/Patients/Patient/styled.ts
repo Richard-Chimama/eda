@@ -12,19 +12,12 @@ export const Profile = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
-    @media (max-width: 360px) {
-        justify-content: flex-start;
-        padding-left: 1rem;
-    }
    
 `
 
 export const ProfileInfo = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
     text-align: left;
     margin-top: 1rem;
     font-family: Roberto, sans-serif;
@@ -43,7 +36,6 @@ export const ProfileInfo = styled.div`
 export const Image = styled.img`
     height: 200px;
     width: 160px;
-    padding: 10px;
 
     @media screen and (max-width: 480px){
         width: 300px;
