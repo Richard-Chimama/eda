@@ -9,12 +9,7 @@ const Profile = () => {
     const profileId = localStorage.getItem("userId")
     const {loading, error, data} = useQuery(API.Queries.findAllUsers)
 
-
-    let result
-    if(data != undefined){
-        result = data?.users.filter((user:any) => user.id === profileId)
-    }
-    const user = result[0]
+  
 
     if(loading){
         <StateMessage><h3>Loading...</h3></StateMessage>
@@ -25,29 +20,36 @@ const Profile = () => {
         <StateMessage><h3>{error.message}</h3></StateMessage>
     }
 
+    let result
+    if(data != undefined){
+      result  = data.users.filter((user:any) => user.id === profileId)
+    }
+    
+
   return (
     <Container>
-      {data != undefined && (
-        <div>
-          <p>
+         <p>
             This page is under development 😉 <Link to="..">Go back</Link>
           </p>
+      {data != undefined && (
+        <div>
+         
           <h1>Profile</h1>
           <div>
-            <img src={user.avatar} alt="profile " />
+            <img src={result[0].avatar} alt="profile " />
           </div>
           <UserInfo>
             <span>
-              <span>Non:</span> <span>{user.username}</span>
+              <span>Non:</span> <span>{result[0].username}</span>
             </span>
             <span>
-              <span>E-mail:</span> <span>{user.email}</span>
+              <span>E-mail:</span> <span>{result[0].email}</span>
             </span>
             <span>
-              <span>Role:</span> <span>{user.role}</span>
+              <span>Role:</span> <span>{result[0].role}</span>
             </span>
             <span>
-              <span>Cnop:</span> <span>{user.cnop}</span>
+              <span>Cnop:</span> <span>{result[0].cnop}</span>
             </span>
           </UserInfo>
         </div>
