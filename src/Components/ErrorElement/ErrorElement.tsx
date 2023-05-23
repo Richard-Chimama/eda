@@ -3,7 +3,7 @@ import { useRouteError } from 'react-router-dom'
 import StateMessage from '../StateMessage'
 import styled from 'styled-components'
 
-const ErrorElement = () => {
+const  ErrorElement = () => {
     let error:any = useRouteError()
   return (
         <StateMessage>
