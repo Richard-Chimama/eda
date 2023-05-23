@@ -27,7 +27,7 @@ import Profile from './Pages/Admin/Profile'
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
 const cache = new InMemoryCache()
-const httpLink = createUploadLink({uri:"http://localhost:6002/api" })
+const httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
 const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
