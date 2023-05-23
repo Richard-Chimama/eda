@@ -20,11 +20,14 @@ import Users from './Pages/Admin/Users/Users'
 import RegisterPatient from './Pages/Main/RegisterPatient'
 import { createUploadLink } from "apollo-upload-client"
 import Patients from './Pages/Admin/Patients'
+import Patient from './Pages/Admin/Patients/Patient'
+import ErrorElement from './Components/ErrorElement'
+import Profile from './Pages/Admin/Profile'
 
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
 const cache = new InMemoryCache()
-const httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+const httpLink = createUploadLink({uri:"http://localhost:6002/api" })
 const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -77,11 +80,13 @@ cache.writeQuery({
 const router = createBrowserRouter([
   {
     path:"/",
-    element: <FirstPage />
+    element: <FirstPage />,
+    errorElement: <ErrorElement />
   },
   {
     path: "/main",
     element: <Template />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path:"/main",
@@ -108,6 +113,7 @@ const router = createBrowserRouter([
   },{
     path: "/enregistrer",
     element: <RegisterTemplate />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "/enregistrer",
@@ -126,6 +132,7 @@ const router = createBrowserRouter([
   {
     path:"/admin",
     element: <AdminTemplate />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path:"/admin",
@@ -136,28 +143,27 @@ const router = createBrowserRouter([
         element: <Users />
       },
       {
+        path:"/admin/profile",
+        element: <Profile />
+      },
+      {
         path:"/admin/patients",
         element: <Patients />
       },
+      {
+        path:"/admin/patient/:id",
+        element: <Patient />
+      }
     ]
   }
 ])
 
-export const MyContext = React.createContext({
-  data:[
-    {user: false}
-  ]
-})
-const localData = {
-  data: []
-}
+
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <MyContext.Provider value={localData}>
       <RouterProvider router={router} />
-      </MyContext.Provider>
     </ApolloProvider>
   </React.StrictMode>
 );

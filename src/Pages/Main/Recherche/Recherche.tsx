@@ -13,9 +13,7 @@ const Recherche = () => {
     const hospitalId = localStorage.getItem("hospitalID")
 
 
-    useEffect(() => {
-      if(data){
-        const patients = data.patients.filter((result:any)=>{
+        const patients = data?.patients.filter((result:any)=>{
             if(result.hospital.some((d:any)=> d.id.includes(hospitalId))){
               if(result.code.includes(searchKey) || result.first_name.includes(searchKey) ||
                   result.last_name.includes(searchKey) || result.middle_name.includes(searchKey)){
@@ -23,15 +21,6 @@ const Recherche = () => {
                   }
             }
           })
-  
-          setResults(patients)
-      }
-      
-    })
-  
-  
-
-      
 
     
     if(loading){
@@ -55,7 +44,8 @@ const Recherche = () => {
         </S.Label>
         {
            <S.Content>
-            {results.map((data:any, index:any) => <S.UserContainer to={"/main/fiche/"+data.id} key={index}>
+            {data !== undefined &&
+            patients.map((data:any, index:any) => <S.UserContainer to={"/main/fiche/"+data.id} key={index}>
                 <S.UserImage src={data.avatar != null ? data.avatar: User_img} height="70px" width="70px" />
                 <div>
                   <p><b>Nom's:</b> {data.first_name} {data.middle_name} {data.last_name} </p>
@@ -65,7 +55,8 @@ const Recherche = () => {
                   <p>Établi</p>
                   <p>{new Date(data.createdAt).toLocaleDateString()}</p>
                 </div>
-            </S.UserContainer>)}
+            </S.UserContainer>)
+          }
           </S.Content>
         }
     </S.container>

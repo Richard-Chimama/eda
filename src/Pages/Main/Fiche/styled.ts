@@ -3,8 +3,7 @@ import Theme from "../../../Theme";
 
 export const Container = styled.div`
   text-align: center;
-  width: 80%;
-  margin: 0 auto;
+ 
 `;
 
 export const Title = styled.p`
@@ -40,6 +39,12 @@ export const Label = styled.label`
     padding-left: 10px;
   }
 `;
+
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`
 
 export const Code = styled.div`
   display: block;

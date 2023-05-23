@@ -3,6 +3,7 @@ import * as S from "./styled"
 import api from "../../../API"
 import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
+import StateMessage from '../../../Components/StateMessage'
 
 const Users = () => {
     let result:any
@@ -20,7 +21,7 @@ const Users = () => {
    
 
     if(loading){
-        return <div style={{textAlign: 'center', height:"100vh"}}>Loading...</div>
+        return <StateMessage><h1>Loading...</h1></StateMessage>
     }
   
     if(error){

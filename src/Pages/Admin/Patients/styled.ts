@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    width: 80%;
-    margin: 0 auto 5rem auto;
+    width: 95%;
+    margin: 0 auto;
+    padding-bottom: 5rem;
 `
 
 
@@ -11,6 +12,11 @@ export const UserImage = styled.img`
     height: 85px;
     width: 85px;
     border-radius: 50%;
+
+    @media screen and (max-width: 480px){
+        height: 60px;
+        width: 60px;
+    }
 `;
 
 export const UserContainer = styled(Link)`
@@ -25,7 +31,6 @@ export const UserContainer = styled(Link)`
     border-radius: 15px;
     color: black;
     height: 90px;
-    width: 100%;
     margin-left: auto;
     margin-right: auto;
     font-size: 12px;
@@ -45,5 +50,12 @@ export const Label = styled.label`
         outline: none;
         border-radius: 15px;
         padding-left: 10px;
+        margin-bottom: 2rem;
+
     }
+`
+
+export const UserInfo = styled.div`
+    display: flex;
+    flex-direction: column;
 `

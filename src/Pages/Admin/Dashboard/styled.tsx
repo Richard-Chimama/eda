@@ -56,10 +56,8 @@ export const MenuComponent = styled.div`
   align-items: center;
   gap: 1.5rem;
   height: 100%;
-  width: 80%;
-  margin-right: 10%;
-  margin-left: 10%;
-  margin-bottom: 5rem;
+  margin-inline: 1.3rem;
+  padding-bottom: 5rem;
 
   & > div{
     width: 100%;

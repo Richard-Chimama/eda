@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext} from 'react'
 import styled from "styled-components"
 import { Link, redirect, useNavigate } from 'react-router-dom'
 import { gql, useApolloClient } from "@apollo/client"
-import { MyContext } from '../../main'
 
 
 //local query
@@ -23,7 +22,6 @@ const data: propData = {
 
 const Nav = () => {
   const client = useApolloClient()
-  const user = useContext(MyContext)
   const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [buttonClicked, setButtonClicked] = useState(false)

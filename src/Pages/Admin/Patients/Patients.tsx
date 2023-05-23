@@ -4,6 +4,7 @@ import api from '../../../API'
 import { useQuery } from '@apollo/client'
 import User_img from "../../../assets/user-img.png"
 import { Link } from 'react-router-dom'
+import StateMessage from '../../../Components/StateMessage'
 
 
 const Patients = () => {
@@ -12,11 +13,11 @@ const Patients = () => {
     const {loading, error, data} = useQuery(api.Queries.findAllPatients)
 
     if(loading) {
-        return <S.Container>Loading...</S.Container>
+        return <StateMessage><h5>Loading...</h5></StateMessage>
     }
 
     if(error) {
-        return <S.Container>{error.message}</S.Container>
+        return <S.Container><h5>{error.message}</h5></S.Container>
     }
 
     const patients = data.patients.filter((patient:any) => {
@@ -32,23 +33,39 @@ const Patients = () => {
     <S.Container>
         <p style={{color: 'red', textAlign: 'center'}}>This page is under development😉 <Link to="..">Go back</Link></p>
 
+        <h3 style={{color: 'green', textAlign: 'center'}}>LISTE DE CLIENTS</h3>
         <S.Label>
           <input type="search" name="search" id="search" onChange={(e)=> setSearchKey(e.target.value.toLowerCase())} placeholder='search...' />
         </S.Label>
 
         {
             patients.map((patient:any) =>{
-                return <S.UserContainer to="/admin/patients/:id" key={patient.id}>
-                    <S.UserImage src={patient.avatar != null ? patient.avatar: User_img} height="70px" width="70px" />
-                     <div>
-                  <p><b>Nom's:</b> {patient.first_name} {patient.middle_name} {patient.last_name} </p>
-                  <p><b>Sexe:</b> {patient.gender}    <b>Code:</b>{patient.code} </p>
-                </div>
-                <div>
-                  <p>Établi</p>
-                  <p>{new Date(patient.createdAt).toLocaleDateString()}</p>
-                </div>
-                </S.UserContainer>
+                return (
+                  <S.UserContainer
+                    to={`/admin/patient/${patient.id}`}
+                    key={patient.id}
+                  >
+                    <S.UserImage
+                      src={patient.avatar != null ? patient.avatar : User_img}
+                      height="70px"
+                      width="70px"
+                    />
+                    <S.UserInfo>
+                      <span>
+                        <b>Nom's:</b> {patient.first_name} {patient.middle_name}{" "}
+                        {patient.last_name}{" "}
+                      </span>
+                      <span>
+                        <b>Sexe:</b> {patient.gender} <b style={{marginLeft:"1.5rem"}}>Code:</b>
+                        {patient.code}{" "}
+                      </span>
+                    </S.UserInfo>
+                    <div>
+                      <p>Établi</p>
+                      <p>{new Date(patient.createdAt).toLocaleDateString()}</p>
+                    </div>
+                  </S.UserContainer>
+                );
             })
         }
     </S.Container>

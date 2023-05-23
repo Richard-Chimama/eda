@@ -3,17 +3,18 @@ import React, {useState} from 'react'
 import { Params, useNavigate, useParams } from 'react-router-dom'
 import * as S from "./styled"
 import api from '../../../API'
+import CalculateAge from '../../../Functions/CalculateAge'
+import StateMessage from '../../../Components/StateMessage'
 
 const Fiche = () => {
   const navigate = useNavigate()
   const patientId = useParams()
-  const [code, setCode] = useState("19960101-9009")
   const [inputs, setInputs] = useState({
     gs:"",
     rh: "",
     ta: "",
     poids:"",
-    taile:"",
+    taille:"",
     temperature: "",
     allergie: "",
     intoxication: "",
@@ -47,18 +48,18 @@ const Fiche = () => {
       variables:{
         patient: patientId.id,
         prescription: inputs.prescription,
-        observations: inputs.observations,
-        ta: inputs.ta,
-        taile: inputs.taile,
-        poids: inputs.poids,
-        temperature: inputs.temperature,
-        allergie: inputs.allergie,
-        intoxication: inputs.intoxication,
-        atcdChirurgicaux: inputs.atcdChirurgicaux,
-        atcdMedicaux: inputs.atcdMedicaux,
-        rh: inputs.rh,
-        gs: inputs.gs,
-        pouls: inputs.pouls,
+        observations: inputs.observations.trim(),
+        ta: inputs.ta.trim(),
+        taille: inputs.taille.trim(),
+        poids: inputs.poids.trim(),
+        temperature: inputs.temperature.trim(),
+        allergie: inputs.allergie.trim(),
+        intoxication: inputs.intoxication.trim(),
+        atcdChirurgicaux: inputs.atcdChirurgicaux.trim(),
+        atcdMedicaux: inputs.atcdMedicaux.trim(),
+        rh: inputs.rh.trim(),
+        gs: inputs.gs.trim(),
+        pouls: inputs.pouls.trim(),
 
       }
     }).then((data) => { 
@@ -69,10 +70,15 @@ const Fiche = () => {
 
   }
 
-  const date = new Date()
-  const currentYear = date.getFullYear()
-  const DoB = new Date(result[0].date_of_birth).getFullYear()
-  const age = currentYear - DoB
+  if(Loading || loading){
+    return <StateMessage><h3>Loading...</h3></StateMessage>
+  }
+
+  if(Error){
+    return <StateMessage><h3>{Error.message}</h3></StateMessage>
+  }
+
+
 
   return (
     <S.Container>
@@ -80,19 +86,19 @@ const Fiche = () => {
 
         <button onClick={()=>navigate("/main")}>Go back</button>
         <br />
-      <S.Title>FICHE</S.Title>
+      <S.Title>FICHE DE CONSULTATION PATIENT</S.Title>
           <S.PatientInfo>
-              <img src={result[0].avatar} height="300px" width="270px"/>
-              <div>
-                <p>Nom: {result[0].first_name}</p>
-                <p>Prenom: {result[0].last_name}</p>
-                <p>Sexe: {result[0].gender}</p>
-                <p>Date de naisance: {new Date(result[0].date_of_birth).toLocaleDateString()}</p>
-                <p>Age: {age}</p>
-              </div>
+              <img src={result[0].avatar} height="200px" width="170px"/>
+              <S.Info>
+                <span>Nom: {result[0].first_name}</span>
+                <span>Prenom: {result[0].last_name}</span>
+                <span>Sexe: {result[0].gender}</span>
+                <span>Date de naisance: {new Date(result[0].date_of_birth).toLocaleDateString()}</span>
+                <span>Age: {CalculateAge(result[0].date_of_birth)}</span>
+              </S.Info>
         </S.PatientInfo>
       <S.Cutter></S.Cutter>
-      <form>
+      <form onSubmit={handleSubmit}>
         <S.FormSection>
           <S.Label htmlFor='gs'>GS:
             <input type="text" name="gs" value={inputs.gs} onChange={handleChange} />
@@ -106,8 +112,8 @@ const Fiche = () => {
           <S.Label htmlFor='poids'>Poids:
             <input type="text" name="poids" value={inputs.poids} onChange={handleChange} />
           </S.Label>
-          <S.Label htmlFor='taile'>Taile:
-            <input type="text" name="taile" value={inputs.taile} onChange={handleChange} />
+          <S.Label htmlFor='taille'>Taille:
+            <input type="text" name="taille" value={inputs.taille} onChange={handleChange} />
           </S.Label>
           <S.Label htmlFor='temperature'>Temperature:
             <input type="text" name="temperature" value={inputs.temperature} onChange={handleChange} required/>
@@ -132,9 +138,7 @@ const Fiche = () => {
           <S.Label htmlFor='observations'>Observations:
             <textarea name="observations" value={inputs.observations} onChange={handleChange} required/>
           </S.Label>
-          <S.Label htmlFor='prescription'>Prescription:
-            <textarea name="prescription" value={inputs.prescription} onChange={handleChange} />
-          </S.Label>
+         
 
           </S.FormSection>
         <S.SubmitButton>

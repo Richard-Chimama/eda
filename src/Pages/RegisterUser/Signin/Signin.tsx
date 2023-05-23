@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { useMutation, gql, useQuery } from '@apollo/client';
 import { redirect, useNavigate } from 'react-router-dom';
 import * as S from "./styled"
@@ -27,6 +27,7 @@ const Signin: React.FC = () => {
     const {error: roleError, data:userRole} = useQuery(api.Queries.findSingleUser, {
         variables:{email: inputs.email.trim()}
     })
+ 
   
 
     const handleSubmit = async(event:any)=>{
@@ -44,6 +45,7 @@ const Signin: React.FC = () => {
             onCompleted:(data)=>{
                 localStorage.setItem("token", data.signIn)
                 localStorage.setItem("hospitalID", userHospital)
+                localStorage.setItem("userId", userRole.user.id)
                 if(userRole !== undefined && userRole.user.role =="admin"){
                     navigate("/admin", {state:redirect})
                 }else{

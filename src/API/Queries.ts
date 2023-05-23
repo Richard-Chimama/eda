@@ -117,11 +117,61 @@ const findAllPatients: any = gql`
   }
 `;
 
+const findAllFiches:any = gql`
+  query Form_attendances {
+  form_attendances {
+    id
+    allergie
+    intoxication
+    atcd_chirurgicaux
+    atcd_medicaux
+    rh
+    gs
+    pouls
+    temperature
+    poids
+    taille
+    ta
+    observations
+    prescription
+    createdAt
+    updatedAt
+    patient {
+      id
+      id_card
+      first_name
+      middle_name
+      last_name
+      gender
+      area
+      street_address
+      date_of_birth
+      code
+      patient_phone_number
+      contact_person
+      contact_person_phone_number
+      avatar
+      createdAt
+      updatedAt
+    }
+    users {
+      id
+      username
+      role
+      email
+      cnop
+      avatar
+    }
+  }
+}
+`
+
 export default {
     checkHospital,
     findSingleUser,
     findHospitalById,
     findAllUsers,
     findAllHospitals,
-    findAllPatients
+    findAllPatients,
+    findAllFiches
 }

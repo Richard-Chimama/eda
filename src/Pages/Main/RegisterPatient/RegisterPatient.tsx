@@ -5,6 +5,15 @@ import * as S from "./styled"
 import { useMutation } from '@apollo/client'
 import api from '../../../API'
 
+const codeGenrate = ()=>{
+  const date = new Date(Date.now())
+  const month = date.getUTCMonth() < 10 ?  "0"+date.getUTCMonth() : date.getUTCMonth()
+  const year = date.getFullYear()
+  const num = Math.floor(Math.random()*10000)
+  const fourNum =  num < 1000 ? "0"+num: num
+  return `${year}${month}-${fourNum}`
+}
+
 const RegisterPatient = () => {
   const [inputs, setInputs] = useState({
     first_name: " ",
@@ -15,7 +24,7 @@ const RegisterPatient = () => {
     area: "",
     street_address: "",
     date_of_birth: "",
-    code: "",
+    code: codeGenrate(),
     patient_phone_number: "",
     contact_person: "",
     contact_phone_number: "",
@@ -30,6 +39,8 @@ const RegisterPatient = () => {
     const value = name === 'avatar'? event.target.files[0] : event.target.value
     setInputs(values => ({...values, [name]:value}))
   }
+
+
 
   const handleSubmit = (e:any) => {
     e.preventDefault()
@@ -139,8 +150,9 @@ const RegisterPatient = () => {
               type="text"
               name="code"
               value={inputs.code}
-              onChange={handleInputs}
               required
+              disabled
+              style={{color:"red"}}
             />
           </S.Label>
           <S.Label htmlFor="patient_phone_number">

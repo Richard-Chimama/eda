@@ -61,6 +61,10 @@ const Container = styled.div`
   & > footer{
     grid-row: 3;
   }
+
+  @media screen and (max-width:450px){
+    font-size: 12px;
+  }
 `
 
 
