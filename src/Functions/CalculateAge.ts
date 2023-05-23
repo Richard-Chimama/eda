@@ -7,7 +7,7 @@ interface Props{
  * @returns the age of of the person
  */
 
-const CalculateAge=(date_of_birth:Props)=>{
+const CalculateAge=({date_of_birth}:Props)=>{
   const date = new Date(Date.now());
   const currentYear = date.getFullYear()
   const DoB = new Date(date_of_birth).getFullYear()
