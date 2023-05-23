@@ -3,7 +3,7 @@ import * as S from "./styled"
 import api from '../../../../../API'
 import { useQuery } from '@apollo/client'
 import StateMessage from '../../../../../Components/StateMessage'
-import UpdateFiche from './UpdateFiche'
+import FichContent from './FicheContent'
 
 interface Props{
     patientID?: any
@@ -28,22 +28,13 @@ const PatientFiches: React.FC<Props> = ({patientID}) => {
     })
 
 
-    const FichContent = ({data}:{data:any})=>{
-        const [isOpen, setIsOpen] = useState(false)
-        return <S.FicheContent >
-        <p>crée: {new Date(data.createdAt).toLocaleDateString()}</p>
-        <button onClick={()=> setIsOpen(!isOpen)}>View</button>
-        {isOpen && <UpdateFiche close={setIsOpen} data={data}/>}
-    </S.FicheContent>
-    }
-
   return (
     <S.Container>
-        <h4>History</h4>
+        <S.Title>History</S.Title>
       {results !== undefined && (
         <S.FicheHistory>
           {results.length > 0
-            ? results.map((result: any) => {
+            ? results.reverse().map((result: any) => {
                 return <FichContent key={result.id} data={result} />;
               })
             : "No data found for the patient!"}

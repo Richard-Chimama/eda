@@ -1,81 +1,215 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { MdOutlineCancel } from "react-icons/md"
 import TwoActionButtons from '../../../../../Components/TwoActionButtons'
+import {useMutation } from "@apollo/client"
+import API from '../../../../../API'
+import { useNavigate } from 'react-router-dom'
+import Popup from './Popup'
 
 interface Props{
     data?: any,
+    state: string,
     close: (txt:boolean)=> void
 }
 
-const UpdateFiche: React.FC<Props> = ({data, close}) => {
+const UpdateFiche: React.FC<Props> = ({data, state, close}) => {
+    const navigate = useNavigate()
+    const [inputs, setInputs] = useState({
+        prescription: ""
+    })
+    const [edit, setEdit] = useState(true)
+    const [updateFiche, {loading, error, data:DATA}] = useMutation(API.Mutations.UPDATE_FICHE)
+
+    const handleChange = (e:any)=>{
+        const name = e.target.name
+        const value = e.target.value
+        setInputs({...inputs, [name]:value})
+    }
 
     const handleUpdate = (e:any)=>{
         e.preventDefault();
+        updateFiche({
+            variables:{
+                updateFicheId: data.id,
+                prescription: inputs.prescription
+            },
+            onCompleted: res =>{
+                console.log(res)
+                const timer = setTimeout(() => {
+                    close(false);
+                  }, 7000);
+                  
+                  clearTimeout(timer);
+              
+            },
+            onError: err =>{
+                console.log(err.message)
+            }
+        })
     }
+ 
 
   return (
     <Container>
-        <Cancel onClick={()=>close(false)}>
-            <MdOutlineCancel size={30}/>
-        </Cancel>
-        <h2>Réviser</h2>
-        <FormContent>
-            <Label><span>Allergie:</span>
-                <input type="text" name="allergie" value={data.allergie} disabled />
-            </Label>
-            <Label><span>Atcd Chirurgicaux:</span>
-                <input type="text" name="atcd_chirurgicaux" value={data.atcd_chirurgicaux}  disabled/>
-            </Label>
-            <Label><span>Atcd Medicaux:</span>
-                <input type="text" name="atcd_medicaux" value={data.atcd_medicaux}  disabled/>
-            </Label>
-            <Label><span>GS:</span>
-                <input type="text" name="gs" value={data.gs}  disabled/>
-            </Label>
-            <Label><span>Intoxication:</span>
-                <input type="text" name="intoxication" value={data.intoxication}  disabled/>
-            </Label>
-            <Label><span>Poids:</span>
-                <input type="text" name="poids" value={data.poids}  disabled/>
-            </Label>
-            <Label><span>Pouls:</span>
-                <input type="text" name="pouls" value={data.pouls}  disabled/>
-            </Label>
-            <Label><span>RH:</span>
-                <input type="text" name="rh" value={data.rh}  disabled/>
-            </Label>
-            <Label><span>TA:</span>
-                <input type="text" name="ta" value={data.ta}  disabled/>
-            </Label>
-            <Label><span>Taille:</span>
-                <input type="text" name="taille" value={data.taille}  disabled/>
-            </Label>
-            <Label><span>Temperature:</span>
-                <input type="text" name="temperature" value={data.temperature}  disabled/>
-            </Label>
-            
-        </FormContent>
+      <Cancel onClick={() => close(false)}>
+        <MdOutlineCancel size={30} />
+      </Cancel>
+      {loading && (
+        <div style={{ position: "relative" }}>
+          <Popup message={"The fiche has been updated"} />
+        </div>
+        
+      )}
+      <h2>Réviser</h2>
+      <FormContent>
+        <Label>
+          <span>Allergie:</span>
+          <input
+            type="text"
+            name="allergie"
+            value={data.allergie}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Atcd Chirurgicaux:</span>
+          <input
+            type="text"
+            name="atcd_chirurgicaux"
+            value={data.atcd_chirurgicaux}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Atcd Medicaux:</span>
+          <input
+            type="text"
+            name="atcd_medicaux"
+            value={data.atcd_medicaux}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>GS:</span>
+          <input
+            type="text"
+            name="gs"
+            value={data.gs}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Intoxication:</span>
+          <input
+            type="text"
+            name="intoxication"
+            value={data.intoxication}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Poids:</span>
+          <input
+            type="text"
+            name="poids"
+            value={data.poids}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Pouls:</span>
+          <input
+            type="text"
+            name="pouls"
+            value={data.pouls}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>RH:</span>
+          <input
+            type="text"
+            name="rh"
+            value={data.rh}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>TA:</span>
+          <input
+            type="text"
+            name="ta"
+            value={data.ta}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Taille:</span>
+          <input
+            type="text"
+            name="taille"
+            value={data.taille}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+        <Label>
+          <span>Temperature:</span>
+          <input
+            type="text"
+            name="temperature"
+            value={data.temperature}
+            onChange={handleChange}
+            disabled={edit}
+          />
+        </Label>
+      </FormContent>
 
-        <TextArea>
-            <Label><span>Observation:</span>
-                <textarea name="observations" value={data.observations} cols={50} rows={5} disabled></textarea>
-            </Label>
-            <Label>
-                    <span>Prescription:</span>
-                <textarea name="prescription" value={data.prescription} cols={50} rows={5} ></textarea>
-            </Label>
-        </TextArea>
-
-  
-        <TwoActionButtons 
-            label1='Annuler' 
-            label2='Réviser' 
-            action1={()=>close(false)} 
-            action2={handleUpdate}
-            />
+      <TextArea>
+        <Label>
+          <span>Observation:</span>
+          <textarea
+            name="observations"
+            value={data.observations}
+            cols={50}
+            rows={5}
+            onChange={handleChange}
+            disabled={edit}
+          ></textarea>
+        </Label>
+        <Label>
+          <span>Prescription:</span>
+          <textarea
+            name="prescription"
+            cols={50}
+            rows={5}
+            value={state=== "view"? data.prescription :inputs.prescription}
+            onChange={handleChange}
+            disabled={state === "view"? true: false}
+          ></textarea>
+        </Label>
+      </TextArea>
+        {
+            state === "update" &&
+        <TwoActionButtons
+            label1="Annuler"
+            label2="Réviser"
+            action1={() => close(false)}
+            action2={(e)=>handleUpdate(e)}
+        />
+        }
     </Container>
-  )
+  );
 }
 
 
@@ -88,6 +222,7 @@ const Container = styled.div`
   background-color: #f6f0f0;
   box-shadow: 0 4px 10px #98989cd1;
   padding-bottom: 5rem;
+  color: #228558;
 
   @media screen and (max-width: 480px) {
     top: 0;

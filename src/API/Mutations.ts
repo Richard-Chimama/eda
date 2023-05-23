@@ -166,11 +166,26 @@ const NEW_FICHE = gql`
   }
 `;
 
+const UPDATE_FICHE = gql`
+  mutation UpdateFiche($updateFicheId: String!, 
+    $prescription: String) {
+  updateFiche(id: $updateFicheId,
+      prescription: $prescription) {
+    id
+    prescription
+    createdAt
+    updatedAt
+
+  }
+}
+`;
+
 
 export default {
     REGISTER_USER,
     SIGNIN_USER,
     REGISTER_HOSPITAL,
     REGISTER_PATIENT,
-    NEW_FICHE
+    NEW_FICHE,
+    UPDATE_FICHE
 }
