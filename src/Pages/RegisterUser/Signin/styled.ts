@@ -5,10 +5,9 @@ import Theme from '../../../Theme';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    height: 100vh;
-
+    min-height: 100vh;
 `
 
 export const Form = styled.form`

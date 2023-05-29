@@ -47,6 +47,5 @@ export const Label = styled.label`
     height: 30px;
     outline: none;
     padding-left: 10px;
-    width: 90%;
   }
 `;

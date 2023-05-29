@@ -4,6 +4,9 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../Components/Button';
 import api from "../../../API"
+import LogoUpload from '../../../Components/LogoUpload/';
+import LogoImage from "../../../assets/eda_logo.png"
+import StateMessage from '../../../Components/StateMessage/StateMessage.js';
 
 
 
@@ -16,6 +19,7 @@ const RegistorHospital: FunctionComponent = () => {
         hospital_name:"",
         address_name:"",
         city_name:"",
+        logo: "",
         category: "clinique"
     })
 
@@ -35,7 +39,7 @@ const RegistorHospital: FunctionComponent = () => {
 
     const handleChange = (event: any) => {
         const name = event.target.name
-        const value = event.target.value
+        const value = name === "logo"? event.target.files[0] : event.target.value
         setInput(values => ({...values, [name]:value}))
     }
 
@@ -47,6 +51,7 @@ const RegistorHospital: FunctionComponent = () => {
                 name: inputs.hospital_name,
                 address: inputs.address_name,
                 city: inputs.city_name,
+                logo: inputs.logo,
                 category: inputs.category
             }
         }).then((res)=> {
@@ -59,15 +64,27 @@ const RegistorHospital: FunctionComponent = () => {
         })
     }
 
+    if(loading){
+      return <StateMessage><h1>Loading...</h1></StateMessage>
+    }
+
+    if(error){
+      return <StateMessage><>
+        {error.message}
+        </></StateMessage>
+    }
 
 
   return (
     <S.Container>
       <i style={{ color: "red" }}>This page is under development 😉</i>
       <button onClick={() => navigate("/")}>Go back</button>
-      <h2></h2>
+      <h2>ENREGISTRER L'HÔPITAL</h2>
       {isError && <div>{errorMessage}</div>}
-      <S.Form onSubmit={handleSubmit}>
+      <S.Form encType='multipart/form-data' method="POST" onSubmit={handleSubmit} >
+       
+          <LogoUpload method={handleChange} />
+       
         <S.Label>
           <span>NOM DE STRUCTURE MEDICALE:</span>
           <input
@@ -104,6 +121,7 @@ const RegistorHospital: FunctionComponent = () => {
             onChange={handleChange}
             required
           >
+            <option>select</option>
             {COMMUNE.map((item, index) => (
               <option key={index} value={item}>
                 {item}

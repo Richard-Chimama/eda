@@ -12,6 +12,7 @@ const findHospitalById: any = gql`
       name
       createdAt
       city
+      logo
       category
       address
       id

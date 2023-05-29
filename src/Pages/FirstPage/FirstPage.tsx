@@ -1,15 +1,20 @@
-import React from 'react'
-import Footer from '../../Components/Footer/Footer'
+import React, {useState} from 'react'
 import Nav from '../../Components/Nav/Nav'
 import { Link } from 'react-router-dom'
 import * as S from "./styled"
 import Button from '../../Components/Button'
-import { useApolloClient } from '@apollo/client'
+import Hamburgur from '../../Components/Hamburger/Hamburgur'
 
 const FirstPage = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  const toggleSidebar = ()=>{
+    setIsOpen(!isOpen)
+  }
+
   return (
     <S.container>
-      <Nav />
+        <Nav />
       <S.content>
         <h1>
           Bienvenue au projet <b>Eda</b>
@@ -25,7 +30,6 @@ const FirstPage = () => {
         <br />
         <i style={{color:"red"}}>This page is under development 😉</i>
       </S.content>
-      <Footer />
     </S.container>
   );
 }

@@ -8,7 +8,6 @@ export const Menu = styled.div`
   height: 200px;
   background-color: #228558;
   border-radius: 10px;
-  width: 250px;
   min-width: 250px;
   border: 1px solid #228558;
   padding-top: 10px;
@@ -50,16 +49,12 @@ export const Menu = styled.div`
 
 export const MenuComponent = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 2rem;
-  width: 80%;
-  height:100%;
-  margin-right: 10%;
-  margin-left: 10%;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  justify-items: center;
+  gap: 1rem;
+  width: 100%;
+  
 
-  & > div{
-    width: 100%;
-  }
 
   @media screen and (max-width: 480px) {
     min-width: none;
@@ -79,5 +74,9 @@ export const H1 = styled.h1`
 `
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 1rem;
   margin-bottom: 5rem;
 `

@@ -26,7 +26,7 @@ export const FicheContent= styled.div`
     align-items: center;
     padding-inline: 1rem;
     border: 1px solid #228558;
-    border-radius: 15px;
+    border-radius: 8px;
     background-color: #228558;
     color: #fff;
 `

@@ -47,12 +47,14 @@ const REGISTER_HOSPITAL = gql`
     $name: String!
     $address: String!
     $city: String!
+    $logo: Upload
     $category: String!
   ) {
     newHospital(
       name: $name
       address: $address
       city: $city
+      logo: $logo
       category: $category
     ) {
       id

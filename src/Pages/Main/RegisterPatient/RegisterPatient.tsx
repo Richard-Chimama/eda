@@ -4,6 +4,7 @@ import ImageUpload from '../../../Components/ImageUpload'
 import * as S from "./styled"
 import { useMutation } from '@apollo/client'
 import api from '../../../API'
+import StateMessage from '../../../Components/StateMessage'
 
 const codeGenrate = ()=>{
   const date = new Date(Date.now())
@@ -44,7 +45,6 @@ const RegisterPatient = () => {
 
   const handleSubmit = (e:any) => {
     e.preventDefault()
-    console.log(inputs.avatar)
     registerPatient({
       variables:{
         idCard: inputs.id_card,
@@ -63,7 +63,6 @@ const RegisterPatient = () => {
         hospital: hospitalId
       }
     }).then((res) => {
-      console.log(res);
       navigate("/main")
 
     })
@@ -72,11 +71,13 @@ const RegisterPatient = () => {
     })
   }
   if(loading){
-    return <div>Loading...</div>
+    return <StateMessage><h1>Loading...</h1></StateMessage>
   }
 
   if(error){
-    return <div>{error.message}</div>
+    return  <StateMessage><>
+    {error.message}
+    </></StateMessage>
   }
 
 

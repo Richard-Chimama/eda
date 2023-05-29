@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     width: 80%;
-    margin: 0 auto;
+    margin: 1rem auto;
+    min-height: 100vh;
 `
 
 export const Label = styled.label`

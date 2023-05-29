@@ -12,7 +12,6 @@ const AdminTemplate = () => {
         <Section>
             <Outlet />
         </Section>
-        <Footer />
     </Container>
   )
 }
@@ -21,8 +20,9 @@ const AdminTemplate = () => {
 const Container = styled.div`
   background-color: #d2cccc;
   min-width: 400px;
+  margin-top: -1rem;
 
-  @media screen and (max-width: 480px){
+  @media screen and (max-width: 450px){
     font-size: 12px;
   }
 `
@@ -30,7 +30,9 @@ const Container = styled.div`
 const Section = styled.section`
     background-color: #f6f0f0;
     width: 80%;
-    margin: 1rem auto 2rem auto;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding-top: 15px;
 
     @media screen and (max-width: 480px){
       width: 95%;

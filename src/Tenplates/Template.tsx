@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../Components/Header/Header'
 import Footer from '../Components/Footer/Footer'
@@ -6,11 +6,14 @@ import Nav from '../Components/Nav/Nav'
 import { gql, useApolloClient } from '@apollo/client'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { GiHamburgerMenu } from "react-icons/gi"
+
 
 
 const Template = () => {
   const navigate = useNavigate()
   const client = useApolloClient()
+  const [isOpen, setIsOpen] = useState(false)
   const state:any = client.cache.readQuery({
     query: gql`
       query isLoginStatus { 
@@ -25,46 +28,45 @@ const Template = () => {
     }
   },[])
  
+  const toggleSidebar = ()=>{
+    setIsOpen(!isOpen)
+    document.getElementById("hamburger")?.classList.toggle('hidden')
+  }
   
 
   return (
     <Container>
-        <header>
-          <Nav />
-          <Header />
-        </header>
+        <Nav />
 
-        <section>
-            <Outlet />
-        </section>
-
-        <footer>
-         <Footer />
-        </footer>
+      <Section>
+        <Outlet />
+      </Section>
+    
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-  height: 100%;
+  background-color: #d2cccc;
+  display: flex;
 
-  & > header{
-    grid-row: 1;
-  }
-
-  & > section{
-    grid-row: 2;
-  }
-
-  & > footer{
-    grid-row: 3;
-  }
-
-  @media screen and (max-width:450px){
+  @media screen and (max-width:420px){
     font-size: 12px;
   }
+`
+
+const Section = styled.section`
+    background-color: #f6f0f0;
+    width: 80%;
+    margin: 0 auto 2rem auto;
+    padding-top: 5px;
+    padding-bottom: 3rem;
+    min-height: 100vh;
+
+
+    @media screen and (max-width: 480px){
+      width: 95%;
+    }
 `
 
 

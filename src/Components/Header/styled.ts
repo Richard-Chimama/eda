@@ -9,6 +9,7 @@ export const container = styled.div`
     width: 80%;
     margin: 3rem auto 1rem auto;
     min-width: 480px;
+    background-color: #fff;
 
 
     @media screen and (max-width: 480px) {
