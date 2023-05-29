@@ -36,7 +36,7 @@ const Nav: React.FC= () => {
   const client = useApolloClient()
   const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(null)
-  const [hospitalData, setHospitalData] = useState(null)
+  const [hospitalData, setHospitalData] = useState({hospital:{logo: null}})
   const [buttonClicked, setButtonClicked] = useState(false)
   
 
@@ -93,7 +93,7 @@ const handleLogout = (e:any)=>{
       <Content>
         <div>
           <div className="logo">
-            {hospitalData && hospitalData?.hospital.logo ? <Image height={35} width={35} src={hospitalData?.hospital.logo} />
+            {hospitalData?.hospital.logo ? <Image height={35} width={35} src={hospitalData?.hospital.logo} />
             :
               <Logo>
                 <Image height={35} width={35} src={Eda_logo} />
