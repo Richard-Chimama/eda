@@ -1,11 +1,27 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { gql, useApolloClient } from '@apollo/client'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Footer from '../Components/Footer/Footer'
 import Nav from '../Components/Nav/Nav'
 
 
 const AdminTemplate = () => {
+  const navigate = useNavigate()
+  const client = useApolloClient()
+  const state:any = client.cache.readQuery({
+    query: gql`
+      query isLoginStatus { 
+        isLoggedIn @client
+      }
+    `
+  })
+
+  useEffect(()=>{
+    if(!state.isLoggedIn){
+      navigate("/enregistrer/signin")
+    }
+  },[])
   return (
     <Container>
         <Nav />
@@ -20,7 +36,7 @@ const AdminTemplate = () => {
 const Container = styled.div`
   background-color: #d2cccc;
   min-width: 400px;
-  margin-top: -1rem;
+  margin-top: 0rem;
 
   @media screen and (max-width: 450px){
     font-size: 12px;

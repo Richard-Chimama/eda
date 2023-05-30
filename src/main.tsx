@@ -52,7 +52,6 @@ const link = ()=>{
 
 
 const client = new ApolloClient({
-  //uri: "https://eda-server4-production.up.railway.app/api",
   link: link(),
   cache: cache,
   resolvers: {},
@@ -60,12 +59,17 @@ const client = new ApolloClient({
 })
 
 interface propData{
-  isLoggedIn: any
+  isLoggedIn: any,
 }
 
 const data: propData = {
   isLoggedIn: !!localStorage.getItem('token')
 }
+
+const storedUser = localStorage.getItem('user');
+const parsedUser = storedUser ? JSON.parse(storedUser) : null;
+const user = parsedUser ? parsedUser : { user: null };
+
 
 cache.writeQuery({
   query: gql`
@@ -76,6 +80,16 @@ cache.writeQuery({
   data: data
 })
 
+cache.writeQuery({
+  query: gql`
+    query loggedInUser {
+      loggedInUser @client
+    }
+  `,
+  data: {
+    user: user,
+  },
+});
 
 const router = createBrowserRouter([
   {

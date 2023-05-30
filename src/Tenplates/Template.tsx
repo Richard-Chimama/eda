@@ -6,14 +6,12 @@ import Nav from '../Components/Nav/Nav'
 import { gql, useApolloClient } from '@apollo/client'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { GiHamburgerMenu } from "react-icons/gi"
 
 
 
 const Template = () => {
   const navigate = useNavigate()
   const client = useApolloClient()
-  const [isOpen, setIsOpen] = useState(false)
   const state:any = client.cache.readQuery({
     query: gql`
       query isLoginStatus { 
@@ -27,11 +25,6 @@ const Template = () => {
       navigate("/enregistrer/signin")
     }
   },[])
- 
-  const toggleSidebar = ()=>{
-    setIsOpen(!isOpen)
-    document.getElementById("hamburger")?.classList.toggle('hidden')
-  }
   
 
   return (

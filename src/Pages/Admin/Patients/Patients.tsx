@@ -13,7 +13,7 @@ const Patients = () => {
     const {loading, error, data} = useQuery(api.Queries.findAllPatients)
 
     if(loading) {
-        return <StateMessage><h5>Loading...</h5></StateMessage>
+        return <StateMessage loading />
     }
 
     if(error) {
@@ -31,8 +31,6 @@ const Patients = () => {
 
   return (
     <S.Container>
-        <p style={{color: 'red', textAlign: 'center'}}>This page is under development😉 <Link to="..">Go back</Link></p>
-
         <h3 style={{color: 'green', textAlign: 'center'}}>LISTE DE CLIENTS</h3>
         <S.Label>
           <input type="search" name="search" id="search" onChange={(e)=> setSearchKey(e.target.value.toLowerCase())} placeholder='search...' />

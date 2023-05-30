@@ -9,9 +9,11 @@ import { FiLogIn, FiLogOut, FiUsers } from "react-icons/fi"
 import { FcStatistics } from "react-icons/fc"
 import { IoIosPeople } from "react-icons/io"
 import { CgProfile } from "react-icons/cg"
-import { MdDomain } from "react-icons/md"
-import { slide as MenuSlide } from "react-burger-menu"
+import { MdDomain, MdOutlineDashboardCustomize } from "react-icons/md"
+import { slide as Menu } from "react-burger-menu"
 import './Nav.css'
+import { FaUserPlus } from 'react-icons/fa'
+import { TbReport, TbReportSearch } from 'react-icons/tb'
 
 
 //local query
@@ -20,6 +22,7 @@ const IS_LOGGED_IN = gql`
     isLoggedIn @client
   }
 `
+
 
 interface propData{
   isLoggedIn: any
@@ -37,7 +40,9 @@ const Nav: React.FC= () => {
   const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [hospitalData, setHospitalData] = useState({hospital:{logo: null}})
-  const [buttonClicked, setButtonClicked] = useState(false)
+  const [buttonClicked,  setButtonClicked] = useState(false)
+  const [user, setUser ]:any = useState(null)
+
   
 
   useEffect(() => {
@@ -48,7 +53,6 @@ const Nav: React.FC= () => {
 
   const [fetchHospitalData,{ loading, error, data}] = useLazyQuery(API.Queries.findHospitalById,{
     onCompleted:(data)=>{
-      console.log(data)
       setHospitalData(data)
     }
   })
@@ -67,6 +71,12 @@ const Nav: React.FC= () => {
 
   }, [isLoggedIn, fetchHospitalData])
   
+  useEffect(()=>{
+    const GET_USER = localStorage.getItem('user')
+    if(GET_USER){
+      setUser(JSON.parse(GET_USER))
+    }
+  }, [])
 
 
   const handleButtonClick = ()=>{
@@ -77,6 +87,8 @@ const handleLogout = (e:any)=>{
   e.preventDefault()
   localStorage.removeItem("token")
   localStorage.removeItem("hospitalID")
+  localStorage.removeItem("userId")
+  localStorage.removeItem("user")
   client.writeQuery({
     query: gql`
     query isLoginStatus{
@@ -88,22 +100,28 @@ const handleLogout = (e:any)=>{
   navigate("/", {state: redirect})
 }
 
+
   return (
-    <MenuSlide >
+    <Menu >
       <Content>
         <div>
           <div className="logo">
             {hospitalData?.hospital.logo ? <Image height={35} width={35} src={hospitalData?.hospital.logo} />
             :
-              <Logo>
+              <Logo to="/">
                 <Image height={35} width={35} src={Eda_logo} />
                 <p>Eda project</p>
               </Logo>
             }
           </div>
 
-          {/**other pages */}
-          <NavLink to="/main">
+          {user?.role === 'admin' && 
+            <div className="navigation">
+               <NavLink to="/admin">
+                <MdOutlineDashboardCustomize size={35}/>
+                <span>Dashboard</span>
+            </NavLink>
+               <NavLink to="/main">
                 <MdDomain size={35}/>
                 <span>Main</span>
             </NavLink>
@@ -123,6 +141,46 @@ const handleLogout = (e:any)=>{
                 <CgProfile size={35}/>
                 <span>Profile</span>
             </NavLink>
+            </div>
+          }
+
+          {
+            user?.role === 'staff' &&
+              <div className="navigation">
+                  <NavLink to="/admin/patients">
+                <TbReportSearch size={35}/>
+                <span>Recherche</span>
+            </NavLink>
+            <NavLink to="/admin/patients">
+                <TbReport size={35}/>
+                <span>Rapport</span>
+            </NavLink>
+            <NavLink to="/admin/patients">
+                <IoIosPeople size={35}/>
+                <span>Fiche</span>
+            </NavLink>
+            <NavLink to="/admin/patients">
+              <FaUserPlus className="icon-menu" size={35} />
+                  <span>Enregistrer patient</span>
+            </NavLink>
+              </div>
+          }
+
+          {
+            (user?.role !== 'admin' && user?.role !== "staff") && 
+              <div className="navigation">
+                <NavLink to="/admin/patients">
+                <IoIosPeople size={35}/>
+                <span>About us</span>
+                   </NavLink>
+
+            <NavLink to="/admin/patients">
+                <IoIosPeople size={35}/>
+                <span>Contact us</span>
+            </NavLink>
+              </div>
+          }
+         
 
         </div>
         
@@ -144,7 +202,7 @@ const handleLogout = (e:any)=>{
 
       </Content>
      
-    </MenuSlide>
+    </Menu>
   );
 }
 
@@ -155,7 +213,7 @@ const Content = styled.div`
   gap: 1.5rem;
   
 
-  & > div{
+  & > div .navigation{
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -177,13 +235,16 @@ const Image = styled.img`
 
 `
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
   color: #fff;
   font-size: 13px;
   font-weight: bold;
+  text-decoration: none;
+  margin-left: -0.5rem;
+  margin-bottom: 1.5rem;
 
   & > p{
     overflow-x: hidden;

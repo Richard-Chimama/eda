@@ -1,8 +1,9 @@
-import React, {useContext, useState} from 'react'
-import { useMutation, gql, useQuery } from '@apollo/client';
+import React, {useState} from 'react'
+import { useMutation, gql, useQuery} from '@apollo/client';
 import { redirect, useNavigate } from 'react-router-dom';
 import * as S from "./styled"
 import api from "../../../API"
+import { motion, useScroll } from "framer-motion"
 import Button from '../../../Components/Button';
 
 
@@ -10,11 +11,12 @@ import Button from '../../../Components/Button';
 const Signin: React.FC = () => {
     let userHospital:string
     const navigate = useNavigate()
+    const { scrollYProgress } = useScroll();
     const [inputs, setInputs] = useState({
         email: "",
         password: ""
     })
-
+   
 
 
     const [signinUSER, {loading, error, data}] = useMutation(api.Mutations.SIGNIN_USER)
@@ -27,7 +29,7 @@ const Signin: React.FC = () => {
     const {error: roleError, data:userRole} = useQuery(api.Queries.findSingleUser, {
         variables:{email: inputs.email.trim()}
     })
- 
+   
   
 
     const handleSubmit = async(event:any)=>{
@@ -46,10 +48,11 @@ const Signin: React.FC = () => {
                 localStorage.setItem("token", data.signIn)
                 localStorage.setItem("hospitalID", userHospital)
                 localStorage.setItem("userId", userRole.user.id)
+                localStorage.setItem("user", JSON.stringify(userRole.user))
                 if(userRole !== undefined && userRole.user.role =="admin"){
-                    navigate("/admin", {state:redirect})
+                    navigate("/admin", {state: redirect})
                 }else{
-                    navigate("/main", {state:redirect})
+                    navigate("/main", {state: redirect})
                 }
                  
             },
@@ -61,6 +64,7 @@ const Signin: React.FC = () => {
  
   return (
     <S.Container>
+         <motion.div style={{ scaleX: scrollYProgress }} /> 
         <S.Form onSubmit={handleSubmit}>
         <i style={{color:"red"}}>This page is under development 😉</i>
             <S.Label>
