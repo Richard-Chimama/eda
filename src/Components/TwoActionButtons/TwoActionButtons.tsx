@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 interface Props{
     label1: string,
-    label2: string,
+    label2: string | JSX.Element,
     action1: ()=>void,
     action2: (e:any)=>void
 }

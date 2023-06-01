@@ -131,6 +131,7 @@ const NEW_FICHE = gql`
     $rh: String
     $gs: String
     $pouls: String
+    $user:String!
   ) {
     newFiche(
       patient: $patient
@@ -147,6 +148,7 @@ const NEW_FICHE = gql`
       rh: $rh
       gs: $gs
       pouls: $pouls
+      user: $user
     ) {
       id
       allergie

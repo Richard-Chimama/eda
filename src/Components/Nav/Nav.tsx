@@ -102,106 +102,101 @@ const handleLogout = (e:any)=>{
 
 
   return (
-    <Menu >
+    <Menu>
       <Content>
         <div>
           <div className="logo">
-            {hospitalData?.hospital.logo ? <Image height={35} width={35} src={hospitalData?.hospital.logo} />
-            :
+            {hospitalData?.hospital.logo ? (
+              <Image height={35} width={35} src={hospitalData?.hospital.logo} />
+            ) : (
               <Logo to="/">
                 <Image height={35} width={35} src={Eda_logo} />
                 <p>Eda project</p>
               </Logo>
-            }
+            )}
           </div>
 
-          {user?.role === 'admin' && 
+          {user?.role === "admin" && (
             <div className="navigation">
-               <NavLink to="/admin">
-                <MdOutlineDashboardCustomize size={35}/>
+              <NavLink to="/admin">
+                <MdOutlineDashboardCustomize size={35} />
                 <span>Dashboard</span>
-            </NavLink>
-               <NavLink to="/main">
-                <MdDomain size={35}/>
+              </NavLink>
+              <NavLink to="/main">
+                <MdDomain size={35} />
                 <span>Main</span>
-            </NavLink>
-            <NavLink to="/admin/patients">
-                <IoIosPeople size={35}/>
+              </NavLink>
+              <NavLink to="/admin/patients">
+                <IoIosPeople size={35} />
                 <span>Patient</span>
-            </NavLink>
-            <NavLink to="/admin/users">
-                <FiUsers size={35}/>
+              </NavLink>
+              <NavLink to="/admin/users">
+                <FiUsers size={35} />
                 <span>Users</span>
-            </NavLink>
-            <NavLink to="/main">
-                <FcStatistics size={35}/>
+              </NavLink>
+              <NavLink to="/main">
+                <FcStatistics size={35} />
                 <span>Statistic</span>
-            </NavLink>
-            <NavLink to="/admin/profile">
-                <CgProfile size={35}/>
+              </NavLink>
+              <NavLink to="/admin/profile">
+                <CgProfile size={35} />
                 <span>Profile</span>
-            </NavLink>
+              </NavLink>
             </div>
-          }
+          )}
 
-          {
-            user?.role === 'staff' &&
-              <div className="navigation">
-                  <NavLink to="/admin/patients">
-                <TbReportSearch size={35}/>
+          {user?.role === "staff" && (
+            <div className="navigation">
+              <NavLink to="/main">
+                <MdOutlineDashboardCustomize size={35} />
+                <span>Dashboard</span>
+              </NavLink>
+              <NavLink to="/main/recherche">
+                <TbReportSearch size={35} />
                 <span>Recherche</span>
-            </NavLink>
-            <NavLink to="/admin/patients">
-                <TbReport size={35}/>
+              </NavLink>
+              <NavLink to="/main/rapport">
+                <TbReport size={35} />
                 <span>Rapport</span>
-            </NavLink>
-            <NavLink to="/admin/patients">
-                <IoIosPeople size={35}/>
-                <span>Fiche</span>
-            </NavLink>
-            <NavLink to="/admin/patients">
-              <FaUserPlus className="icon-menu" size={35} />
-                  <span>Enregistrer patient</span>
-            </NavLink>
-              </div>
-          }
+              </NavLink>
+              <NavLink to="/main/enregistrer_patient">
+                <FaUserPlus className="icon-menu" size={35} />
+                <span>Enregistrer patient</span>
+              </NavLink>
+            </div>
+          )}
 
-          {
-            (user?.role !== 'admin' && user?.role !== "staff") && 
-              <div className="navigation">
-                <NavLink to="/admin/patients">
-                <IoIosPeople size={35}/>
+          {user?.role !== "admin" && user?.role !== "staff" && (
+            <div className="navigation">
+              <NavLink to="/admin/patients">
+                <IoIosPeople size={35} />
                 <span>About us</span>
-                   </NavLink>
+              </NavLink>
 
-            <NavLink to="/admin/patients">
-                <IoIosPeople size={35}/>
+              <NavLink to="/admin/patients">
+                <IoIosPeople size={35} />
                 <span>Contact us</span>
-            </NavLink>
-              </div>
-          }
-         
-
+              </NavLink>
+            </div>
+          )}
         </div>
-        
+
         <Auth>
           {isLoggedIn ? (
-            <NavLink to="/" onClick={handleLogout} >
-                <FiLogOut size={35}/>
-                <span>Deconnecter</span>
+            <NavLink to="/" onClick={handleLogout}>
+              <FiLogOut size={35} />
+              <span>Deconnecter</span>
             </NavLink>
           ) : (
             <div>
               <NavLink to="/enregistrer/signin" onClick={handleButtonClick}>
-                <FiLogIn size={35}/>
+                <FiLogIn size={35} />
                 <span>Connecter</span>
               </NavLink>
             </div>
           )}
         </Auth>
-
       </Content>
-     
     </Menu>
   );
 }

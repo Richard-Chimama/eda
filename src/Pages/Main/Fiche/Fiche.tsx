@@ -25,12 +25,12 @@ const Fiche = () => {
     prescription: "",
   })
 
+  const userId = localStorage.getItem('userId')
 
   const handleChange = (e: { target: { name: any; value: any } })=>{
     const name = e.target.name
     const value = e.target.value
     setInputs({...inputs, [name]: value})
-
   }
 
   const {loading, error, data} = useQuery(api.Queries.findAllPatients)
@@ -60,7 +60,7 @@ const Fiche = () => {
         rh: inputs.rh.trim(),
         gs: inputs.gs.trim(),
         pouls: inputs.pouls.trim(),
-
+        user: userId
       }
     }).then((data) => { 
       console.log("successful")
@@ -71,7 +71,7 @@ const Fiche = () => {
   }
 
   if(Loading || loading){
-    return <StateMessage><h3>Loading...</h3></StateMessage>
+    return <StateMessage loading />
   }
 
   if(Error){
@@ -82,10 +82,6 @@ const Fiche = () => {
 
   return (
     <S.Container>
-        <p style={{color:"red"}}>This page is under development😉</p>
-
-        <button onClick={()=>navigate("/main")}>Go back</button>
-        <br />
       <S.Title>FICHE DE CONSULTATION PATIENT</S.Title>
           <S.PatientInfo>
               <img src={result[0].avatar} height="200px" width="170px"/>

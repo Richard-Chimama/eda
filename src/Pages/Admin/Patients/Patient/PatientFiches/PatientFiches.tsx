@@ -14,7 +14,7 @@ const PatientFiches: React.FC<Props> = ({patientID}) => {
     const {loading, error, data} = useQuery(api.Queries.findAllFiches)
 
     if(loading){
-        <StateMessage><h3>Loading</h3></StateMessage>
+        <StateMessage loading />
     }
 
     if(error){
