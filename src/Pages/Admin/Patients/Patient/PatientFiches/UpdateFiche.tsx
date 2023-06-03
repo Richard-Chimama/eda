@@ -35,12 +35,7 @@ const UpdateFiche: React.FC<Props> = ({data, state, close}) => {
                 prescription: inputs.prescription
             },
             onCompleted: res =>{
-                console.log(res)
-                const timer = setTimeout(() => {
-                    close(false);
-                  }, 7000);
-                  
-                  clearTimeout(timer);
+                  close(false)
               
             },
             onError: err =>{
@@ -216,9 +211,10 @@ const UpdateFiche: React.FC<Props> = ({data, state, close}) => {
 const Container = styled.div`
   position: absolute;
   top: 2rem;
-  left: 5%;
+  left: 15%;
   z-index: 9999;
-  width: 90%;
+  width: 70%;
+  margin: 0 auto;
   background-color: #f6f0f0;
   box-shadow: 0 4px 10px #98989cd1;
   padding-bottom: 5rem;

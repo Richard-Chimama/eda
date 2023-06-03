@@ -4,14 +4,11 @@ export const Container = styled.div`
     text-align: center;
     width: 80%;
     margin: 0 auto;
+    min-height: 1000px;
+    padding-top: 2rem;
+    padding-bottom: 10rem;
 `
 
-export const Title = styled.h4`
-    color: #228558;
-    padding: 0.5rem;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-`
 
 
 export const FicheHistory = styled.div`
@@ -52,5 +49,6 @@ export const Icons = styled.div`
     display: flex;
     gap:0.5rem;
 `
+
 
 

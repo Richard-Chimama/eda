@@ -27,7 +27,7 @@ const PrintFiche: React.FC<PrintFicheProps> = forwardRef<any, PrintFicheProps>((
         <div className="info">
             <BsPrinter size={50} color="#228558"/>
             <div>
-                <h3>Do you want to print?</h3>
+                <h3>Voulez-vous imprimer?</h3>
             </div>
         </div>
       <TwoActionButtons
@@ -71,8 +71,12 @@ const Container = styled.div`
     align-items: center;
   }
   @media (max-width: 768px) {
+        top:15%;
+        left: 5%;
         width: 80%;
         margin: 0 auto;
+        padding: 20px 20px;
+        height: 150px;
   }
 `;
 

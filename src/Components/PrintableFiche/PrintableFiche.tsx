@@ -22,7 +22,6 @@ interface Props{
 }
 
 const PrintableFiche: React.FC<Props> = ({data}) => {
-    console.log("this will be printed",data.patient)
   return (
     <Document>
         <Page size="A4" style={styles.page}>

@@ -23,6 +23,7 @@ import Patients from './Pages/Admin/Patients'
 import Patient from './Pages/Admin/Patients/Patient'
 import ErrorElement from './Components/ErrorElement'
 import Profile from './Pages/Admin/Profile'
+import PatientFiches from './Pages/Admin/Patients/Patient/PatientFiches'
 
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
@@ -167,6 +168,10 @@ const router = createBrowserRouter([
       {
         path:"/admin/patient/:id",
         element: <Patient />
+      },
+      {
+        path:"/admin/patient/:id/history",
+        element: <PatientFiches />
       }
     ]
   }
