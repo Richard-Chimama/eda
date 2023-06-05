@@ -3,6 +3,10 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import { redirect, useNavigate, useParams } from 'react-router-dom';
 import * as S from "./styled"
 import api from "../../../API"
+import Button from '../../../Components/Button';
+import Title from '../../../Components/Title';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import StateMessage from '../../../Components/StateMessage';
 
 
 
@@ -19,7 +23,7 @@ const Signup: FunctionComponent = () => {
     username: '',
     email: " ",
     cnop: " ",
-    role: "admin",
+    role: "",
     password1: "",
     password2: "",
   })
@@ -53,7 +57,9 @@ const Signup: FunctionComponent = () => {
   const handleSubmit = async (e:any)=>{
     e.preventDefault()
     if(hospitalID.id == undefined || hospitalID.id === "" ){
-      console.log("your hospital is not registered")
+      throw new Error("your hospital is not registered")
+    }else if(isMatch){
+      throw new Error("the password does not match!")
     }else{
       registerUSER({
         variables:{
@@ -80,18 +86,18 @@ const Signup: FunctionComponent = () => {
   }
 
 
-if(error){
-  console.log(error)
-}
+  if(loading){
+    return <StateMessage loading />
+  }
 
-if(data){
-  console.log(data)
-}
-    
+  if(error){
+  return <StateMessage><h1>{error.message}</h1></StateMessage>
+  }
+
    
   return (
     <S.Content>
-       <i style={{color:"red"}}>This page is under development 😉</i>
+      <Title label={"S'INSCRIRE"}  />
       <S.Form onSubmit={(e) => handleSubmit(e)}>
         <S.Label htmlFor='username'>
          <span>Nom du medecin:</span> 
@@ -127,16 +133,18 @@ if(data){
           <span>Role:</span>
           <select
             name="role"
-            defaultValue={inputs.role}
+            value={inputs.role}
             onChange={handleChange}
           >
+            <option>...</option>
             <option value="admin">ADMIN</option>
             <option value="staff">STAFF</option>
+            <option value="lab">LAB</option>
           </select>
         </S.Label>
         <S.Label htmlFor='password'>
           <span>Nouveau mot de passe:</span>
-          <div style={{display:'flex',width: '90%'}}>
+          <div className="password-input">
             <input
               type={show ? "text": "password"}
               name="password1"
@@ -145,10 +153,10 @@ if(data){
               onChange={handleChange}
               required
             />
-            <div style={{display:'flex', alignItems: 'center'}}>
-            <input type="checkbox" onClick={()=> setShow(!show)} />
-            <span style={{fontSize:'12px'}}>montrer</span>
-            </div>
+          
+              { show && <AiOutlineEye className='icon' onClick={()=> setShow(!show)} size={20} />}
+              { !show && <AiOutlineEyeInvisible className='icon'  onClick={()=> setShow(!show)} size={20} />}
+           
           </div>
         </S.Label>
         <S.Label htmlFor='password'>
@@ -163,10 +171,9 @@ if(data){
           {isMatch && <span style={{color: "red"}}>Le mot de passe ne correspond pas!</span>}
         </S.Label>
         <br />
-        <input type="submit" value="send" />
+        <Button type="submit" value="Enregister" />
       </S.Form>
-      <br />
-      <button onClick={() => navigate("/")}>Go back</button>
+  
     </S.Content>
   );
 }

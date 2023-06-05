@@ -7,30 +7,51 @@ import { Link } from 'react-router-dom'
 import StateMessage from '../../../Components/StateMessage'
 import Title from '../../../Components/Title'
 import { IoIosArrowForward } from 'react-icons/io'
+import ReturnAndSyncButtons from '../../../Components/ReturnAndSyncButtons'
 
 
 const Patients = () => {
     const hospitalID = localStorage.getItem("hospitalID")
     const [searchKey, setSearchKey] = useState("")
     const [results, setResults ] = useState<any>([])
-    const {loading, error, data} = useQuery(api.Queries.findAllPatients)
+    const [isSync, setIsSync ] = useState<boolean>(false)
+    const [totalItems, setTotalItems] = useState(0);
+    const [loadedItems, setLoadedItems] = useState(25);
+    const [displayedItems, setDisplayedItems] = useState([]);
 
+    
+    const {loading, error, data, refetch} = useQuery(api.Queries.findAllPatients)
 
     useEffect(()=>{
       if(!loading && !error && data){
           filterPatients(data)
+          setIsSync(false)
       }
 
-    }, [loading, error, data, searchKey])
+    }, [isSync, loading, error, data, searchKey])
 
-    if(loading) {
-        return <StateMessage loading />
-    }
+ 
 
-    if(error) {
-        return <S.Container><h5>{error.message}</h5></S.Container>
-    }
+    const handleScroll = () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      const documentHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+  
+      if (scrollTop + windowHeight >= documentHeight) {
+        if (loadedItems < totalItems) {
+          const newLoadedItems = Math.min(loadedItems + 25, totalItems);
+          setDisplayedItems(results.slice(0, newLoadedItems));
+          setLoadedItems(newLoadedItems);
+        }
+      }
+    };
 
+    useEffect(() => {
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, [loadedItems, totalItems]);
 
     const filterPatients = (data:any)=>{
       const patients = data.patients.filter((patient:any) => {
@@ -42,18 +63,34 @@ const Patients = () => {
         }
     })
       setResults(patients)
+      setDisplayedItems(patients.reverse().slice(0, loadedItems))
+      setTotalItems(patients.length)
     }
+
+    const handleSync = ()=>{
+      setIsSync(true)
+      refetch()
+    }
+
+    if(loading) {
+      return <StateMessage loading />
+  }
+
+  if(error) {
+      return <S.Container><h5>{error.message}</h5></S.Container>
+  }
 
 
   return (
     <S.Container>
+        <ReturnAndSyncButtons navigateTo='/admin/' syncFunction={handleSync} />
         <Title label="LISTE DE CLIENTS"/>
         <S.Label>
           <input type="search" name="search" id="search" onChange={(e)=> setSearchKey(e.target.value.toLowerCase())} placeholder='search...' />
         </S.Label>
 
         {
-            results.map((patient:any) =>{
+            displayedItems.map((patient:any) =>{
                 return (
                   <S.UserContainer
                     to={`/admin/patient/${patient.id}`}

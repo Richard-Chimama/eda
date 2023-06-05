@@ -67,11 +67,11 @@ const Patient = () => {
         </S.Profile>
         }
 
-        <div className="options"><span>Des visites</span><IoIosArrowForward size={20} /></div>
+        <div className="options"  onClick={()=> navigate(`/admin/patient/${patientId.id}/visits`)} ><span>Des visites</span><IoIosArrowForward size={20} /></div>
         <div onClick={()=> navigate(`/admin/patient/${patientId.id}/history`)} className="options"><span>Antécédents médicaux</span><IoIosArrowForward size={20} /></div>
-        <div className="options"><span>Plainte</span><IoIosArrowForward size={20} /></div>
-        <div className="options"><span>Examen</span><IoIosArrowForward size={20} /></div>
-        <div className="options"><span>Médicine</span><IoIosArrowForward size={20} /></div>
+        <div className="options" onClick={()=> navigate(`/admin/patient/${patientId.id}/complaint`)}><span>Plainte</span><IoIosArrowForward size={20} /></div>
+        <div className="options" onClick={()=> navigate(`/admin/patient/${patientId.id}/exams`)}><span>Examen</span><IoIosArrowForward size={20} /></div>
+        <div className="options" onClick={()=> navigate(`/admin/patient/${patientId.id}/medicine`)}><span>Médicine</span><IoIosArrowForward size={20} /></div>
 
     </S.Container>
   )

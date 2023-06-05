@@ -24,6 +24,10 @@ import Patient from './Pages/Admin/Patients/Patient'
 import ErrorElement from './Components/ErrorElement'
 import Profile from './Pages/Admin/Profile'
 import PatientFiches from './Pages/Admin/Patients/Patient/PatientFiches'
+import PatientComplaint from './Pages/Admin/Patients/Patient/PatientFiches/PatientComplaints'
+import PatientExams from './Pages/Admin/Patients/Patient/PatientFiches/PatientExams'
+import PatientVisits from './Pages/Admin/Patients/Patient/PatientFiches/PatientVisits'
+import PatientMedicine from './Pages/Admin/Patients/Patient/PatientFiches/PatientMedicine'
 
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
@@ -172,6 +176,22 @@ const router = createBrowserRouter([
       {
         path:"/admin/patient/:id/history",
         element: <PatientFiches />
+      },
+      {
+        path:"/admin/patient/:id/visits",
+        element: <PatientVisits />
+      },
+      {
+        path:"/admin/patient/:id/exams",
+        element: <PatientExams />
+      },
+      {
+        path:"/admin/patient/:id/complaint",
+        element: <PatientComplaint />
+      },
+      {
+        path:"/admin/patient/:id/medicine",
+        element: <PatientMedicine />
       }
     ]
   }
