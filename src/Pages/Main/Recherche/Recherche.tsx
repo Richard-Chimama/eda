@@ -4,6 +4,7 @@ import api from '../../../API'
 import {useQuery } from "@apollo/client"
 import User_img from "../../../assets/user-img.png"
 import * as S from "./styled"
+import StateMessage from '../../../Components/StateMessage'
 
 const Recherche = () => {
     const navigate = useNavigate()
@@ -24,11 +25,13 @@ const Recherche = () => {
 
     
     if(loading){
-      return <div style={{height:"100vh", textAlign: "center"}}>Loading...</div>
+      return <StateMessage loading />
     }
 
+    
+
     if(error){
-      return <div style={{height:"100vh", textAlign: "center"}}>{error.message}</div>
+      return <StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>
     }
     
 
