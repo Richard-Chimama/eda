@@ -7,6 +7,7 @@ import api from "../../../API"
 import LogoUpload from '../../../Components/LogoUpload/';
 import LogoImage from "../../../assets/eda_logo.png"
 import StateMessage from '../../../Components/StateMessage/StateMessage.js';
+import Title from '../../../Components/Title/';
 
 
 
@@ -20,7 +21,7 @@ const RegistorHospital: FunctionComponent = () => {
         address_name:"",
         city_name:"",
         logo: "",
-        category: "clinique"
+        category: ""
     })
 
     const COMMUNE = ["bandalungwa", "Barumbu", "Gombe", "Kalamu", "Kasa-Vubu", "Kimbanseke",
@@ -65,11 +66,11 @@ const RegistorHospital: FunctionComponent = () => {
     }
 
     if(loading){
-      return <StateMessage><h1>Loading...</h1></StateMessage>
+      return <StateMessage loading />
     }
 
     if(error){
-      return <StateMessage><>
+      return <StateMessage error={error.message}><>
         {error.message}
         </></StateMessage>
     }
@@ -77,9 +78,7 @@ const RegistorHospital: FunctionComponent = () => {
 
   return (
     <S.Container>
-      <i style={{ color: "red" }}>This page is under development 😉</i>
-      <button onClick={() => navigate("/")}>Go back</button>
-      <h2>ENREGISTRER L'HÔPITAL</h2>
+      <Title label={"ENREGISTRER L'HÔPITAL"} />
       {isError && <div>{errorMessage}</div>}
       <S.Form encType='multipart/form-data' method="POST" onSubmit={handleSubmit} >
        
@@ -137,6 +136,7 @@ const RegistorHospital: FunctionComponent = () => {
             onChange={handleChange}
             required
           >
+            <option >...</option>
             <option value="clinique">Clinique</option>
             <option value="polyclinique">Polyclinique</option>
             <option value="centre de santé">Centre de santé</option>

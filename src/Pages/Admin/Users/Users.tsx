@@ -1,46 +1,62 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from "./styled"
 import api from "../../../API"
 import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import StateMessage from '../../../Components/StateMessage'
+import { AiOutlineDelete } from "react-icons/ai"
+import { FiEdit } from "react-icons/fi"
+import { BsPersonAdd } from "react-icons/bs"
+import Title from '../../../Components/Title'
+import ReturnAndSyncButtons from '../../../Components/ReturnAndSyncButtons'
 
 const Users = () => {
-    let result:any
-    const { loading, error, data } = useQuery(api.Queries.findAllUsers);
+    const [results, setResults] = useState<any>([])
+    const [isSync, setIsSync ] = useState<boolean>(false)
+    const { loading, error, data, refetch } = useQuery(api.Queries.findAllUsers);
     const id = localStorage.getItem("hospitalID")
 
-    if(data){
-         result = data.users.filter((user:any) => {
+    useEffect(()=>{
+        if(!loading && !error && data) {
+            setIsSync(false)
+            fetchUsers(data)
+        }
+
+    },[isSync, loading, error, data])
+
+    const fetchUsers = (data:any)=>{
+        const result = data.users.filter((user:any) => {
             if(user.hospital.length > 0){
                 return user.hospital.some((hospital:any) => hospital.id === id)
             }
         } )
+        setResults(result)
     }
+   
 
+    const handleSync = ()=>{
+        setIsSync(true)
+        refetch()
+    }
    
 
     if(loading){
-        return <StateMessage><h1>Loading...</h1></StateMessage>
+        return <StateMessage loading/>
     }
   
     if(error){
-        return <div style={{textAlign: 'center',height:"100vh"}}>Error{error.message}</div>
+        return <StateMessage error={error.message}><h3>Error{error.message}</h3></StateMessage>
     }
 
   return (
     <S.Container>
-        <p style={{color: "red", textAlign: "center"}}>This page is under development 😉   
-        <Link to={".."} style={{textAlign: "center"}}>
-            <button>Go back</button>
-        </Link>
-        </p>
             <>
-            <S.Title>Utilisateurs enristrés dans cet hôpital</S.Title>
+            <ReturnAndSyncButtons navigateTo={'/admin'} syncFunction={handleSync} />
+            <Title label={"UTILISATEURS ENRISTRÉS DANS CET HÔPITAL"} />
             <S.AddUserSection>
                 <p>Ajouter un utilisateur</p>
                 <Link to={"/enregistrer/signup/"+id}>
-                    <button>Ajouter</button>
+                    <BsPersonAdd size={30}/>
                 </Link>
             </S.AddUserSection>
             <S.Table>
@@ -54,8 +70,8 @@ const Users = () => {
                     </S.TR>
                 </thead>
                 <tbody>
-                {result ? 
-                    result.map((user:any) =>{
+                {results ? 
+                    results.map((user:any) =>{
                         return <S.TR key={user.id}>
                             <S.TD>
                             <img src={user.avatar} alt={user.username} />
@@ -70,8 +86,10 @@ const Users = () => {
                             <span>{user.role}</span>
                             </S.TD>
                             <S.TD>
-                                <button>réviser</button>
-                                <button>supprimer</button>
+                                <S.ActionIcons >
+                                    <FiEdit color={"#228558"} style={{cursor:"pointer"}} size={25} />
+                                    <AiOutlineDelete color={"red"} style={{cursor:"pointer"}}  size={25} />
+                                </S.ActionIcons>
                             </S.TD>
                         </S.TR>
                     }):

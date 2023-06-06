@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as S from "./styled";
 import { useNavigate } from "react-router-dom";
 import { TbReport, TbReportSearch } from "react-icons/tb";
-import { CgFileDocument } from "react-icons/cg";
+import { CgFileDocument, CgProfile } from "react-icons/cg";
 import {FaUserPlus} from "react-icons/fa"
 import { motion } from "framer-motion";
 
@@ -33,6 +33,12 @@ const Menu = () => {
             <TbReport className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             RAPPORT
+          </div>
+        </S.Menu>
+        <S.Menu className="menu-button" onClick={() => navigate("/main/profile")}>
+            <CgProfile className="icon-menu" color={"white"} size={110} />
+          <div className="label-menu" >
+            Profile
           </div>
         </S.Menu>
       

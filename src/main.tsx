@@ -28,6 +28,8 @@ import PatientComplaint from './Pages/Admin/Patients/Patient/PatientFiches/Patie
 import PatientExams from './Pages/Admin/Patients/Patient/PatientFiches/PatientExams'
 import PatientVisits from './Pages/Admin/Patients/Patient/PatientFiches/PatientVisits'
 import PatientMedicine from './Pages/Admin/Patients/Patient/PatientFiches/PatientMedicine'
+import Profile2 from "./Pages/Main/Profile"
+
 
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
@@ -118,6 +120,10 @@ const router = createBrowserRouter([
       {
         path:"/main/recherche",
         element: <Recherche />
+      },
+      {
+        path:"/main/profile",
+        element: <Profile2 />
       },
       {
         path:"/main/rapport",

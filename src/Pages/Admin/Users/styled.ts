@@ -2,11 +2,21 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     min-height:100vh;
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 2rem;
+
+    @media screen and (max-width: 450px){
+        width: 90%;
+        overflow-x: scroll;
+    }
 `
 export const Table = styled.table`
     border-collapse:collapse;
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
+
+   
 `
 export const TH = styled.th`
     border-bottom: 1px solid grey;
@@ -36,7 +46,13 @@ export const Title = styled.p`
 export const AddUserSection = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
+    align-items: center;  
+    padding-inline: 0.9rem;  
+    border-bottom: 1px solid #000;
+`
+
+export const ActionIcons = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 `

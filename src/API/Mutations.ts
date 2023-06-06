@@ -11,6 +11,7 @@ const REGISTER_USER = gql`
     $role: String!
     $hospital: String!
     $cnop: String
+    $avatar: Upload
   ) {
     signUp(
       username: $username
@@ -19,6 +20,7 @@ const REGISTER_USER = gql`
       role: $role
       hospital: $hospital
       cnop: $cnop
+      avatar: $avatar
     )
   }
 `;

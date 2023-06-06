@@ -2,12 +2,16 @@ import styled from 'styled-components'
 import Theme from '../../../Theme';
 
 export const Container = styled.div`
-    padding-top: 2rem;
+    padding-top: 3rem;
     padding-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    width: 80%;
+    margin: 0 auto; 
+
+    @media screen and ( max-width: 450px){
+      width: 90%;
+    }
 `
 
 export const Form = styled.form`
@@ -15,11 +19,9 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
 
-  @media (min-width: ${Theme.Devices.Mobile}px) {
-    width: 60%;
-  }
+ 
 `;
 export const Label = styled.label`
   display: flex;
@@ -27,7 +29,6 @@ export const Label = styled.label`
   margin: 0 auto;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-left: 10px;
   width: 100%;
 
   @media (min-width: ${Theme.Devices.Mobile}px) {

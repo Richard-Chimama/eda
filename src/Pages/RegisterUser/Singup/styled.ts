@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import Theme from '../../../Theme';
 
+const Height = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
 
 export const Content = styled.div`
-    min-height: 100vh;
+    min-height: ${Height}px;
     width: 80%;
     margin: 2rem auto;
+    padding-bottom: 5rem;
   @media (min-width: ${Theme.Devices.Mobile}px) {
     width: 760px;
     margin: 0 auto;

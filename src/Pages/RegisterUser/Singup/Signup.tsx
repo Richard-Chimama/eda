@@ -7,6 +7,7 @@ import Button from '../../../Components/Button';
 import Title from '../../../Components/Title';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import StateMessage from '../../../Components/StateMessage';
+import ImageUpload from '../../../Components/ImageUpload';
 
 
 
@@ -24,6 +25,7 @@ const Signup: FunctionComponent = () => {
     email: " ",
     cnop: " ",
     role: "",
+    avatar: null,
     password1: "",
     password2: "",
   })
@@ -33,7 +35,7 @@ const Signup: FunctionComponent = () => {
 
   const handleChange = (event: any) => {
     const name = event.target.name
-    let value = event.target.value
+    let value = name === "avatar"? event.target.files[0]: event.target.value
     if(name === "password2"){
       if(inputs.password1 === value) {
         value = inputs.password1
@@ -42,6 +44,7 @@ const Signup: FunctionComponent = () => {
       else if(value.length <= 0) setIsMatch(false)
       else setIsMatch(true)
     }
+  
     setInputs(values => ({...values, [name]: value}))
   }
 
@@ -68,7 +71,8 @@ const Signup: FunctionComponent = () => {
           password: inputs.password2,
           role: inputs.role,
           hospital: hospitalID.id,
-          cnop: inputs.cnop
+          cnop: inputs.cnop,
+          avatar: inputs.avatar
         },
         onCompleted: data =>{
           if(!!localStorage.getItem("token") && !!localStorage.getItem("hospitalID")){
@@ -91,7 +95,7 @@ const Signup: FunctionComponent = () => {
   }
 
   if(error){
-  return <StateMessage><h1>{error.message}</h1></StateMessage>
+  return <StateMessage error={error.message}><h1>{error.message}</h1></StateMessage>
   }
 
    
@@ -99,6 +103,7 @@ const Signup: FunctionComponent = () => {
     <S.Content>
       <Title label={"S'INSCRIRE"}  />
       <S.Form onSubmit={(e) => handleSubmit(e)}>
+        <ImageUpload method={handleChange} />
         <S.Label htmlFor='username'>
          <span>Nom du medecin:</span> 
           <input

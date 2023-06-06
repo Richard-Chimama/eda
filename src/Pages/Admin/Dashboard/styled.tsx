@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
+const Height = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
 export const container = styled.div`
- 
+  position: relative;
+  padding-bottom: 5rem;
+
+ @media (max-width: 480px){
+  height: ${Height}px;
+  padding-top: 2rem;
+ }
 `
 
 export const Menu = styled.div`
@@ -17,6 +25,11 @@ export const Menu = styled.div`
   border: 1px solid #228558;
   padding-top: 10px;
   cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    position: unset;
+  }
+  
 
   & > .label-menu {
     position: absolute;
@@ -55,7 +68,6 @@ export const MenuComponent = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
   align-items: center;
   gap: 1.5rem;
-  height: 100%;
   margin-inline: 1.3rem;
   padding-bottom: 5rem;
 
@@ -63,5 +75,9 @@ export const MenuComponent = styled.div`
     width: 100%;
   }
 
+  @media screen and (max-width: 480px) {
+    position: absolute;
+    margin-top: -0.3rem;
+  }
 
 `;

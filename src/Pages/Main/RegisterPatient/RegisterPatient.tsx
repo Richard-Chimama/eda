@@ -71,11 +71,11 @@ const RegisterPatient = () => {
     })
   }
   if(loading){
-    return <StateMessage><h1>Loading...</h1></StateMessage>
+    return <StateMessage loading />
   }
 
   if(error){
-    return  <StateMessage><>
+    return  <StateMessage error={error.message}><>
     {error.message}
     </></StateMessage>
   }
@@ -83,7 +83,6 @@ const RegisterPatient = () => {
 
   return (
     <S.Container>
-      This page is under development 😉<Link to="/main">Go back</Link>
       <S.Header>ENREGISTRER LES INFORMATIONS DU PATIENT</S.Header>
       <form encType='multipart/form-data' method="POST" onSubmit={handleSubmit}>
         <S.FormSection>

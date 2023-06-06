@@ -8,7 +8,7 @@ export const Menu = styled.div`
   height: 200px;
   background-color: #228558;
   border-radius: 10px;
-  min-width: 250px;
+  min-width: 300px;
   border: 1px solid #228558;
   padding-top: 10px;
   cursor: pointer;
@@ -58,12 +58,13 @@ export const MenuComponent = styled.div`
 
   @media screen and (max-width: 480px) {
     min-width: none;
+    margin-top: -0.6rem;
     & > div{
     height: 40px;
     }
 
     &> div{
-        height: 40px;
+        height: 120px;
   }
   }
 `;
@@ -79,4 +80,5 @@ export const Container = styled.div`
   align-items: center;
   padding-inline: 1rem;
   margin-bottom: 5rem;
+  padding-top: 2rem;
 `

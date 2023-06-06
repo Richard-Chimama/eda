@@ -163,6 +163,10 @@ const handleLogout = (e:any)=>{
                 <FaUserPlus className="icon-menu" size={35} />
                 <span>Enregistrer patient</span>
               </NavLink>
+              <NavLink to="/main/profile">
+                <CgProfile  size={35} />
+                <span>Profile</span>
+              </NavLink>
             </div>
           )}
 
