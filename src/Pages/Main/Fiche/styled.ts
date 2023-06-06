@@ -3,7 +3,13 @@ import Theme from "../../../Theme";
 
 export const Container = styled.div`
   text-align: center;
- 
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 2rem;
+
+  @media screen and (max-width: 450px){
+    width: 95%;
+  }
 `;
 
 export const Title = styled.p`
@@ -56,8 +62,9 @@ export const Code = styled.div`
 
 export const Cutter = styled.div`
   border: 1px solid #282828;
-  width: 90%;
-  margin: 1rem auto;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 export const Area = styled.div`
@@ -83,7 +90,6 @@ export const FormSection = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
     align-items: center;
     gap: 0.5rem;
-    width: 80%;
     margin:0 auto;
 `
 
@@ -91,7 +97,7 @@ export const PatientInfo = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 80%;
+    width: 100%;
     margin: 0 auto 2rem auto;
 
     & > div{
