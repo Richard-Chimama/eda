@@ -5,6 +5,7 @@ import { TbReport, TbReportSearch } from "react-icons/tb";
 import { CgFileDocument, CgProfile } from "react-icons/cg";
 import {FaUserPlus} from "react-icons/fa"
 import { motion } from "framer-motion";
+import { SlCalender } from "react-icons/sl";
 
 const Size = 480
 
@@ -39,6 +40,13 @@ const Menu = () => {
             <CgProfile className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             Profile
+          </div>
+        </S.Menu>
+
+        <S.Menu className="menu-button" onClick={() => navigate("/main/calendar")}>
+            <SlCalender className="icon-menu" color={"white"} size={110} />
+          <div className="label-menu" >
+            CALENDER
           </div>
         </S.Menu>
       

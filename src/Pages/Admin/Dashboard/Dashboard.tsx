@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg"
 import { IoIosPeople } from "react-icons/io"
 import { FcStatistics } from "react-icons/fc"
 import { MdMedicalServices } from "react-icons/md"
+import { SlCalender } from "react-icons/sl"
 import * as S from './styled'
 
 
@@ -69,6 +70,15 @@ const Dashboard = () => {
             <FcStatistics className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             STATISTICS
+          </div>
+        </S.Menu>
+        </motion.div>
+        <motion.div
+        >
+        <S.Menu className="menu-button" onClick={() => navigate("/admin/calender")}>
+            <SlCalender className="icon-menu" color={"white"} size={110} />
+          <div className="label-menu" >
+            CALENDER
           </div>
         </S.Menu>
         </motion.div>

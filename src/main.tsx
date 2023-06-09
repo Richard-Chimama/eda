@@ -29,6 +29,9 @@ import PatientExams from './Pages/Admin/Patients/Patient/PatientFiches/PatientEx
 import PatientVisits from './Pages/Admin/Patients/Patient/PatientFiches/PatientVisits'
 import PatientMedicine from './Pages/Admin/Patients/Patient/PatientFiches/PatientMedicine'
 import Profile2 from "./Pages/Main/Profile"
+import Calender from './Pages/Admin/Calender'
+import CalenderPage from './Pages/Admin/Calender'
+import CalendarPage from './Pages/Main/CalendarPage'
 
 
 //http://localhost:6002/api
@@ -132,6 +135,10 @@ const router = createBrowserRouter([
       {
         path:"/main/enregistrer_patient",
         element: <RegisterPatient />
+      },
+      {
+        path:"/main/calendar",
+        element: <CalendarPage />
       }
       
     ]
@@ -166,6 +173,10 @@ const router = createBrowserRouter([
       {
         path:"/admin/users",
         element: <Users />
+      },
+      {
+        path:"/admin/calender",
+        element: <CalenderPage />
       },
       {
         path:"/admin/profile",

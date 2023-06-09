@@ -167,6 +167,34 @@ const findAllFiches:any = gql`
 }
 `
 
+const findCalendarByHospital = gql`
+  query Calendar_by_hospital($hospitalId: String!) {
+  calendar_by_hospital(hospitalId: $hospitalId) {
+    title
+    desc
+    end
+    id
+    start
+    hospital {
+      id
+      name
+      address
+      city
+      logo
+      category
+    }
+    user {
+      id
+      username
+      email
+      avatar
+      cnop
+      role
+    }
+  }
+}
+`
+
 export default {
     checkHospital,
     findSingleUser,
@@ -174,5 +202,6 @@ export default {
     findAllUsers,
     findAllHospitals,
     findAllPatients,
-    findAllFiches
+    findAllFiches,
+    findCalendarByHospital
 }

@@ -186,6 +186,32 @@ const UPDATE_FICHE = gql`
 }
 `;
 
+const NEW_EVENT = gql`
+  mutation NewEvent(
+    $start: Date!
+    $end: Date!
+    $title: String!
+    $hospital: String!
+    $user: String!
+    $desc: String
+  ) {
+    newEvent(
+      start: $start
+      end: $end
+      title: $title
+      hospital: $hospital
+      user: $user
+      desc: $desc
+    ) {
+      id
+      title
+      desc
+      start
+      end
+    }
+  }
+`;
+
 
 export default {
     REGISTER_USER,
@@ -193,5 +219,6 @@ export default {
     REGISTER_HOSPITAL,
     REGISTER_PATIENT,
     NEW_FICHE,
-    UPDATE_FICHE
+    UPDATE_FICHE,
+    NEW_EVENT
 }
