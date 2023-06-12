@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import logoImage from "../../assets/logo.png"
+import EdaLogo from "../../assets/eda_logo.png"
 
 interface props{
     method: (e:any)=> void

@@ -73,10 +73,11 @@ const Nav: React.FC= () => {
   
   useEffect(()=>{
     const GET_USER = localStorage.getItem('user')
+
     if(GET_USER){
       setUser(JSON.parse(GET_USER))
     }
-  }, [])
+  }, [isLoggedIn])
 
 
   const handleButtonClick = ()=>{
@@ -101,13 +102,17 @@ const handleLogout = (e:any)=>{
 }
 
 
+
   return (
     <Menu>
       <Content>
         <div>
           <div className="logo">
-            {hospitalData?.hospital.logo ? (
-              <Image height={35} width={35} src={hospitalData?.hospital.logo} />
+            {hospitalData.hospital.logo ? (
+              <Logo to="/">
+                <Image height={35} width={35} src={hospitalData?.hospital.logo} />
+                <p>{hospitalData.hospital.name}</p>
+              </Logo>
             ) : (
               <Logo to="/">
                 <Image height={35} width={35} src={Eda_logo} />
@@ -166,6 +171,14 @@ const handleLogout = (e:any)=>{
               <NavLink to="/main/profile">
                 <CgProfile  size={35} />
                 <span>Profile</span>
+              </NavLink>
+            </div>
+          )}
+          {user?.role === "lab" && (
+            <div className="navigation">
+              <NavLink to="/main">
+                <MdOutlineDashboardCustomize size={35} />
+                <span>Dashboard</span>
               </NavLink>
             </div>
           )}

@@ -6,12 +6,8 @@ const Height = Math.max(document.documentElement.scrollHeight, document.body.scr
 export const Content = styled.div`
     min-height: ${Height}px;
     width: 80%;
-    margin: 2rem auto;
+    margin: 3rem auto 0px auto;
     padding-bottom: 5rem;
-  @media (min-width: ${Theme.Devices.Mobile}px) {
-    width: 760px;
-    margin: 0 auto;
-  }
 
   @media screen and (max-width: 450px){
     width: 90%;

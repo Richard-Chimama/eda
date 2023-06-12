@@ -56,7 +56,7 @@ const Signin: React.FC = () => {
                  
             },
             onError:(error)=>{
-                console.log(error.message)
+                console.log(error)
             }
         })
     }

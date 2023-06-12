@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import StateMessage from '../../../Components/StateMessage'
 import Title from '../../../Components/Title'
+import profile from "../../../assets/user-img.png"
 
 const Profile = () => {
     const profileId = localStorage.getItem("userId")
@@ -33,7 +34,7 @@ const Profile = () => {
       {data != undefined && (
         <div>
           <div>
-            <Image src={result[0].avatar} alt="profile " />
+            <Image src={result[0].avatar?profile: result[0].avatar } alt="profile " />
           </div>
           <UserInfo>
             <span>

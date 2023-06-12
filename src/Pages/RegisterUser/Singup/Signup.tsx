@@ -25,7 +25,7 @@ const Signup: FunctionComponent = () => {
     email: " ",
     cnop: " ",
     role: "",
-    avatar: null,
+    avatar: "",
     password1: "",
     password2: "",
   })
@@ -64,6 +64,12 @@ const Signup: FunctionComponent = () => {
     }else if(isMatch){
       throw new Error("the password does not match!")
     }else{
+
+      let avatarVariable = null;
+      if (inputs.avatar !== "") {
+        avatarVariable = inputs.avatar;
+      }
+
       registerUSER({
         variables:{
           username: inputs.username,
@@ -72,7 +78,7 @@ const Signup: FunctionComponent = () => {
           role: inputs.role,
           hospital: hospitalID.id,
           cnop: inputs.cnop,
-          avatar: inputs.avatar
+          avatar: avatarVariable
         },
         onCompleted: data =>{
           if(!!localStorage.getItem("token") && !!localStorage.getItem("hospitalID")){
@@ -80,6 +86,7 @@ const Signup: FunctionComponent = () => {
           }else{
             localStorage.setItem("token", data.signUp)
             localStorage.setItem("hospitalID", hospitalID.id)
+            localStorage.setItem("user", JSON.stringify({role:inputs.role, username:inputs.username, email: inputs.email}))
             navigate("/main", {state:redirect})
           }
         }

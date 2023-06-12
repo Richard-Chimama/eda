@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../Components/Button';
 import api from "../../../API"
 import LogoUpload from '../../../Components/LogoUpload/';
-import LogoImage from "../../../assets/eda_logo.png"
+import LogoImage from "../../../assets/logo.png"
 import StateMessage from '../../../Components/StateMessage/StateMessage.js';
 import Title from '../../../Components/Title/';
+import path from 'path';
 
 
 
@@ -40,19 +41,25 @@ const RegistorHospital: FunctionComponent = () => {
 
     const handleChange = (event: any) => {
         const name = event.target.name
-        const value = name === "logo"? event.target.files[0] : event.target.value
+        let value = name === "logo"? event.target.files[0] : event.target.value
         setInput(values => ({...values, [name]:value}))
     }
 
-    const handleSubmit =(event:any)=>{
+    const handleSubmit = async (event:any)=>{
         event.preventDefault()
         setIsError(false)
-        registerHospital({
+     
+        let logoVariable = null;
+        if (inputs.logo !== "") {
+          logoVariable = inputs.logo;
+        }
+
+        await registerHospital({
             variables:{
                 name: inputs.hospital_name,
                 address: inputs.address_name,
                 city: inputs.city_name,
-                logo: inputs.logo,
+                logo: logoVariable,
                 category: inputs.category
             }
         }).then((res)=> {

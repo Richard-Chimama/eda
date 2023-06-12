@@ -120,7 +120,7 @@ const Calender = ({localizer, dayLayoutAlgorithm = 'no-overlap', selectable = tr
       scrollToTime: new Date(),
     }),
     []  )
-
+  
     if(loadingEvents){
       return <StateMessage loading />
     }
@@ -141,6 +141,7 @@ const Calender = ({localizer, dayLayoutAlgorithm = 'no-overlap', selectable = tr
               onSelectEvent={handleSelectEvent}
               onSelectSlot={handleSelectSlot}
               selectable={selectable}
+              popup
               scrollToTime={scrollToTime}
             />
             {isOpen && <Event CloseButton={setIsOpen} returnInputs={setEventInput} />}
