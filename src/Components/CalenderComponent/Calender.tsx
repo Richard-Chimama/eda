@@ -23,8 +23,7 @@ const events:any = []
 const Calender = ({localizer, dayLayoutAlgorithm = 'no-overlap', selectable = true}:{localizer?:any, dayLayoutAlgorithm?:any, selectable?: boolean}) => {
     const hospitalId = localStorage.getItem('hospitalID')
     const [NewEvent, {loading, error, data}] = useMutation(API.Mutations.NEW_EVENT)
-    const {loading: loadingEvents, error: errorEvents, data: dataEvents} = useQuery(API.Queries.findCalendarByHospital, {variables: {hospitalId: hospitalId}})
-
+    const {loading: loadingEvents, error: errorEvents, data: dataEvents, refetch} = useQuery(API.Queries.findCalendarByHospital, {variables: {hospitalId: hospitalId}})
 
 
     const user = localStorage.getItem('user')
@@ -39,13 +38,16 @@ const Calender = ({localizer, dayLayoutAlgorithm = 'no-overlap', selectable = tr
     useEffect(()=>{
       if(!loadingEvents && !errorEvents && dataEvents){
         const process = dataEvents.calendar_by_hospital.map((event:any)=>{
-            const newStart = createDateFromTimestamp(event.start)
-            const newEnd = createDateFromTimestamp(event.end)
-            return {
-                ...event,
-                start: newStart,
-                end: newEnd
-              }     
+            if(event.hospital.id === hospitalId){
+              const newStart = createDateFromTimestamp(event.start)
+              const newEnd = createDateFromTimestamp(event.end)
+              return {
+                  ...event,
+                  start: newStart,
+                  end: newEnd
+                }     
+
+            }
         })
         setEvents([...process])
       }
@@ -93,6 +95,7 @@ const Calender = ({localizer, dayLayoutAlgorithm = 'no-overlap', selectable = tr
             },
             onCompleted: res =>{
               setEvents((prev:any) => [...prev, { start, end, title, desc:description, user: userInfo.username, hospitalId: hospitalId}])
+              refetch()
             },
             onError: err =>{
               console.log(err.message)
