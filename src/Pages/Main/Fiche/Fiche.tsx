@@ -26,7 +26,8 @@ const Fiche = () => {
     prescription: "",
   })
 
-  const userId = localStorage.getItem('userId')
+  const user = localStorage.getItem('user')
+  const userId = user && JSON.parse(user)
 
   const handleChange = (e: { target: { name: any; value: any } })=>{
     const name = e.target.name
@@ -61,10 +62,9 @@ const Fiche = () => {
         rh: inputs.rh.trim(),
         gs: inputs.gs.trim(),
         pouls: inputs.pouls.trim(),
-        user: userId
+        user: userId.id
       }
     }).then((data) => { 
-      console.log("successful")
       navigate("/main")
     })
     .catch(err => console.log(err.message))

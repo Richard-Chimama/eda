@@ -32,6 +32,7 @@ import Profile2 from "./Pages/Main/Profile"
 import Calender from './Pages/Admin/Calender'
 import CalenderPage from './Pages/Admin/Calender'
 import CalendarPage from './Pages/Main/CalendarPage'
+import LaboratoryPage from './Pages/Admin/Laboratory'
 
 
 //http://localhost:6002/api
@@ -209,6 +210,10 @@ const router = createBrowserRouter([
       {
         path:"/admin/patient/:id/medicine",
         element: <PatientMedicine />
+      },
+      {
+        path:"/admin/services",
+        element: <LaboratoryPage />
       }
     ]
   }

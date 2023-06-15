@@ -139,13 +139,13 @@ const handleLogout = (e:any)=>{
                 <FiUsers size={35} />
                 <span>Users</span>
               </NavLink>
-              <NavLink to="/main">
-                <FcStatistics size={35} />
-                <span>Statistic</span>
-              </NavLink>
               <NavLink to="/admin/profile">
                 <CgProfile size={35} />
                 <span>Profile</span>
+              </NavLink>
+              <NavLink to="/main">
+                <FcStatistics size={35} />
+                <span>Rapport</span>
               </NavLink>
             </div>
           )}

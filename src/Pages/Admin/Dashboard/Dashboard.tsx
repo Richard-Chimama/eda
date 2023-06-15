@@ -7,6 +7,7 @@ import { IoIosPeople } from "react-icons/io"
 import { FcStatistics } from "react-icons/fc"
 import { MdMedicalServices } from "react-icons/md"
 import { SlCalender } from "react-icons/sl"
+import { RiServiceFill } from "react-icons/ri"
 import * as S from './styled'
 
 
@@ -63,22 +64,34 @@ const Dashboard = () => {
           </div>
         </S.Menu>
         </motion.div>
+      
 
         <motion.div
         >
-        <S.Menu className="menu-button" onClick={() => navigate("/admin/statistic")}>
-            <FcStatistics className="icon-menu" color={"white"} size={110} />
+        <S.Menu className="menu-button" onClick={() => navigate("/admin/services")}>
+            <RiServiceFill className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
-            STATISTICS
+            SERVICES
           </div>
         </S.Menu>
         </motion.div>
+
         <motion.div
         >
         <S.Menu className="menu-button" onClick={() => navigate("/admin/calender")}>
             <SlCalender className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             CALENDER
+          </div>
+        </S.Menu>
+        </motion.div>
+
+        <motion.div
+        >
+        <S.Menu className="menu-button" onClick={() => navigate("/admin/statistic")}>
+            <FcStatistics className="icon-menu" color={"white"} size={110} />
+          <div className="label-menu" >
+            RAPPORT
           </div>
         </S.Menu>
         </motion.div>
