@@ -3,6 +3,8 @@ import React from 'react'
 import { redirect, useNavigate } from 'react-router-dom'
 import styled from "styled-components"
 import Loading from "../../assets/icons8-loading-circle-96.png"
+import 'bootstrap/dist/css/bootstrap.css'
+
 
 interface Props{
     children?: React.ReactElement
@@ -39,7 +41,14 @@ const StateMessage:React.FC<Props> = ({children, loading, error}) => {
   
   return (
     <Container>
-        {loading && <Image src={Loading} alt="loading" /> }
+        {loading && (
+          <div className="d-flex justify-items-center text-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        )
+         }
         {(!loading || error) && handleRedirect()}
     </Container>
   )

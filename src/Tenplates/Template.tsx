@@ -51,8 +51,8 @@ const Container = styled.div`
 const Section = styled.section`
     background-color: #f6f0f0;
     width: 80%;
-    margin: 0 auto 2rem auto;
-    padding-top: 5px;
+    margin: 0 auto;
+    padding-top: 2rem;
     padding-bottom: 3rem;
     min-height: 100vh;
 

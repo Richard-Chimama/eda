@@ -15,6 +15,8 @@ const CalendarWrapper = styled.div`
 
   .rbc-calendar {
     height: 100%;
+    color: red:
+
   }
 `
 

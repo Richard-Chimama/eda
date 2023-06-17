@@ -6,14 +6,14 @@ import styled from 'styled-components'
 
 interface Props{
     navigateTo: string,
-    syncFunction: ()=> void
+    syncFunction?: ()=> void
 }
 
 const ReturnAndSyncButtons: React.FC<Props> = ({navigateTo, syncFunction}) => {
   return (
     <ReturnAndSync>
         <Link className='returnSync' to={navigateTo} ><IoIosArrowBack size={20}  /> retour</Link>
-        <button className='returnSync' onClick={syncFunction}><IoSync size={20} /> sync</button>
+        {syncFunction ? <button className='returnSync' onClick={syncFunction}><IoSync size={20} /> sync</button> : <div></div>}
     </ReturnAndSync>
   )
 }

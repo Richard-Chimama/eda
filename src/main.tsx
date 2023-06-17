@@ -33,6 +33,8 @@ import Calender from './Pages/Admin/Calender'
 import CalenderPage from './Pages/Admin/Calender'
 import CalendarPage from './Pages/Main/CalendarPage'
 import LaboratoryPage from './Pages/Admin/Laboratory'
+import Fiches from './Pages/Main/Fiches'
+import FichePrenatale from './Pages/Main/FichePrenatale'
 
 
 //http://localhost:6002/api
@@ -118,12 +120,20 @@ const router = createBrowserRouter([
         element: <App />
       },
       {
+        path:"/main/fiches/:id",
+        element: <Fiches />
+      },
+      {
         path:"/main/fiche/:id",
         element: <Fiche />
       },
       {
         path:"/main/recherche",
         element: <Recherche />
+      },
+      {
+        path:"/main/ficheprenatale/:id",
+        element: <FichePrenatale />
       },
       {
         path:"/main/profile",

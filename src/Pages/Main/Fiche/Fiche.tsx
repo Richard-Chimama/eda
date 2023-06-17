@@ -6,6 +6,8 @@ import api from '../../../API'
 import CalculateAge from '../../../Functions/CalculateAge'
 import StateMessage from '../../../Components/StateMessage'
 import Title from '../../../Components/Title'
+import userProfile from "../../../assets/user-img.png"
+import ReturnAndSyncButtons from '../../../Components/ReturnAndSyncButtons'
 
 const Fiche = () => {
   const navigate = useNavigate()
@@ -75,17 +77,18 @@ const Fiche = () => {
     return <StateMessage loading />
   }
 
-  if(Error){
-    return <StateMessage error={Error.message}><h3>{Error.message}</h3></StateMessage>
+  if(Error || error){
+    return <StateMessage error={Error? Error.message: error?.message}><h3>{Error? Error.message: error?.message}</h3></StateMessage>
   }
 
 
 
   return (
     <S.Container>
+      <ReturnAndSyncButtons navigateTo={'/main/fiches/'+ patientId.id} />
       <Title label={"FICHE DE CONSULTATION PATIENT"} />
       <S.PatientInfo>
-        <img src={result[0].avatar} height="200px" width="170px" />
+        { (result[0].avatar)?<img src={result[0].avatar} height="200px" width="170px" />: <img src={userProfile} height="200px" width="170px" />}
         <S.Info>
           <span>Nom: {result[0].first_name}</span>
           <span>Prenom: {result[0].last_name}</span>

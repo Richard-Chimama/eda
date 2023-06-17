@@ -104,7 +104,7 @@ const Recherche = () => {
         <S.Content>
           {results !== undefined &&
             displayedItems.map((data: any, index: any) => (
-              <S.UserContainer to={"/main/fiche/" + data.id} key={index}>
+              <S.UserContainer to={"/main/fiches/"+ data.id} key={index}>
                 <div>
                   <S.UserImage
                     src={data.avatar != null ? data.avatar : User_img}
