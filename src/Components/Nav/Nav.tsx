@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useContext} from 'react'
 import styled from "styled-components"
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import { Link, NavLink, redirect, useNavigate } from 'react-router-dom'
 import { gql, useApolloClient, useLazyQuery} from "@apollo/client"
 import API from '../../API'
 import Eda_logo from "../../assets/eda_logo.png"
-import { AiOutlineCloseCircle } from "react-icons/ai"
 import { FiLogIn, FiLogOut, FiUsers } from "react-icons/fi"
 import { FcStatistics } from "react-icons/fc"
 import { IoIosPeople } from "react-icons/io"
@@ -14,6 +13,9 @@ import { slide as Menu } from "react-burger-menu"
 import './Nav.css'
 import { FaUserPlus } from 'react-icons/fa'
 import { TbReport, TbReportSearch } from 'react-icons/tb'
+import 'bootstrap/dist/css/bootstrap.css'
+import { ToolTip } from '../../Functions/utility/FormValidationBoostrap'
+import { SlCalender } from 'react-icons/sl'
 
 
 //local query
@@ -33,17 +35,18 @@ const data: propData = {
   isLoggedIn: !!localStorage.getItem('token')
 }
 
+interface Props{
+  screenSize: number,
+  toggleCollapsed: (text:boolean)=> void
+}
 
-
-const Nav: React.FC= () => {
+const Nav: React.FC<Props>= ({screenSize, toggleCollapsed}) => {
   const client = useApolloClient()
   const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [hospitalData, setHospitalData] = useState({hospital:{logo: null, name: ""}})
   const [buttonClicked,  setButtonClicked] = useState(false)
-  const [user, setUser ]:any = useState(null)
-
-  
+  const [user, setUser ]:any = useState(null)  
 
   useEffect(() => {
     const state = client.readQuery({query: IS_LOGGED_IN })
@@ -80,9 +83,13 @@ const Nav: React.FC= () => {
   }, [isLoggedIn])
 
 
+
+
   const handleButtonClick = ()=>{
     setButtonClicked(!buttonClicked)
   }
+
+ 
 
 const handleLogout = (e:any)=>{
   e.preventDefault()
@@ -101,142 +108,211 @@ const handleLogout = (e:any)=>{
   navigate("/", {state: redirect})
 }
 
-
-
   return (
-    <Menu>
-      <Content>
-        <div>
-          <div className="logo">
-            {hospitalData.hospital.logo ? (
-              <Logo to="/">
-                <Image height={35} width={35} src={hospitalData?.hospital.logo} />
-                <p>{hospitalData.hospital.name}</p>
-              </Logo>
-            ) : (
-              <Logo to="/">
-                <Image height={35} width={35} src={Eda_logo} />
-                <p>{hospitalData.hospital.name == ""? "Eda project":hospitalData.hospital.name}</p>
-              </Logo>
-            )}
-          </div>
+      <Container
+        className={`d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar `}
+        id="offcanvasExample" 
+        style={{ width: "280px" }}
+       
+      >
 
+        {screenSize < 800 && <button type="button" className="btn-close custom-close-btn" onClick={()=> toggleCollapsed(true)} id="closeButton" data-bs-dismiss="offcanvas" aria-label="Close"></button>}
+     
+
+        
+        
+        <div className="logo offcanvas-header">
+          {hospitalData.hospital.logo ? (
+            <Logo
+              to="/"
+              className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+            >
+              <Image height={45} width={45} src={hospitalData?.hospital.logo} />
+              <span className="fs-4">{hospitalData.hospital.name}</span>
+            </Logo>
+          ) : (
+            <Logo to="/">
+              <Image height={45} width={45} src={Eda_logo} />
+              <span className="fs-4">
+                {hospitalData.hospital.name == ""
+                  ? "Eda project"
+                  : hospitalData.hospital.name}
+              </span>
+            </Logo>
+          )}
+        </div>
+        <hr />
+        <div className="panels">
           {user?.role === "admin" && (
-            <div className="navigation">
-              <NavLink to="/admin">
-                <MdOutlineDashboardCustomize size={35} />
-                <span>Dashboard</span>
-              </NavLink>
-              <NavLink to="/main">
-                <MdDomain size={35} />
-                <span>Main</span>
-              </NavLink>
-              <NavLink to="/admin/patients">
-                <IoIosPeople size={35} />
-                <span>Patient</span>
-              </NavLink>
-              <NavLink to="/admin/users">
-                <FiUsers size={35} />
-                <span>Users</span>
-              </NavLink>
-              <NavLink to="/admin/profile">
-                <CgProfile size={35} />
-                <span>Profile</span>
-              </NavLink>
-              <NavLink to="/main">
-                <FcStatistics size={35} />
-                <span>Rapport</span>
-              </NavLink>
-            </div>
+            <ul className="nav nav-pills flex-column mb-auto">
+              <li className="nav-item">
+                <NavLinks to="/admin" className={"nav-link"} end>
+                  <MdOutlineDashboardCustomize size={35} />
+                  <span>Dashboard</span>
+                </NavLinks>
+              </li>
+
+              <li className="nav-item">
+                <NavLinks to="/main" className="nav-link" end>
+                  <MdDomain size={35} />
+                  <span>Main</span>
+                </NavLinks>
+              </li>
+
+              <li className="nav-item">
+                <NavLinks to="/admin/patients" className="nav-link" end>
+                  <IoIosPeople size={35} />
+                  <span>Patient</span>
+                </NavLinks>
+              </li>
+
+              <li className="nav-item">
+                <NavLinks to="/admin/users" className="nav-link" end>
+                  <FiUsers size={35} />
+                  <span>Users</span>
+                </NavLinks>
+              </li>
+
+              <li className="nav-item">
+                <NavLinks to="/main/rapport" className="nav-link" end>
+                  <FcStatistics size={35} />
+                  <span>Rapport</span>
+                </NavLinks>
+              </li>
+            </ul>
           )}
 
           {user?.role === "staff" && (
-            <div className="navigation">
-              <NavLink to="/main">
-                <MdOutlineDashboardCustomize size={35} />
-                <span>Dashboard</span>
-              </NavLink>
-              <NavLink to="/main/recherche">
-                <TbReportSearch size={35} />
-                <span>Recherche</span>
-              </NavLink>
-              <NavLink to="/main/rapport">
-                <TbReport size={35} />
-                <span>Rapport</span>
-              </NavLink>
-              <NavLink to="/main/enregistrer_patient">
-                <FaUserPlus className="icon-menu" size={35} />
-                <span>Enregistrer patient</span>
-              </NavLink>
-              <NavLink to="/main/profile">
-                <CgProfile  size={35} />
-                <span>Profile</span>
-              </NavLink>
-            </div>
+            <ul className="nav nav-pills flex-column mb-auto">
+              <li className="nav-item">
+                <NavLinks to="/main" className="nav-link" end>
+                  <MdOutlineDashboardCustomize size={35} />
+                  <span>Dashboard</span>
+                </NavLinks>
+              </li>
+              <li className="nav-item">
+                <NavLinks to="/main/recherche" className="nav-link" end>
+                  <TbReportSearch size={35} />
+                  <span>Recherche</span>
+                </NavLinks>
+              </li>
+              <li className="nav-item">
+                <NavLinks to="/main/rapport" className="nav-link" end>
+                  <TbReport size={35} />
+                  <span>Rapport</span>
+                </NavLinks>
+              </li>
+              <li className="nav-item">
+                <NavLinks to="/main/enregistrer_patient" className="nav-link" end>
+                  <FaUserPlus className="icon-menu" size={35} />
+                  <span>Enregistrer patient</span>
+                </NavLinks>
+              </li>
+            
+            </ul>
           )}
+
           {user?.role === "lab" && (
-            <div className="navigation">
-              <NavLink to="/main">
+            <ul className="nav nav-pills flex-column mb-auto">
+              <li className="nav-item" >
+              <NavLinks to="/main" className="nav-link" end>
                 <MdOutlineDashboardCustomize size={35} />
                 <span>Dashboard</span>
-              </NavLink>
-            </div>
+              </NavLinks>
+              </li>
+            </ul>
           )}
 
           {user?.role !== "admin" && user?.role !== "staff" && (
-            <div className="navigation">
-              <NavLink to="/admin/patients">
-                <IoIosPeople size={35} />
-                <span>About us</span>
-              </NavLink>
+            <ul className="nav nav-pills flex-column mb-auto" >
+              <li className="nav-item">
+                <NavLinks to="/admin/patients" className="nav-link">
+                  <IoIosPeople size={35} />
+                  <span>About us</span>
+                </NavLinks>
+              </li>
 
-              <NavLink to="/admin/patients">
-                <IoIosPeople size={35} />
-                <span>Contact us</span>
-              </NavLink>
-            </div>
+              <li className="nav-item">
+                <NavLinks to="/admin/patients" className="nav-link" end>
+                  <IoIosPeople size={35} />
+                  <span>Contact us</span>
+                </NavLinks>
+              </li>
+            </ul>
           )}
         </div>
 
-        <Auth>
+        <div className="dropdown userActions">
+        <hr />
           {isLoggedIn ? (
-            <NavLink to="/" onClick={handleLogout}>
-              <FiLogOut size={35} />
-              <span>Deconnecter</span>
-            </NavLink>
+            <NavLinks
+              to="#"
+              className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              onClick={ToolTip}
+            >
+              <Image src={user.avatar} width="35px" height="35px" alt="user image" />
+              <strong>{user.username}</strong>
+            </NavLinks>
           ) : (
             <div>
-              <NavLink to="/enregistrer/signin" onClick={handleButtonClick}>
+              <NavLinks to="/enregistrer/signin">
                 <FiLogIn size={35} />
                 <span>Connecter</span>
-              </NavLink>
+              </NavLinks>
             </div>
           )}
-        </Auth>
-      </Content>
-    </Menu>
+          <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
+            <li>
+              <NavLinks to={user?.role==='admin' ? "/admin/profile":"/main/profile"} className="dropdown-item " end>
+                <CgProfile size={18} />
+                Profile
+              </NavLinks>
+            </li>
+            <li>
+              <NavLinks to={user?.role === 'admin' ?"/admin/calender": "/main/calendar"} className="dropdown-item " end>
+                <SlCalender size={18}/>
+                Calendrier
+              </NavLinks>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li onClick={handleLogout}>
+              <button className="dropdown-item" >
+                Deconnecter
+              </button>
+            </li>
+          </ul>
+        </div>
+        
+      </Container>
   );
 }
 
+const Container = styled.div`
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 280px;
+      z-index: 9999;
+      transition: transform 0.3s ease-in-out;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  
 
-  & > div .navigation{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+      .userActions{
+        margin-top: auto;
+      }
+
+      .custom-close-btn{
+        background-color: white;
+        position: absolute;
+        right: 0.5rem;
+      }
+
 `
 
-const Auth = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 1.5rem;
-`
 
 const Image = styled.img`
   height: 15px
@@ -255,8 +331,6 @@ const Logo = styled(Link)`
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  margin-left: -0.5rem;
-  margin-bottom: 1.5rem;
 
   & > p{
     overflow-x: hidden;
@@ -264,7 +338,7 @@ const Logo = styled(Link)`
 
 `
 
-const NavLink = styled(Link)`
+const NavLinks = styled(NavLink)`
   display: flex;
   align-items: center;
   gap: 0.5rem;

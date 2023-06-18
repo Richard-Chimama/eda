@@ -23,11 +23,13 @@ const ReturnAndSyncButtons: React.FC<Props> = ({navigateTo, syncFunction}) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 0.5rem;
 
     & > .returnSync{
         display: flex;
         align-items: center;
         text-decoration: none;
+        border: none;
     }
 `
 

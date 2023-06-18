@@ -9,32 +9,20 @@ import { MdMedicalServices } from "react-icons/md"
 import { SlCalender } from "react-icons/sl"
 import { RiServiceFill } from "react-icons/ri"
 import * as S from './styled'
+import Title from '../../../Components/Title'
 
 
 const Dashboard = () => {
-    const [screenWidth, setScrrenWidth] = useState(0);
     const navigate = useNavigate();
-
-      const handleOpenNewTab = () => {
-        window.open('/main', '_blank');
-      };
     
 
   return (
     <S.container >
-        <h1 style={{textAlign:"center"}}>TABLEAU DE BORD ADMINISTRATIF</h1>
+      <div className="title">
+        <Title label="Dashboard" />
+      </div>
 
         <S.MenuComponent className="menu">
-        <motion.div
-        >
-        <S.Menu className="menu-button" onClick={() => navigate("/admin/profile")}>
-            <CgProfile className="icon-menu" color={"white"} size={110} />
-          <div className="label-menu" >
-            Profile
-          </div>
-        </S.Menu>
-        </motion.div>
-
         <motion.div
         >
         <S.Menu className="menu-button" onClick={() => navigate("/admin/patients")} >
@@ -57,7 +45,7 @@ const Dashboard = () => {
 
         <motion.div
         >
-        <S.Menu className="menu-button" onClick={() => handleOpenNewTab()}>
+        <S.Menu className="menu-button" onClick={()=> navigate("/main")}>
             <MdMedicalServices className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             MAIN
@@ -75,16 +63,7 @@ const Dashboard = () => {
           </div>
         </S.Menu>
         </motion.div>
-
-        <motion.div
-        >
-        <S.Menu className="menu-button" onClick={() => navigate("/admin/calender")}>
-            <SlCalender className="icon-menu" color={"white"} size={110} />
-          <div className="label-menu" >
-            CALENDER
-          </div>
-        </S.Menu>
-        </motion.div>
+      
 
         <motion.div
         >

@@ -1,11 +1,16 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Theme from '../../Theme'
 
 export const container = styled.div`
     display: flex;
-    margin-bottom: 10rem;
+    padding-bottom: 10rem;
+
+    & > button{
+      position: absolute;
+    }
     .sidebar{
       animation: slideOut 0.9s backwards;
+      
 
       @keyframes slideOut{
         100%{
@@ -20,20 +25,19 @@ export const container = styled.div`
 
 
 `
-export const content = styled.div`
+export const content = styled.div<props>`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
     padding-top: 4rem;
     padding-bottom: 4rem;
     text-align: center;
     position: relative;
-    margin: 0 auto;
+    margin-left: ${(props)=>props.collapsed ? "1.5rem": "280px"};
+    width: ${(props)=>props.collapsed? 'Calc(100%)' :'Calc(100%-290px)'};
 
-    @media (min-width: ${Theme.Devices.Mobile}px) {
-    text-align: none;
+    @media (max-width: ${Theme.Devices.Mobile}px) {
   }
 `
 
@@ -68,4 +72,28 @@ export const Services = styled.div`
     min-width: 320px;
     text-align: left;
   }
+
+`
+
+interface props{
+  collapsed: boolean;
+}
+
+export const NavSide = styled.div<props>`
+    display: ${(props)=> props.collapsed ? "none" : "block"};
+  width: 280px;
+  z-index: 9999;
+  position: fixed;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(${(props) => (props.collapsed ? "-280px" : "0")});
+
+
+  ${(props) =>
+    props.collapsed &&
+    css`
+      visibility: hidden;
+      pointer-events: none;
+    `};
+
 `

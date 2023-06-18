@@ -1,3 +1,4 @@
+import * as bootstrap from 'bootstrap'
 
 export const FormValidationWithBootstrap =()=>{
     'use strict'
@@ -18,4 +19,14 @@ export const FormValidationWithBootstrap =()=>{
 
 })
 }
+
+
+export const ToolTip = ()=>{
+  'use strict'
+  const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  tooltipTriggerList.forEach(tooltipTriggerEl => {
+    new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+}
+
 

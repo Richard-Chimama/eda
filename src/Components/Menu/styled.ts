@@ -6,14 +6,17 @@ export const Menu = styled.div`
   flex-direction: column;
   align-items: center;
   height: 200px;
+  min-width: 300px;
+  width: 95%;
   background-color: #228558;
   border-radius: 10px;
-  min-width: 300px;
   border: 1px solid #228558;
   padding-top: 10px;
   cursor: pointer;
 
-  @media screen and (max-width: 480px) {}   
+  @media screen and (max-width: 450px) {
+    height: 80px;
+  }   
 
   & .label-menu {
     position: absolute;
@@ -53,32 +56,38 @@ export const MenuComponent = styled.div`
   justify-items: center;
   gap: 1rem;
   width: 100%;
+  margin-top: 1.5rem;
+
   
 
 
   @media screen and (max-width: 480px) {
     min-width: none;
-    margin-top: -0.6rem;
-    & > div{
-    height: 40px;
-    }
-
+    width: 90%;
+    margin-top: 1rem;
     &> div{
-        height: 120px;
+        height: 80px;
   }
   }
 `;
 
-export const H1 = styled.h1`
-    text-align: center;
-    color: #228558;
-`
+
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding-inline: 1rem;
-  margin-bottom: 5rem;
+  padding-bottom: 5rem;
   padding-top: 2rem;
+  height: 100vh;
+
+  .title{
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  @media screen and ( max-width:"450px"){
+    width: 90%;
+    margin-inline: auto;
+  }
 `

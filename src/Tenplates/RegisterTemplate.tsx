@@ -1,59 +1,93 @@
 import React, {useEffect, useState} from 'react'
+import { GiHamburgerMenu } from 'react-icons/gi'
 import { Outlet } from 'react-router-dom'
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import Nav from '../Components/Nav/Nav'
 
 
 
 const RegisterTemplate = () => {
+  const [screenWidth, setScrrenWidth] = useState(800);
+  const [collapsed, setCollapsed] = useState(false);
+
+
+
+  useEffect(()=>{
+    handleScreenResize()
+  },[])
+  const handleScreenResize = () => {
+    const GET_WINDOW_WIDTH = window.screen.width;
+    setScrrenWidth(GET_WINDOW_WIDTH);
+  };
+
+  window.onresize = handleScreenResize;
+
   return (
     <Container>
-      <Content>
-        <Nav />
-        <Section>
+      <button className="btn" onClick={()=> setCollapsed(!collapsed)} type="button" >
+        <GiHamburgerMenu size={35} color={"#1e2123"} />
+      </button>
+        <NavSide collapsed={collapsed}>
+          <Nav screenSize={screenWidth} toggleCollapsed={setCollapsed} />
+        </NavSide>
+        <Section collapsed={collapsed}>
           <Outlet />
         </Section>
-      </Content>
     </Container>
   );
 }
 
 const Container = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
+  position: relative;
+  display: flex;
   background-color: #d2cccc;
- 
+  height: 100%;
+  box-sizing: border-box;
 
-  & > header{
-    grid-row: 1;
-  }
-
-  & > section{
-    grid-row: 2;
+  & > button{
+    z-index: 100;
+    position: absolute;
   }
 
   
 
-  @media screen and (max-width:420px){
+  @media screen and (max-width:450px){
     font-size: 12px;
-
   }
 
 `
-const Section = styled.section`
+interface props{
+  collapsed: boolean;
+}
+const Section = styled.section<props>`
     position: relative;
     background-color: #f6f0f0;
-    width: 70%;
-    margin: 0 auto;
-    @media screen and (max-width: 756px){
-      margin-top: 0;
-      margin-bottom: 3rem;
-      width: 95%;
+    height: 100%;
+    margin-left: ${(props)=>props.collapsed ? "0px": "280px"};
+    width: ${(props)=>props.collapsed? '100%' :'100%'};
+    @media screen and (max-width: 450px){
+      margin-left: 0;
+      width: 100%;
     }
 `
-const Content = styled.div`
-  display:flex;
-  position: relative;
+
+const NavSide = styled.div<props>`
+    display: ${(props)=> props.collapsed ? "none" : "block"};
+  width: 280px;
+  z-index: 9999;
+  position: fixed;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(${(props) => (props.collapsed ? "-280px" : "0")});
+
+
+  ${(props) =>
+    props.collapsed &&
+    css`
+      visibility: hidden;
+      pointer-events: none;
+    `};
+
 `
 
 export default RegisterTemplate

@@ -6,8 +6,8 @@ import { CgFileDocument, CgProfile } from "react-icons/cg";
 import {FaUserPlus} from "react-icons/fa"
 import { motion } from "framer-motion";
 import { SlCalender } from "react-icons/sl";
+import Title from "../Title";
 
-const Size = 480
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -15,7 +15,9 @@ const Menu = () => {
 
   return (
     <S.Container >
-      <S.H1>MAIN MENU</S.H1>
+      <div className="title">
+       <Title label="Main" />
+      </div>
       <S.MenuComponent className="menu">
       <S.Menu className="menu-button" onClick={() => navigate("/main/enregistrer_patient")}>
             <FaUserPlus className="icon-menu" color={"white"} size={110} />
@@ -34,19 +36,6 @@ const Menu = () => {
             <TbReport className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             RAPPORT
-          </div>
-        </S.Menu>
-        <S.Menu className="menu-button" onClick={() => navigate("/main/profile")}>
-            <CgProfile className="icon-menu" color={"white"} size={110} />
-          <div className="label-menu" >
-            Profile
-          </div>
-        </S.Menu>
-
-        <S.Menu className="menu-button" onClick={() => navigate("/main/calendar")}>
-            <SlCalender className="icon-menu" color={"white"} size={110} />
-          <div className="label-menu" >
-            CALENDER
           </div>
         </S.Menu>
       

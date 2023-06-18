@@ -8,6 +8,8 @@ import StateMessage from '../../../Components/StateMessage'
 import Title from '../../../Components/Title'
 import { IoIosArrowForward } from 'react-icons/io'
 import ReturnAndSyncButtons from '../../../Components/ReturnAndSyncButtons'
+import 'bootstrap/dist/css/bootstrap.css'
+
 
 
 const Patients = () => {
@@ -85,29 +87,32 @@ const Patients = () => {
     <S.Container>
         <ReturnAndSyncButtons navigateTo='/admin/' syncFunction={handleSync} />
         <Title label="LISTE DE CLIENTS"/>
-        <S.Label>
-          <input type="search" name="search" id="search" onChange={(e)=> setSearchKey(e.target.value.toLowerCase())} placeholder='search...' />
+        <S.Label role="search">
+          <input className='form-control' type="search" aria-label='Search' name="search" id="search" onChange={(e)=> setSearchKey(e.target.value.toLowerCase())} placeholder='search...' />
         </S.Label>
-
+        <div className='list-group'>
         {
             displayedItems.map((patient:any) =>{
                 return (
                   <S.UserContainer
                     to={`/admin/patient/${patient.id}`}
                     key={patient.id}
+                    className="list-group-item list-group-item-action rounded-3 d-flex gap-3 py-3"
+                    aria-current="true"
                   >
                     <S.UserDetail>
                       <S.UserImage
                         src={patient.avatar != null ? patient.avatar : User_img}
                         height="70px"
                         width="70px"
+                        className='rounded-circle flex-shrink-0'
                       />
                       <S.UserInfo>
-                        <span>
+                        <span className='mb-0'>
                           <b>Nom's:</b> {patient.first_name} {patient.middle_name}{" "}
                           {patient.last_name}{" "}
                         </span>
-                        <span>
+                        <span className='mb-0 opacity-75'>
                           <b>Sexe:</b> {patient.gender} <b style={{marginLeft:"1.5rem"}}>Code:</b>
                           {patient.code}{" "}
                         </span>
@@ -121,6 +126,7 @@ const Patients = () => {
                 );
             })
         }
+        </div>
     </S.Container>
   )
 }

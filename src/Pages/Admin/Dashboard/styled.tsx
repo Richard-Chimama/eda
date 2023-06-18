@@ -5,10 +5,18 @@ const Height = Math.max(document.documentElement.scrollHeight, document.body.scr
 export const container = styled.div`
   position: relative;
   padding-bottom: 5rem;
+  min-height: 100vh;
+
+  & > .title {
+    width: 95%;
+    margin-inline: auto;
+  }
 
  @media (max-width: 480px){
-  height: ${Height}px;
-  padding-top: 2rem;
+  padding-top: 2.5rem;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
  }
 `
 
@@ -28,6 +36,7 @@ export const Menu = styled.div`
 
   @media screen and (max-width: 480px) {
     position: unset;
+    height: 80px;
   }
   
 
@@ -68,6 +77,7 @@ export const MenuComponent = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
   align-items: center;
   gap: 1.5rem;
+  margin-top: 2.5rem;
   margin-inline: 1.3rem;
   padding-bottom: 5rem;
 
@@ -76,8 +86,8 @@ export const MenuComponent = styled.div`
   }
 
   @media screen and (max-width: 480px) {
-    position: absolute;
-    margin-top: -0.3rem;
+    margin-top: 1rem;
+    gap: 0.6rem;
   }
 
 `;
