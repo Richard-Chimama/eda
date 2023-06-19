@@ -29,18 +29,18 @@ import PatientExams from './Pages/Admin/Patients/Patient/PatientFiches/PatientEx
 import PatientVisits from './Pages/Admin/Patients/Patient/PatientFiches/PatientVisits'
 import PatientMedicine from './Pages/Admin/Patients/Patient/PatientFiches/PatientMedicine'
 import Profile2 from "./Pages/Main/Profile"
-import Calender from './Pages/Admin/Calender'
 import CalenderPage from './Pages/Admin/Calender'
 import CalendarPage from './Pages/Main/CalendarPage'
 import LaboratoryPage from './Pages/Admin/Laboratory'
 import Fiches from './Pages/Main/Fiches'
 import FichePrenatale from './Pages/Main/FichePrenatale'
+import ServicePage from './Pages/Admin/ServicePage'
 
 
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
 const cache = new InMemoryCache()
-const httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+const httpLink = createUploadLink({uri:"http://localhost:6002/api" })
 const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -150,6 +150,10 @@ const router = createBrowserRouter([
       {
         path:"/main/calendar",
         element: <CalendarPage />
+      },
+      {
+        path:"/main/laboratory/:id",
+        element: <LaboratoryPage />
       }
       
     ]
@@ -223,7 +227,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/admin/services",
-        element: <LaboratoryPage />
+        element: <ServicePage />
       }
     ]
   }

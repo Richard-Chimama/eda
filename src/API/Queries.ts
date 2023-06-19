@@ -195,6 +195,115 @@ const findCalendarByHospital = gql`
 }
 `
 
+const findPatientExamData = gql`
+  query Lab_by_patient($patientId: String!) {
+  lab_by_patient(patientId: $patientId) {
+    id
+    h_pyloria
+    gb
+    fl
+    gr
+    hb
+    hct
+    vs
+    frottis_vaginal
+    temps_saignement
+    temps_coagulation
+    plq_sanguine
+    autres
+    ex_direct
+    enrichissement
+    sediment_urinaire
+    sucre
+    albuminurie
+    gram
+    ziell
+    encre_chine
+    hemoculture_ab
+    coproculture_ab
+    uroculture_ab
+    spermatogramme
+    fv
+    widal
+    hiv
+    t_covid
+    groupe_sanguin
+    test_grossesse
+    rpr
+    hbs_ag
+    hepati_b
+    gs
+    rh
+    compatibilite
+    electrophose
+    test_emmel
+    glycemie
+    uree
+    creatinine
+    lipides_totaux
+    cholesterol
+    acide_urique
+    triglyceride
+    bil_t
+    bil_d
+    bil_l
+    cnol_total
+    sgot
+    sgpt
+    prot_24h
+    proteine_t
+    calcemie
+    potassium
+    sodium
+    magnesium
+    chlore
+    glycosurie
+    proteinuire
+    lcr
+    createdAt
+    updatedAt
+    patient {
+      id
+      gender
+      first_name
+      id_card
+      last_name
+      middle_name
+      patient_phone_number
+      street_address
+      date_of_birth
+      createdAt
+      code
+      avatar
+      area
+    }
+    hospital {
+      id
+      name
+      logo
+      category
+      address
+      city
+      createdAt
+    }
+    users {
+      id
+      avatar
+      role
+      username
+      email
+      cnop
+    }
+    ge
+    gf
+    snip
+    sang_autres
+  }
+}
+
+`
+
+
 export default {
     checkHospital,
     findSingleUser,
@@ -203,5 +312,6 @@ export default {
     findAllHospitals,
     findAllPatients,
     findAllFiches,
-    findCalendarByHospital
+    findCalendarByHospital,
+    findPatientExamData 
 }

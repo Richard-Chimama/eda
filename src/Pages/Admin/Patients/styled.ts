@@ -7,6 +7,7 @@ export const Container = styled.div`
     padding-bottom: 5rem;
     height: 100%;
     min-height: 100vh;
+    text-align: center;
 
     @media screen and  (max-width: 450px){
         width: 90%;
@@ -72,4 +73,6 @@ export const Label = styled.label`
 export const UserInfo = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 `

@@ -24,8 +24,8 @@ export const FicheContent= styled.div`
     padding-inline: 1rem;
     border: 1px solid #228558;
     border-radius: 8px;
-    background-color: #228558;
-    color: #fff;
+    background-color: #fff;
+    color: #228558;
 `
 export const Info= styled.div`
     display: flex;

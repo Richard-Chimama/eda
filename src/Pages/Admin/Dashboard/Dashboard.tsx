@@ -54,7 +54,7 @@ const Dashboard = () => {
         </motion.div>
       
 
-        <motion.div
+       {/*  <motion.div
         >
         <S.Menu className="menu-button" onClick={() => navigate("/admin/services")}>
             <RiServiceFill className="icon-menu" color={"white"} size={110} />
@@ -62,7 +62,7 @@ const Dashboard = () => {
             SERVICES
           </div>
         </S.Menu>
-        </motion.div>
+        </motion.div> */}
       
 
         <motion.div

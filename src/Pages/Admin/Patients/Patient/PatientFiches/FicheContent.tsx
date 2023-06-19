@@ -5,6 +5,7 @@ import { FiPrinter } from 'react-icons/fi'
 import React, { useState } from 'react'
 import * as S from "./styled"
 import PrintFiche from "./PrintFiche"
+import { GET_DATE_TIME } from "../../../../../Functions/utility/UseFullFC"
 
 
 
@@ -16,13 +17,13 @@ const FichContent = ({data}:{data:any})=>{
    
     return <S.FicheContent >
       <S.Info>
-        <span><span className="label">Assiste par:</span>
+        <span><strong className="label">Assiste par:</strong>
         <span  className="labelInfo">{data.users.length > 0 && data.users[0].username}</span></span>
-        <span>le: {new Date(data.createdAt).toLocaleDateString()}</span>
+        <div><strong>Date: </strong><span>{GET_DATE_TIME(data.createdAt)}</span></div>
       </S.Info>
       <S.Icons>
         <FiPrinter size="20" onClick={()=> setIsPrint(!isPrint)}/>
-        <AiOutlineEye size="20" style={{color: "white"}} onClick={()=> setIsView(!isView)}/>
+        <AiOutlineEye size="20" onClick={()=> setIsView(!isView)}/>
          <MdOutlineRateReview size="20" onClick={()=> setIsUpdate(!isUpdate)}></MdOutlineRateReview>
       </S.Icons>
       {isUpdate && <UpdateFiche close={setIsUpdate} data={data} state="update" />}
