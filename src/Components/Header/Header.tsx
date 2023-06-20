@@ -2,22 +2,27 @@ import React from 'react'
 import * as S from "./styled"
 import api from '../../API'
 import { useQuery } from '@apollo/client'
+import BellNotification from './BellNotification'
 
-const Header = () => {
-  const hospitalID = localStorage.getItem("hospitalID")
-  const {loading, error, data } = useQuery(api.Queries.findHospitalById,{
-    variables: {hospitalId: hospitalID}
-  })
-  if(error) console.log(error)
+interface Props{
+  onPress: ()=> void
+}
+
+const Header:React.FC<Props> = ({onPress}) => {
+
   return (
     <>
-    { data &&
-    <S.container>
-    <div className="title">{data.hospital.name.toUpperCase()}</div>
-    <div className='address'>Avenue: {data.hospital.address}, Commun: {data.hospital.city}</div>
-  </S.container>
-}
-  </>
+       <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container-fluid">
+            <button className="navbar-toggler" onClick={onPress} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div>
+              <BellNotification count={14} />
+            </div>
+          </div>
+        </nav>
+     </>
 )
   
 }

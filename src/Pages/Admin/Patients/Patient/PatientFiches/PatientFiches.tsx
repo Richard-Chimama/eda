@@ -74,7 +74,7 @@ const PatientFiches: React.FC= () => {
   return (
     <S.Container>
       <ReturnAndSyncButtons
-        navigateTo={`/admin/patient/${patientID.id}`}
+        navigateTo={`/admin/patients/${patientID.id}`}
         syncFunction={handleSyncClick}
       />
       <Title label={"ANTÉCÉDENTS MÉDICAUX"} />

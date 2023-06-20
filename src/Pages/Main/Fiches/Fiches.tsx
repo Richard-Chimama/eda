@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '../../../Components/Title'
 import styled from "styled-components"
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -6,12 +6,43 @@ import ReturnAndSyncButtons from '../../../Components/ReturnAndSyncButtons'
 import { SlChemistry } from 'react-icons/sl'
 import { HiOutlineDocumentText, HiDocumentText} from 'react-icons/hi'
 import { GrDocumentTest } from 'react-icons/gr'
+import { useQuery } from '@apollo/client'
+import API from '../../../API'
 
 const Fiches = () => {
     const params = useParams()
     const navigate = useNavigate()
 
-    console.log(params.id)
+    const hospitalID = localStorage.getItem("hospitalID")
+    const [results, setResults] = useState<any>([])
+    const [isSync, setIsSync] = useState(false)
+    const {loading, error, data, refetch} = useQuery(API.Queries.findAllPatients)
+
+    useEffect(()=>{
+        if(!loading && !error && data){
+           filterResult(data)
+           setIsSync(false)
+        }
+    }, [isSync, loading, error, data])
+
+
+    const filterResult = (data:any)=>{
+        const result = data.patients.filter((patient:any) => {
+            if(patient.hospital.some((h:any) => h.id.includes(hospitalID))){
+                if(patient.id.includes(params.id)){
+                    return patient
+                }
+            }
+        })
+        setResults(result)
+    }
+
+    const handleSycn = ()=>{
+        setIsSync(true)
+        refetch()
+    }
+   
+
   return (
     <Container className='container'>
         <ReturnAndSyncButtons navigateTo='/main/recherche' />
@@ -23,12 +54,12 @@ const Fiches = () => {
                     FICHE DE CONSULTATION
                 </div>
             </Menu>
-            <Menu className='menu-button' onClick={()=> navigate("/main/ficheprenatale/"+params.id)} >
+            {(results.length > 0 && results[0].gender.toLowerCase() === "f") && <Menu className='menu-button' onClick={()=> navigate("/main/ficheprenatale/"+params.id)} >
                 <HiDocumentText className='icon-menu' color={"white"} size={110} />
                 <div className="label-menu" >
                     FICHE DE CONSULTATION PRENATALE
                 </div>
-            </Menu>
+            </Menu>}
             <Menu className='menu-button' onClick={()=> navigate("/main/laboratory/"+params.id)} >
                 <SlChemistry className='icon-menu' color={"white"} size={110} />
                 <div className="label-menu" >

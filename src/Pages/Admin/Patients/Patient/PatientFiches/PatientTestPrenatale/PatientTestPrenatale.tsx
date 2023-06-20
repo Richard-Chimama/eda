@@ -11,15 +11,15 @@ import StateMessage from '../../../../../../Components/StateMessage'
 import Title from '../../../../../../Components/Title'
 import { GET_DATE_TIME } from '../../../../../../Functions/utility/UseFullFC'
 
-const PatientExams = () => {
+const PatientTestPrenatale = () => {
     const param = useParams()
     const [results, setResults] = useState<any>([])
-    const {loading, error, data, refetch} = useQuery(API.Queries.findPatientExamData, 
+    const {loading, error, data, refetch} = useQuery(API.Queries.findPatientFichePrenatale, 
         {variables:{patientId: param.id}})
 
     useEffect(()=>{
       if(!loading && !error && data){
-          setResults(data.lab_by_patient)
+          setResults(data.fiche_prenatale)
       }
     },[data, loading, error, refetch])
         
@@ -27,6 +27,7 @@ const PatientExams = () => {
       refetch()
     }
 
+ 
     if(loading){
       return <StateMessage loading />
     }
@@ -40,7 +41,7 @@ const PatientExams = () => {
         navigateTo={`/admin/patients/${param.id}`}
         syncFunction={handleSync}
       />
-      <Title label={"Examen"} />
+      <Title label={"Consultation Prenatale"} />
       {results.length > 0 ? (
         <div className="">
           {[...results].reverse().map((result: any) => (
@@ -108,4 +109,4 @@ const ItemIcons = styled.div`
   gap:.5em;
 `
 
-export default PatientExams
+export default PatientTestPrenatale

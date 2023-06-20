@@ -153,14 +153,14 @@ const handleLogout = (e:any)=>{
               </li>
 
               <li className="nav-item">
-                <NavLinks to="/main" className="nav-link" end>
+                <NavLinks to="/main" className="nav-link">
                   <MdDomain size={35} />
                   <span>Main</span>
                 </NavLinks>
               </li>
 
               <li className="nav-item">
-                <NavLinks to="/admin/patients" className="nav-link" end>
+                <NavLinks to="/admin/patients" className="nav-link" >
                   <IoIosPeople size={35} />
                   <span>Patient</span>
                 </NavLinks>
@@ -174,7 +174,7 @@ const handleLogout = (e:any)=>{
               </li>
 
               <li className="nav-item">
-                <NavLinks to="/main/rapport" className="nav-link" end>
+                <NavLinks to="/admin/rapport" className="nav-link" end>
                   <FcStatistics size={35} />
                   <span>Rapport</span>
                 </NavLinks>

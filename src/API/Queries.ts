@@ -303,6 +303,64 @@ const findPatientExamData = gql`
 
 `
 
+const findPatientFichePrenatale = gql`
+  query Fiche_prenatale($patientId: String!) {
+  fiche_prenatale(patientId: $patientId) {
+    id
+    ddr
+    dpa
+    above19
+    above15
+    tbc
+    hta
+    scass
+    dbt
+    car
+    raa
+    syphylis
+    vihsida
+    viol
+    pep
+    fobrome_uterin
+    fracture_bassin
+    createdAt
+    updatedAt
+    patient {
+      id
+      id_card
+      last_name
+      middle_name
+      gender
+      first_name
+      date_of_birth
+      code
+      avatar
+      area
+      contact_person
+      contact_person_phone_number
+      createdAt
+      patient_phone_number
+      street_address
+    }
+    hospital {
+      id
+      name
+      city
+      category
+      logo
+    }
+    users {
+      id
+      role
+      username
+      avatar
+      cnop
+      email
+    }
+  }
+}
+`
+
 
 export default {
     checkHospital,
@@ -313,5 +371,6 @@ export default {
     findAllPatients,
     findAllFiches,
     findCalendarByHospital,
-    findPatientExamData 
+    findPatientExamData,
+    findPatientFichePrenatale
 }

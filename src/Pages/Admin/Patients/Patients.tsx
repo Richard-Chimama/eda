@@ -95,7 +95,7 @@ const Patients = () => {
             displayedItems.map((patient:any) =>{
                 return (
                   <S.UserContainer
-                    to={`/admin/patient/${patient.id}`}
+                    to={`/admin/patients/${patient.id}`}
                     key={patient.id}
                     className="list-group-item list-group-item-action rounded-3 d-flex gap-3 py-3"
                     aria-current="true"

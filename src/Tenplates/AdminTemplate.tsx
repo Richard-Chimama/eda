@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import Nav from '../Components/Nav/Nav'
 import 'bootstrap/dist/css/bootstrap.css'
+import Header from '../Components/Header/Header'
 
 
 
@@ -50,6 +51,7 @@ const AdminTemplate = () => {
         <Nav screenSize={screenWidth} toggleCollapsed={setCollapsed} />
       </NavSide>
       <Section  collapsed={collapsed}>
+          <Header onPress={handleCollapse} />
         <Outlet />
       </Section>
     </Container>
@@ -79,7 +81,7 @@ const Section = styled.section<props>`
   margin-left: ${(props)=>props.collapsed ? "0px": "280px"};
   width: ${(props)=>props.collapsed? 'Calc(100%)' :'Calc(100%-290px)'};
   height: 100%;
-  padding-top: 15px;
+  padding-top: 0px;
 
   @media screen and (max-width: 480px) {
     width: 100%;

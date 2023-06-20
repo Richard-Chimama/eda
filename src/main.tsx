@@ -35,6 +35,7 @@ import LaboratoryPage from './Pages/Admin/Laboratory'
 import Fiches from './Pages/Main/Fiches'
 import FichePrenatale from './Pages/Main/FichePrenatale'
 import ServicePage from './Pages/Admin/ServicePage'
+import PatientTestPrenatale from './Pages/Admin/Patients/Patient/PatientFiches/PatientTestPrenatale'
 
 
 //http://localhost:6002/api
@@ -199,36 +200,50 @@ const router = createBrowserRouter([
       },
       {
         path:"/admin/patients",
-        element: <Patients />
+        children:[
+          {
+            path:"/admin/patients/",
+            element: <Patients />,
+          },
+          {
+            path:"/admin/patients/:id",
+            element: <Patient />
+          },
+          {
+            path:"/admin/patients/:id/history",
+            element: <PatientFiches />
+          },
+          {
+            path:"/admin/patients/:id/visits",
+            element: <PatientVisits />
+          },
+          {
+            path:"/admin/patients/:id/exams",
+            element: <PatientExams />
+          },
+          {
+            path:"/admin/patients/:id/complaint",
+            element: <PatientComplaint />
+          },
+          {
+            path:"/admin/patients/:id/medicine",
+            element: <PatientMedicine />
+          },
+          {
+            path:"/admin/patients/:id/test-prenatale",
+            element: <PatientTestPrenatale />
+          },
+        ]
       },
-      {
-        path:"/admin/patient/:id",
-        element: <Patient />
-      },
-      {
-        path:"/admin/patient/:id/history",
-        element: <PatientFiches />
-      },
-      {
-        path:"/admin/patient/:id/visits",
-        element: <PatientVisits />
-      },
-      {
-        path:"/admin/patient/:id/exams",
-        element: <PatientExams />
-      },
-      {
-        path:"/admin/patient/:id/complaint",
-        element: <PatientComplaint />
-      },
-      {
-        path:"/admin/patient/:id/medicine",
-        element: <PatientMedicine />
-      },
+     
       {
         path:"/admin/services",
         element: <ServicePage />
-      }
+      },
+      {
+        path:"/admin/rapport",
+        element: <Rapport />
+      },
     ]
   }
 ])
