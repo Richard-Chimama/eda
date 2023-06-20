@@ -38,10 +38,17 @@ import ServicePage from './Pages/Admin/ServicePage'
 import PatientTestPrenatale from './Pages/Admin/Patients/Patient/PatientFiches/PatientTestPrenatale'
 
 
+const DEVELOPMENT = import.meta.env.PROD
+
 //http://localhost:6002/api
 //"https://eda-server4-production.up.railway.app/api"
 const cache = new InMemoryCache()
-const httpLink = createUploadLink({uri:"http://localhost:6002/api" })
+let httpLink:any
+if(DEVELOPMENT){
+  httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+}else{
+  httpLink = createUploadLink({uri:"http://localhost:6002/api" })
+}
 const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
