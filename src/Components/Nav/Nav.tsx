@@ -16,6 +16,7 @@ import { TbReport, TbReportSearch } from 'react-icons/tb'
 import 'bootstrap/dist/css/bootstrap.css'
 import { ToolTip } from '../../Functions/utility/FormValidationBoostrap'
 import { SlCalender } from 'react-icons/sl'
+import { HiOutlineNewspaper } from 'react-icons/hi'
 
 
 //local query
@@ -160,6 +161,13 @@ const handleLogout = (e:any)=>{
               </li>
 
               <li className="nav-item">
+                <NavLinks to="/admin/posts" className="nav-link">
+                  <HiOutlineNewspaper size={35} />
+                  <span>Actualité</span>
+                </NavLinks>
+              </li>
+
+              <li className="nav-item">
                 <NavLinks to="/admin/patients" className="nav-link" >
                   <IoIosPeople size={35} />
                   <span>Patient</span>
@@ -191,11 +199,18 @@ const handleLogout = (e:any)=>{
                 </NavLinks>
               </li>
               <li className="nav-item">
+                <NavLinks to="/main/posts" className="nav-link">
+                  <HiOutlineNewspaper size={35} />
+                  <span>Actualité</span>
+                </NavLinks>
+              </li>
+              <li className="nav-item">
                 <NavLinks to="/main/recherche" className="nav-link" end>
                   <TbReportSearch size={35} />
                   <span>Recherche</span>
                 </NavLinks>
               </li>
+
               <li className="nav-item">
                 <NavLinks to="/main/rapport" className="nav-link" end>
                   <TbReport size={35} />

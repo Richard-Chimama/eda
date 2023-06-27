@@ -1,7 +1,17 @@
+import { useMutation } from '@apollo/client'
 import React, { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import API from '../../../API'
+import StateMessage from '../../../Components/StateMessage'
+import { FormValidationWithBootstrap } from '../../../Functions/utility/FormValidationBoostrap'
 
 const LaboratoryPage = () => {
+  const param = useParams()
+  const navigate = useNavigate()
+  const hospitalId = localStorage.getItem('hospitalID')
+  const user = localStorage.getItem('user')
+  const userId = user && JSON.parse(user)
   const [inputs, setInputs] = useState({
     acide_urique: "",
     frottis_vaginal: "",
@@ -19,9 +29,9 @@ const LaboratoryPage = () => {
     gram: "",
     ziell: "",
     encre_chine:"",
-    hemoculture: "",
-    coproculture: "",
-    uroculture: "",
+    hemoculture_ab: "",
+    coproculture_ab: "",
+    uroculture_ab: "",
     sgnot: "",
     sucre: "",
     ge: "",
@@ -29,59 +39,147 @@ const LaboratoryPage = () => {
     snip: "",
     albuminurie: "",
     sang_autres: "",
-bil_d: "",
-bil_l: "",
-bil_t: "",
-calcemie: "",
-chlore: "",
-cholesterol: "",
-cnol_total: "",
-compatibilite: "",
-creatinine: "",
-electrophose: "",
-fv: "",
-gb: "",
-glycemie: "",
-glycosurie: "",
-groupe_sanguin: "",
-gs: "",
-h_pyloria: "",
-hbs_ag: "",
-hepati_b: "",
-hiv: "",
-lcr: "",
-lipides_totaux: "",
-magnesium: "",
-potassium: "",
-prot_24h: "",
-proteine_t: "",
-proteinuire: "",
-rh: "",
-rpr: "",
-sgot: "",
-sgpt: "",
-sodium: "",
-spermatogramme: "",
-t_covid: "",
-test_emmel: "",
-test_grossesse: "",
-triglyceride: "",
-uree: "",
-uroculture_ab: "",
-vs: "",
-widal: ""
+    bil_d: "",
+    bil_l: "",
+    bil_t: "",
+    calcemie: "",
+    chlore: "",
+    cholesterol: "",
+    cnol_total: "",
+    compatibilite: "",
+    creatinine: "",
+    electrophose: "",
+    fv: "",
+    gb: "",
+    glycemie: "",
+    glycosurie: "",
+    groupe_sanguin: "",
+    gs: "",
+    h_pyloria: "",
+    hbs_ag: "",
+    hepati_b: "",
+    hiv: "",
+    lcr: "",
+    lipides_totaux: "",
+    magnesium: "",
+    potassium: "",
+    prot_24h: "",
+    proteine_t: "",
+    proteinuire: "",
+    rh: "",
+    rpr: "",
+    sgot: "",
+    sgpt: "",
+    sodium: "",
+    spermatogramme: "",
+    t_covid: "",
+    test_emmel: "",
+    test_grossesse: "",
+    triglyceride: "",
+    uree: "",
+    vs: "",
+    widal: ""
   })
 
   const handleChange = (e:any)=>{
     const name = e.target.name 
     const value = e.target.value
-
     setInputs({...inputs, [name]: value})
   }
+
+  const [new_exam, {loading, error, data}] = useMutation(API.Mutations.NEW_EXAMEN)
 
   const handleSubmit = (e:any)=>{
     e.preventDefault()
     console.log(inputs)
+    FormValidationWithBootstrap()
+    new_exam({
+      variables:{
+        patient: param.id,
+        hospital: hospitalId,
+        users: userId.id,
+        acideUrique: inputs.acide_urique,
+        frottisVaginal: inputs.frottis_vaginal,
+        fl: inputs.fl,
+        tempsSaignement: inputs.temps_saignement,
+        tempsCoagulation: inputs.temps_coagulation,
+        gr: inputs.gr,
+        hb: inputs.hb,
+        hct: inputs.hct,
+        autres: inputs.autres,
+        plqSanguine: inputs.plq_sanguine,
+        exDirect: inputs.ex_direct,
+        enrichssement: inputs.enrichssement,
+        sedimentUrinaire: inputs.sediment_urinaire,
+        gram: inputs.gram,
+        ziell: inputs.ziell,
+        encreChine:inputs.encre_chine,
+        hemocultureAb: inputs.hemoculture_ab,
+        coprocultureAb: inputs.coproculture_ab,
+        urocultureAb: inputs.uroculture_ab,
+        sgnot: inputs.sgnot,
+        sucre: inputs.sucre,
+        ge: inputs.ge,
+        gf: inputs.gf,
+        snip: inputs.snip,
+        albuminurie: inputs.albuminurie,
+        sangAutres: inputs.sang_autres,
+        bilD: inputs.bil_d,
+        bilL: inputs.bil_l,
+        bilT: inputs.bil_t,
+        calcemie: inputs.calcemie,
+        chlore: inputs.chlore,
+        cholesterol: inputs.cholesterol,
+        cnolTotal: inputs.cnol_total,
+        compatibilite: inputs.compatibilite,
+        creatinine: inputs.creatinine,
+        electrophose: inputs.electrophose,
+        fv: inputs.fv,
+        gb: inputs.gb,
+        glycemie: inputs.glycemie,
+        glycosurie: inputs.glycosurie,
+        groupeSanguin: inputs.groupe_sanguin,
+        gs: inputs.gs,
+        hPyloria: inputs.h_pyloria,
+        hbsAg: inputs.hbs_ag,
+        hepatiB: inputs.hepati_b,
+        hiv: inputs.hiv,
+        lcr: inputs.lcr,
+        lipidesTotaux: inputs.lipides_totaux,
+        magnesium: inputs.magnesium,
+        potassium: inputs.potassium,
+        prot24H: inputs.prot_24h,
+        proteineT: inputs.proteine_t,
+        proteinuire: inputs.proteinuire,
+        rh: inputs.rh,
+        rpr: inputs.rpr,
+        sgot: inputs.sgot,
+        sgpt: inputs.sgpt,
+        sodium: inputs.sodium,
+        spermatogramme: inputs.spermatogramme,
+        tCovid: inputs.t_covid,
+        testEmmel: inputs.test_emmel,
+        testGrossesse: inputs.test_grossesse,
+        triglyceride: inputs.triglyceride,
+        uree: inputs.uree,
+        vs: inputs.vs,
+        widal: inputs.widal
+      },
+      onCompleted:()=>{
+        navigate('/main/fiches/'+param.id)
+      },
+      onError:(err)=>{
+        console.log(err)
+      }
+    })
+    }
+
+    if(loading){
+      return <StateMessage loading />
+    }
+  
+    if(error){
+      return <StateMessage error={ error?.message}><h3>{error?.message}</h3></StateMessage>
     }
 
   return (
@@ -268,7 +366,7 @@ widal: ""
 
           <div className='col-sm-6'>
             <label htmlFor="hemoculture_ab">Hémoculture + AB</label>
-            <input type="text" className="form-control" name="hemoculture_ab" id="hemoculture_ab" placeholder="" value={inputs.hemoculture} onChange={handleChange} />
+            <input type="text" className="form-control" name="hemoculture_ab" id="hemoculture_ab" placeholder="" value={inputs.hemoculture_ab} onChange={handleChange} />
             <div className="invalid-feedback"></div>
           </div>
           </div>
@@ -277,13 +375,13 @@ widal: ""
           <div className="row g-2 pt-2">
           <div className='col-sm-6'>
             <label htmlFor="coproculture_ab">Coproculture + AB</label>
-            <input type="text" className="form-control" name="coproculture_ab" id="coproculture_ab" placeholder="" value={inputs.coproculture} onChange={handleChange} />
+            <input type="text" className="form-control" name="coproculture_ab" id="coproculture_ab" placeholder="" value={inputs.coproculture_ab} onChange={handleChange} />
             <div className="invalid-feedback"></div>
           </div>
 
           <div className='col-sm-6'>
             <label htmlFor="uroculture_ab">Uroculture + AB</label>
-            <input type="text" className="form-control" name="uroculture_ab" id="uroculture_ab" placeholder="" value={inputs.uroculture} onChange={handleChange} />
+            <input type="text" className="form-control" name="uroculture_ab" id="uroculture_ab" placeholder="" value={inputs.uroculture_ab} onChange={handleChange} />
             <div className="invalid-feedback"></div>
           </div>
           </div>
@@ -480,7 +578,7 @@ widal: ""
 
           <div className='col-sm-6'>
             <label htmlFor="sgot">SGOT (≤40u/dl)</label>
-            <input type="text" className="form-control" name="sgot" id="sgot" placeholder="" value={inputs.sgnot} onChange={handleChange} />
+            <input type="text" className="form-control" name="sgot" id="sgot" placeholder="" value={inputs.sgot} onChange={handleChange} />
             <div className="invalid-feedback"></div>
           </div>
           </div>

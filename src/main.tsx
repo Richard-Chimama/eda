@@ -13,7 +13,10 @@ import RegisterTemplate from './Tenplates/RegisterTemplate'
 import Signin from './Pages/RegisterUser/Signin/Signin'
 import FirstPage from './Pages/FirstPage'
 
-import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, HttpLink, concat } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, split, concat } from '@apollo/client';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
+
 import Dashboard from './Pages/Admin/Dashboard'
 import AdminTemplate from './Tenplates/AdminTemplate'
 import Users from './Pages/Admin/Users/Users'
@@ -36,19 +39,33 @@ import Fiches from './Pages/Main/Fiches'
 import FichePrenatale from './Pages/Main/FichePrenatale'
 import ServicePage from './Pages/Admin/ServicePage'
 import PatientTestPrenatale from './Pages/Admin/Patients/Patient/PatientFiches/PatientTestPrenatale'
+import { getMainDefinition } from '@apollo/client/utilities'
+import Posts from './Components/Posts'
 
 
 const DEVELOPMENT = import.meta.env.PROD
 
-//http://localhost:6002/api
-//"https://eda-server4-production.up.railway.app/api"
+
 const cache = new InMemoryCache()
 let httpLink:any
+let wsLink:any
 if(DEVELOPMENT){
   httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+  wsLink = new GraphQLWsLink(createClient({url:"ws://eda-server4-production.up.railway.app/api",
+          connectionParams:{
+            authToken: localStorage.getItem('token') || null
+          }  
+}))
 }else{
   httpLink = createUploadLink({uri:"http://localhost:6002/api" })
+  wsLink = new GraphQLWsLink(createClient({
+            url:"ws://localhost:6002/api",
+            connectionParams:{
+              authToken: localStorage.getItem('token') || null
+            }
+          }))
 }
+
 const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -71,9 +88,21 @@ const link = ()=>{
   else return httpLink 
 }
 
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  link(),
+);
+
 
 const client = new ApolloClient({
-  link: link(),
+  link: splitLink,
   cache: cache,
   resolvers: {},
   connectToDevTools: true
@@ -162,6 +191,10 @@ const router = createBrowserRouter([
       {
         path:"/main/laboratory/:id",
         element: <LaboratoryPage />
+      },
+      {
+        path:"/main/posts",
+        element: <Posts />
       }
       
     ]
@@ -251,6 +284,10 @@ const router = createBrowserRouter([
         path:"/admin/rapport",
         element: <Rapport />
       },
+      {
+        path:"/admin/posts",
+        element: <Posts />
+      }
     ]
   }
 ])

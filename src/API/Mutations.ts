@@ -11,6 +11,7 @@ const REGISTER_USER = gql`
     $role: String!
     $hospital: String!
     $cnop: String
+    $id_card: String!
     $avatar: Upload
   ) {
     signUp(
@@ -21,6 +22,7 @@ const REGISTER_USER = gql`
       hospital: $hospital
       cnop: $cnop
       avatar: $avatar
+      id_card: $id_card
     )
   }
 `;
@@ -120,6 +122,7 @@ const REGISTER_PATIENT = gql`
 const NEW_FICHE = gql`
   mutation NewFiche(
     $patient: String!
+    $hospital: String!
     $prescription: String
     $observations: String
     $ta: String
@@ -137,6 +140,7 @@ const NEW_FICHE = gql`
   ) {
     newFiche(
       patient: $patient
+      hospital: $hospital
       prescription: $prescription
       observations: $observations
       ta: $ta
@@ -352,18 +356,182 @@ const NEW_EXAMEN = gql`
       gf: $gf
       snip: $snip
       sang_autres: $sangAutres
-    )
+    ){
+    id
+    h_pyloria
+    gb
+    fl
+    gr
+    hb
+    hct
+    vs
+    frottis_vaginal
+    temps_saignement
+    temps_coagulation
+    plq_sanguine
+    autres
+    ex_direct
+    enrichissement
+    sediment_urinaire
+    sucre
+    albuminurie
+    gram
+    ziell
+    encre_chine
+    hemoculture_ab
+    coproculture_ab
+    uroculture_ab
+    spermatogramme
+    fv
+    widal
+    hiv
+    t_covid
+    groupe_sanguin
+    test_grossesse
+    rpr
+    hbs_ag
+    hepati_b
+    gs
+    rh
+    compatibilite
+    electrophose
+    test_emmel
+    glycemie
+    uree
+    creatinine
+    lipides_totaux
+    cholesterol
+    acide_urique
+    triglyceride
+    bil_t
+    bil_d
+    bil_l
+    cnol_total
+    sgot
+    sgpt
+    prot_24h
+    proteine_t
+    calcemie
+    potassium
+    sodium
+    magnesium
+    chlore
+    glycosurie
+    proteinuire
+    lcr
+    createdAt
+    updatedAt
+    gf
+    snip
+    sang_autres
+  }
   }
 `;
 
+const NEW_FICHE_PRENATALE = gql`
+  mutation New_fiche_prenatale(
+    $ddr: Date!
+    $dpa: Date!
+    $patient: String!
+    $hospital: String!
+    $users: String!
+    $fractureBassin: Boolean
+    $fobromeUterin: Boolean
+    $pep: Boolean
+    $viol: Boolean
+    $vihsida: Boolean
+    $syphylis: Boolean
+    $raa: Boolean
+    $car: Boolean
+    $dbt: Boolean
+    $scass: Boolean
+    $hta: Boolean
+    $tbc: Boolean
+    $above15: Boolean
+    $above19: Boolean
+  ) {
+    new_fiche_prenatale(
+      ddr: $ddr
+      dpa: $dpa
+      patient: $patient
+      hospital: $hospital
+      users: $users
+      fracture_bassin: $fractureBassin
+      fobrome_uterin: $fobromeUterin
+      pep: $pep
+      viol: $viol
+      vihsida: $vihsida
+      syphylis: $syphylis
+      raa: $raa
+      car: $car
+      dbt: $dbt
+      scass: $scass
+      hta: $hta
+      tbc: $tbc
+      above15: $above15
+      above19: $above19
+    ) {
+      id
+      ddr
+      dpa
+      above19
+      above15
+      tbc
+      hta
+      scass
+      dbt
+      car
+      raa
+      syphylis
+      vihsida
+      viol
+      pep
+      fobrome_uterin
+      fracture_bassin
+    }
+  }
+`;
+
+const NEW_POST = gql`
+  mutation New_posts(
+    $content: String!
+    $image: Upload
+    $author: String
+    $hospital: String
+  ) {
+    new_posts(
+      content: $content
+      image: $image
+      author: $author
+      hospital: $hospital
+    ) {
+      id
+      createdAt
+      content
+    }
+  }
+`;
+
+const NEW_COMMENT = gql`
+  mutation New_comments($comment: String, $post: String, $user: String) {
+    new_comments(comment: $comment, post: $post, user: $user) {
+      id
+      comment
+      createdAt
+    }
+  }
+`;
 
 export default {
-    REGISTER_USER,
-    SIGNIN_USER,
-    REGISTER_HOSPITAL,
-    REGISTER_PATIENT,
-    NEW_FICHE,
-    UPDATE_FICHE,
-    NEW_EVENT,
-    NEW_EXAMEN
-}
+  REGISTER_USER,
+  SIGNIN_USER,
+  REGISTER_HOSPITAL,
+  REGISTER_PATIENT,
+  NEW_FICHE,
+  UPDATE_FICHE,
+  NEW_EVENT,
+  NEW_EXAMEN,
+  NEW_FICHE_PRENATALE,
+  NEW_POST,
+  NEW_COMMENT,
+};

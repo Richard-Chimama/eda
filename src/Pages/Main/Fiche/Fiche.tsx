@@ -28,6 +28,7 @@ const Fiche = () => {
     prescription: "",
   })
 
+  const hospital = localStorage.getItem('hospitalID')
   const user = localStorage.getItem('user')
   const userId = user && JSON.parse(user)
 
@@ -51,6 +52,7 @@ const Fiche = () => {
     newFiche({
       variables:{
         patient: patientId.id,
+        hospital: hospital,
         prescription: inputs.prescription,
         observations: inputs.observations.trim(),
         ta: inputs.ta.trim(),

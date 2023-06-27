@@ -26,6 +26,7 @@ const Signup: FunctionComponent = () => {
     cnop: " ",
     role: "",
     avatar: "",
+    id_card: "",
     password1: "",
     password2: "",
   })
@@ -70,6 +71,10 @@ const Signup: FunctionComponent = () => {
         avatarVariable = inputs.avatar;
       }
 
+      function splitStringBySpace(str:String) {
+        return str.split(' ');
+      }
+
       registerUSER({
         variables:{
           username: inputs.username,
@@ -78,15 +83,20 @@ const Signup: FunctionComponent = () => {
           role: inputs.role,
           hospital: hospitalID.id,
           cnop: inputs.cnop,
-          avatar: avatarVariable
+          avatar: avatarVariable,
+          id_card: inputs.id_card
         },
         onCompleted: data =>{
+          console.log(data.signUp)
           if(!!localStorage.getItem("token") && !!localStorage.getItem("hospitalID")){
             navigate("/admin/users", {state:redirect})
           }else{
-            localStorage.setItem("token", data.signUp)
+            const res = splitStringBySpace(data.signUp)
+            const Token = res[0]
+            const userId = res[1]
+            localStorage.setItem("token", Token)
             localStorage.setItem("hospitalID", hospitalID.id)
-            localStorage.setItem("user", JSON.stringify({role:inputs.role, username:inputs.username, email: inputs.email}))
+            localStorage.setItem("user", JSON.stringify({id:userId,role:inputs.role, username:inputs.username, email: inputs.email}))
             navigate("/main", {state:redirect})
           }
         }
@@ -127,6 +137,16 @@ const Signup: FunctionComponent = () => {
             type="email"
             name="email"
             value={inputs.email || " "}
+            onChange={handleChange}
+            required
+          />
+        </S.Label>
+        <S.Label htmlFor='email'>
+          <span>Id Card:</span>
+          <input
+            type="text"
+            name="id_card"
+            value={inputs.id_card || " "}
             onChange={handleChange}
             required
           />

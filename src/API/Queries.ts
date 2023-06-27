@@ -361,6 +361,66 @@ const findPatientFichePrenatale = gql`
 }
 `
 
+const findAllUserPosts = gql`
+  query User( $email: String) {
+  user( email: $email) {
+    id
+    email
+    role
+    username
+    hospital {
+      name
+      category
+      id
+      createdAt
+    }
+    postsNotification {
+      likes {
+        id
+        like
+      }
+      comments {
+        id
+        comment
+      }
+      content
+      author {
+        username
+      }
+    }
+  }
+}
+`
+
+const findAllHospitalPost = gql`
+  query PostsByHospital($hospitalId: String!) {
+  postsByHospital(hospitalId: $hospitalId) {
+    id
+    content
+    image
+    author {
+      id
+      avatar
+      role
+      username
+    }
+    comments {
+      comment
+      id
+    
+    }
+    likes {
+      like
+      id
+    
+    }
+    createdAt
+    updatedAt
+
+  }
+}
+`
+
 
 export default {
     checkHospital,
@@ -372,5 +432,7 @@ export default {
     findAllFiches,
     findCalendarByHospital,
     findPatientExamData,
-    findPatientFichePrenatale
+    findPatientFichePrenatale,
+    findAllUserPosts,
+    findAllHospitalPost
 }

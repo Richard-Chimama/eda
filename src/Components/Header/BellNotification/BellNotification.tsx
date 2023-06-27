@@ -1,21 +1,68 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBell } from 'react-icons/fa';
+import { Modal, Button } from 'react-bootstrap';
 import styled from "styled-components"
+import { useSubscription } from '@apollo/client';
+import API from '../../../API';
+import StateMessage from '../../StateMessage';
 
 interface Props{
     count: number
 }
 
 const BellNotification: React.FC<Props> = ({ count }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [totalNotification, setTotalNotification] = useState(0);
+
+  const handleModalOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const hospitalId = localStorage.getItem('hospitalID');
+
+
+/*   const { data, loading } = useSubscription(API.Subscription.HOSPITAL_NOTIFICATION, {variables:{
+                          hospitalId: hospitalId}}) */
+
+/*   useEffect(()=>{
+   
+      console.log(data)
+    
+  }) */
+
+  //if(loading) return <StateMessage loading />
+  //if(error) return<StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>
+
   return (
     <Container>
-        <div className="notification">
+        <div className="notification" onClick={handleModalOpen}>
         <FaBell className="bell-icon" />
         {count > 0 && <span className="notification-count">{count}</span>}
         </div>
+        <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Notification List</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Render the list of notifications here */}
+          {/* Replace this with your actual notification list component */}
+          <p>Notification 1</p>
+          <p>Notification 2</p>
+          <p>Notification 3</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+        </Modal>
     </Container>
-  );
+  )
 };
 
 const Container = styled.div`
