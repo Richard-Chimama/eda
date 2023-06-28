@@ -6,11 +6,11 @@ export const Container = styled.div`
     padding-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    width: 80%;
-    margin: 0 auto; 
+    padding-inline: 5rem;
 
     @media screen and ( max-width: 450px){
       width: 90%;
+      padding-inline: 0.5rem;
     }
 `
 
@@ -18,7 +18,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: 100%;
 
  
