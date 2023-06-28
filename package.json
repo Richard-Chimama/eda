@@ -30,7 +30,8 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
     "save-dev": "^0.0.1-security",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/apollo-upload-client": "^17.0.2",

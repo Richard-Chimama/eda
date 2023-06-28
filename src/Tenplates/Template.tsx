@@ -42,6 +42,9 @@ const Template = () => {
 
   window.onresize = handleScreenResize;
 
+  const handleCollapse = ()=>{
+    setCollapsed(!collapsed)
+  }
 
   return (
     <Container>
@@ -54,6 +57,7 @@ const Template = () => {
       </NavSide>
 
       <Section collapsed={collapsed}>
+        <Header onPress={handleCollapse} />
         <Outlet />
       </Section>
     
@@ -107,7 +111,6 @@ const Section = styled.section<props>`
     background-color: #f6f0f0;
     margin-left: ${(props)=>props.collapsed ? "0px": "280px"};
     width: ${(props)=>props.collapsed? '100%' :'100%'};
-    padding-top: 2rem;
     padding-bottom: 3rem;
     height: 100%;
     min-height: 100vh;

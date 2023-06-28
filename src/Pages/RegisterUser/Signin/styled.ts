@@ -7,18 +7,17 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-inline: 3rem;
     min-height: 100vh;
+    @media (max-width: ${Theme.Devices.Mobile}px) {
+    padding-inline: 0.5rem;
+  }
 `
 
 export const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-
-    @media (min-width: ${Theme.Devices.Mobile}px) {
-    width: 60%;
+    width: 70%;
+    @media (max-width: ${Theme.Devices.Mobile}px) {
+    width: 95%;
   }
 `
 export const Label = styled.label`

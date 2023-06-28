@@ -43,10 +43,6 @@ const Posts = () => {
     }
   }, [commentData]);
 
-  if(commentError){
-    return <StateMessage error={commentError.message}><h4>{commentError.message}</h4></StateMessage>
-  }
-
 
   const updateObjectById = (id:any, updatedObject:any) => {
     setResults((prevArray:any) => {

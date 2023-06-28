@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { Outlet } from 'react-router-dom'
 import styled, { css } from "styled-components"
+import Header from '../Components/Header/Header'
 import Nav from '../Components/Nav/Nav'
 
 
@@ -22,9 +23,13 @@ const RegisterTemplate = () => {
 
   window.onresize = handleScreenResize;
 
+  const handleCollapse = ()=>{
+    setCollapsed(!collapsed)
+  }
+
   return (
     <Container>
-      <button className="btn" onClick={()=> setCollapsed(!collapsed)} type="button" >
+      <button className="btn" onClick={handleCollapse} type="button" >
         <GiHamburgerMenu size={35} color={"#1e2123"} />
       </button>
         <NavSide collapsed={collapsed}>

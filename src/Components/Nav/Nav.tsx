@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { ToolTip } from '../../Functions/utility/FormValidationBoostrap'
 import { SlCalender } from 'react-icons/sl'
 import { HiOutlineNewspaper } from 'react-icons/hi'
+import  UserImg  from "../../assets/user-img.png"
 
 
 //local query
@@ -267,8 +268,8 @@ const handleLogout = (e:any)=>{
               aria-expanded="false"
               onClick={ToolTip}
             >
-              <Image src={user.avatar} width="35px" height="35px" alt="user image" />
-              <strong>{user.username}</strong>
+              <Image src={user !== null? user.avatar: UserImg} width="35px" height="35px" alt="user image" />
+              <strong>{user ? user.username: "user name"}</strong>
             </NavLinks>
           ) : (
             <div>
