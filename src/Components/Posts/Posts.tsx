@@ -66,6 +66,8 @@ const Posts = () => {
           <FormNewPost refetch={refetch} />
       </div>
 
+      {loading && <StateMessage loading />}
+
       {(results) && (
         [...results].reverse().map((item:any)=>{
             return <div key={item.id} className="card mb-3">

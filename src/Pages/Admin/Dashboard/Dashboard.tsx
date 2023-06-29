@@ -10,17 +10,26 @@ import { SlCalender } from "react-icons/sl"
 import { RiServiceFill } from "react-icons/ri"
 import * as S from './styled'
 import Title from '../../../Components/Title'
+import WelcomeSticker from '../../../Components/WelcomeSticker'
 
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    
+    const user = localStorage.getItem('user');
+    const userInfo = user ? JSON.parse(user): "Eda"
+
+    console.log(userInfo)
 
   return (
     <S.container >
       <div className="title">
         <Title label="Dashboard" />
       </div>
+
+  {/*     <div className="welcome">
+       <WelcomeSticker name={userInfo.username}  />
+      </div> */}
+
 
         <S.MenuComponent className="menu">
         <motion.div

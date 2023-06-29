@@ -5,7 +5,7 @@ export const Container = styled.nav`
     top: 0;
     border-bottom: 1px solid black;
     height: 60px;
-    z-index: 9999;
+    z-index: 599;
 `
 
 export const Content = styled.div`

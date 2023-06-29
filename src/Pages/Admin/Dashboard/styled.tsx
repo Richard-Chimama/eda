@@ -9,14 +9,17 @@ export const container = styled.div`
 
   & > .title {
     width: 95%;
+    margin-top: -0.2rem;
     margin-inline: auto;
+  }
+
+  & > .welcome{
+    margin-top: 8rem;
   }
 
  @media (max-width: 480px){
   padding-top: 2.5rem;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+
  }
 `
 

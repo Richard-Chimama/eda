@@ -522,6 +522,22 @@ const NEW_COMMENT = gql`
   }
 `;
 
+const DELETE_USER = gql`
+  mutation DeleteUser($user: String!) {
+  deleteUser(user: $user)
+}
+`
+const UPDATE_USER_ROLE = gql`
+  mutation UpdateUserRole($user: String!, $role: String!) {
+  updateUserRole(user: $user, role: $role) {
+    id
+    role
+    username
+    email
+  }
+}
+`
+
 export default {
   REGISTER_USER,
   SIGNIN_USER,
@@ -534,4 +550,6 @@ export default {
   NEW_FICHE_PRENATALE,
   NEW_POST,
   NEW_COMMENT,
+  DELETE_USER,
+  UPDATE_USER_ROLE
 };

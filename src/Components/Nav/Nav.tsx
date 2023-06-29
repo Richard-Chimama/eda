@@ -18,6 +18,7 @@ import { ToolTip } from '../../Functions/utility/FormValidationBoostrap'
 import { SlCalender } from 'react-icons/sl'
 import { HiOutlineNewspaper } from 'react-icons/hi'
 import  UserImg  from "../../assets/user-img.png"
+import Navbar from 'react-bootstrap/Navbar'
 
 
 //local query
@@ -115,7 +116,7 @@ const handleLogout = (e:any)=>{
         className={`d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar `}
         id="offcanvasExample" 
         style={{ width: "280px" }}
-       
+ 
       >
 
         {screenSize < 800 && <button type="button" className="btn-close custom-close-btn" onClick={()=> toggleCollapsed(true)} id="closeButton" data-bs-dismiss="offcanvas" aria-label="Close"></button>}
