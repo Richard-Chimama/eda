@@ -5,6 +5,7 @@ export const Container = styled.div`
     width: 80%;
     margin: 0 auto;
     padding-top: 2rem;
+    padding-bottom: 5rem;
 
     @media screen and (max-width: 450px){
         width: 90%;
@@ -16,15 +17,17 @@ export const Table = styled.table`
     width: 100%;
     margin: 0 auto;
 
+    @media screen and (max-width: 450px){
+        overflow-x: scroll;
+    }
    
 `
 export const TH = styled.th`
-    border-bottom: 1px solid grey;
     height: 40px;
 `
 
 export const TD = styled.td`
-    text-align: center;
+    text-align:start;
     padding-inline: 10px;
     height: 40px;
 
@@ -49,6 +52,7 @@ export const AddUserSection = styled.div`
     align-items: center;  
     padding-inline: 0.9rem;  
     border-bottom: 1px solid #000;
+    margin-bottom:1.5rem;
 `
 
 export const ActionIcons = styled.div`

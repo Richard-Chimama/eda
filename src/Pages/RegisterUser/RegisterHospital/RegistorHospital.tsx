@@ -84,19 +84,20 @@ const RegistorHospital: FunctionComponent = () => {
 
 
   return (
-    <S.Container>
+    <S.Container className='container'>
       <Title label={"ENREGISTRER L'HÔPITAL"} />
       {isError && <div>{errorMessage}</div>}
-      <S.Form encType='multipart/form-data' method="POST" onSubmit={handleSubmit} >
+      <S.Form encType='multipart/form-data' className='col-md-10 col-lg-12 p-2 need-validation' method="POST" onSubmit={handleSubmit} >
        
           <LogoUpload method={handleChange} />
        
-        <S.Label>
-          <span>NOM DE STRUCTURE MEDICALE:</span>
+        <div className='mt-3'>
+          <label htmlFor="hospital_name" className="form-label">NOM DE STRUCTURE MEDICALE:</label>
           <input
             type="text"
             id="hospital_name"
             name="hospital_name"
+            className='form-control'
             placeholder="nom"
             value={inputs.hospital_name}
             onChange={handleChange}
@@ -104,41 +105,47 @@ const RegistorHospital: FunctionComponent = () => {
           />
           {checkHospitalLoading && <div>loading..</div>}
           {!checkHospitalLoading && checkHospitalData?.checkHospital && (
-            <span> name already registered</span>
+             <div style={{display:"block"}} className="invalid-feedback">name already registered</div>
           )}
-        </S.Label>
-        <S.Label>
-          <span>ADRESSE:</span>
+        </div>
+        <div className='mt-3'>
+          <label htmlFor="address-name" className="form-label">ADRESSE:</label>
           <input
             type="text"
             id="address-name"
             name="address_name"
+            className="form-control"
             placeholder="adress"
             value={inputs.address_name}
             onChange={handleChange}
             required
           />
-        </S.Label>
-        <S.Label>
-          <span>COMMUNE:</span>
+          <div className="invalid-feedback"></div>
+        </div>
+        <div className='mt-3'>
+          <label htmlFor="city" className="form-label">COMMUNE:</label>
           <select
+            id="city"
             name="city_name"
+            className='form-select'
             value={inputs.city_name}
             onChange={handleChange}
             required
           >
-            <option>select</option>
+            <option>...</option>
             {COMMUNE.map((item, index) => (
               <option key={index} value={item}>
                 {item}
               </option>
             ))}
           </select>
-        </S.Label>
-        <S.Label>
-          <span>CATEGORIE:</span>
+        </div>
+        <div className='mt-3' >
+          <label  htmlFor="category" className="form-label">CATEGORIE:</label>
           <select
+            id="category"
             name="category"
+            className='form-select'
             value={inputs.category}
             onChange={handleChange}
             required
@@ -149,9 +156,10 @@ const RegistorHospital: FunctionComponent = () => {
             <option value="centre de santé">Centre de santé</option>
             <option value="hopital de référence">Hopital de référence</option>
           </select>
-        </S.Label>
+        </div>
 
-        <Button type="submit" value="Enregistrer" />
+        {/* <Button styles={{width: "80%"}} type="submit" value="Enregistrer" />*/}
+        <button className="btn btn-primary w-100 mt-5 py-2" type="submit">Envoyer</button>
       </S.Form>
     </S.Container>
   );

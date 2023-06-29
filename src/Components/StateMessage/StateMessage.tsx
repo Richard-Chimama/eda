@@ -61,7 +61,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    min-height: 80vh;
+    min-height: 100vh;
 `
 const Image = styled.img`
   height: 100px;

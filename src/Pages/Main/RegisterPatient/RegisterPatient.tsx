@@ -45,6 +45,10 @@ const RegisterPatient = () => {
 
   const handleSubmit = (e:any) => {
     e.preventDefault()
+    let avatarVariable = null;
+    if (inputs.avatar !== "") {
+      avatarVariable = inputs.avatar;
+    }
     registerPatient({
       variables:{
         idCard: inputs.id_card,
@@ -59,7 +63,7 @@ const RegisterPatient = () => {
         patientPhoneNumber: inputs.patient_phone_number,
         contactPerson: inputs.contact_person,
         contactPhoneNumber: inputs.contact_phone_number,
-        avatar: inputs.avatar,
+        avatar: avatarVariable,
         hospital: hospitalId
       }
     }).then((res) => {

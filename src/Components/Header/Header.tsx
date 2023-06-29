@@ -2,22 +2,32 @@ import React from 'react'
 import * as S from "./styled"
 import api from '../../API'
 import { useQuery } from '@apollo/client'
+import BellNotification from './BellNotification'
+import { CiMenuKebab } from 'react-icons/ci'
 
-const Header = () => {
-  const hospitalID = localStorage.getItem("hospitalID")
-  const {loading, error, data } = useQuery(api.Queries.findHospitalById,{
-    variables: {hospitalId: hospitalID}
-  })
-  if(error) console.log(error)
+interface Props{
+  onPress: ()=> void
+}
+
+const Header:React.FC<Props> = ({onPress}) => {
+
   return (
     <>
-    { data &&
-    <S.container>
-    <div className="title">{data.hospital.name.toUpperCase()}</div>
-    <div className='address'>Avenue: {data.hospital.address}, Commun: {data.hospital.city}</div>
-  </S.container>
-}
-  </>
+       <S.Container className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container-fluid">
+            <button className="navbar-toggler" onClick={onPress} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <S.Content className="content">
+              <div></div>
+              <div className='d-flex justify-center gap-3'>
+                <BellNotification count={14} />
+                <CiMenuKebab size={26} />
+              </div>
+            </S.Content>
+          </div>
+        </S.Container>
+     </>
 )
   
 }

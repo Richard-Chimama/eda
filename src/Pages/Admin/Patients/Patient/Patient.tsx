@@ -67,11 +67,12 @@ const Patient = () => {
         </S.Profile>
         }
 
-        <div className="options"  onClick={()=> navigate(`/admin/patient/${patientId.id}/visits`)} ><span>Des visites</span><IoIosArrowForward size={20} /></div>
-        <div onClick={()=> navigate(`/admin/patient/${patientId.id}/history`)} className="options"><span>Antécédents médicaux</span><IoIosArrowForward size={20} /></div>
-        <div className="options" onClick={()=> navigate(`/admin/patient/${patientId.id}/complaint`)}><span>Plainte</span><IoIosArrowForward size={20} /></div>
-        <div className="options" onClick={()=> navigate(`/admin/patient/${patientId.id}/exams`)}><span>Examen</span><IoIosArrowForward size={20} /></div>
-        <div className="options" onClick={()=> navigate(`/admin/patient/${patientId.id}/medicine`)}><span>Médicine</span><IoIosArrowForward size={20} /></div>
+        <div className="options"  onClick={()=> navigate(`/admin/patients/${patientId.id}/visits`)} ><span>Des visites</span><IoIosArrowForward size={20} /></div>
+        <div onClick={()=> navigate(`/admin/patients/${patientId.id}/history`)} className="options"><span>Antécédents médicaux</span><IoIosArrowForward size={20} /></div>
+        {(results.length > 0 && results[0].gender.toLowerCase() === "f") && <div className="options" onClick={()=> navigate(`/admin/patients/${patientId.id}/test-prenatale`)}><span>Fiche Prenatale</span><IoIosArrowForward size={20} /></div>}
+        <div className="options" onClick={()=> navigate(`/admin/patients/${patientId.id}/complaint`)}><span>Plainte</span><IoIosArrowForward size={20} /></div>
+        <div className="options" onClick={()=> navigate(`/admin/patients/${patientId.id}/exams`)}><span>Examen</span><IoIosArrowForward size={20} /></div>
+        <div className="options" onClick={()=> navigate(`/admin/patients/${patientId.id}/medicine`)}><span>Médicine</span><IoIosArrowForward size={20} /></div>
 
     </S.Container>
   )

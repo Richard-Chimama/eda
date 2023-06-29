@@ -13,7 +13,10 @@ import RegisterTemplate from './Tenplates/RegisterTemplate'
 import Signin from './Pages/RegisterUser/Signin/Signin'
 import FirstPage from './Pages/FirstPage'
 
-import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, HttpLink, concat } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, gql, ApolloLink, split, concat } from '@apollo/client';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
+
 import Dashboard from './Pages/Admin/Dashboard'
 import AdminTemplate from './Tenplates/AdminTemplate'
 import Users from './Pages/Admin/Users/Users'
@@ -29,18 +32,40 @@ import PatientExams from './Pages/Admin/Patients/Patient/PatientFiches/PatientEx
 import PatientVisits from './Pages/Admin/Patients/Patient/PatientFiches/PatientVisits'
 import PatientMedicine from './Pages/Admin/Patients/Patient/PatientFiches/PatientMedicine'
 import Profile2 from "./Pages/Main/Profile"
-import Calender from './Pages/Admin/Calender'
 import CalenderPage from './Pages/Admin/Calender'
 import CalendarPage from './Pages/Main/CalendarPage'
 import LaboratoryPage from './Pages/Admin/Laboratory'
 import Fiches from './Pages/Main/Fiches'
 import FichePrenatale from './Pages/Main/FichePrenatale'
+import ServicePage from './Pages/Admin/ServicePage'
+import PatientTestPrenatale from './Pages/Admin/Patients/Patient/PatientFiches/PatientTestPrenatale'
+import { getMainDefinition } from '@apollo/client/utilities'
+import Posts from './Components/Posts'
 
 
-//http://localhost:6002/api
-//"https://eda-server4-production.up.railway.app/api"
+const DEVELOPMENT = import.meta.env.PROD
+
+
 const cache = new InMemoryCache()
-const httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+let httpLink:any
+let wsLink:any
+if(DEVELOPMENT){
+  httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
+  wsLink = new GraphQLWsLink(createClient({url:"ws://eda-server4-production.up.railway.app/api",
+          connectionParams:{
+            authToken: localStorage.getItem('token') || null
+          }  
+}))
+}else{
+  httpLink = createUploadLink({uri:"http://localhost:6002/api" })
+  wsLink = new GraphQLWsLink(createClient({
+            url:"ws://localhost:6002/api",
+            connectionParams:{
+              authToken: localStorage.getItem('token') || null
+            }
+          }))
+}
+
 const currentTimeStamp = new Date().getTime()
 
 const authMiddleware = new ApolloLink((operation, forward) => {
@@ -63,9 +88,21 @@ const link = ()=>{
   else return httpLink 
 }
 
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  link(),
+);
+
 
 const client = new ApolloClient({
-  link: link(),
+  link: splitLink,
   cache: cache,
   resolvers: {},
   connectToDevTools: true
@@ -150,6 +187,14 @@ const router = createBrowserRouter([
       {
         path:"/main/calendar",
         element: <CalendarPage />
+      },
+      {
+        path:"/main/laboratory/:id",
+        element: <LaboratoryPage />
+      },
+      {
+        path:"/main/posts",
+        element: <Posts />
       }
       
     ]
@@ -195,35 +240,53 @@ const router = createBrowserRouter([
       },
       {
         path:"/admin/patients",
-        element: <Patients />
+        children:[
+          {
+            path:"/admin/patients/",
+            element: <Patients />,
+          },
+          {
+            path:"/admin/patients/:id",
+            element: <Patient />
+          },
+          {
+            path:"/admin/patients/:id/history",
+            element: <PatientFiches />
+          },
+          {
+            path:"/admin/patients/:id/visits",
+            element: <PatientVisits />
+          },
+          {
+            path:"/admin/patients/:id/exams",
+            element: <PatientExams />
+          },
+          {
+            path:"/admin/patients/:id/complaint",
+            element: <PatientComplaint />
+          },
+          {
+            path:"/admin/patients/:id/medicine",
+            element: <PatientMedicine />
+          },
+          {
+            path:"/admin/patients/:id/test-prenatale",
+            element: <PatientTestPrenatale />
+          },
+        ]
       },
-      {
-        path:"/admin/patient/:id",
-        element: <Patient />
-      },
-      {
-        path:"/admin/patient/:id/history",
-        element: <PatientFiches />
-      },
-      {
-        path:"/admin/patient/:id/visits",
-        element: <PatientVisits />
-      },
-      {
-        path:"/admin/patient/:id/exams",
-        element: <PatientExams />
-      },
-      {
-        path:"/admin/patient/:id/complaint",
-        element: <PatientComplaint />
-      },
-      {
-        path:"/admin/patient/:id/medicine",
-        element: <PatientMedicine />
-      },
+     
       {
         path:"/admin/services",
-        element: <LaboratoryPage />
+        element: <ServicePage />
+      },
+      {
+        path:"/admin/rapport",
+        element: <Rapport />
+      },
+      {
+        path:"/admin/posts",
+        element: <Posts />
       }
     ]
   }

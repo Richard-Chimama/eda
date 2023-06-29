@@ -5,6 +5,9 @@ export const Container = styled.div`
     width: 80%;
     margin: 2.5rem auto 0 auto;
     padding-bottom: 5rem;
+    height: 100%;
+    min-height: 100vh;
+    text-align: center;
 
     @media screen and  (max-width: 450px){
         width: 90%;
@@ -50,9 +53,9 @@ export const UserContainer = styled(Link)`
 `
 
 export const Label = styled.label`
-    width:80%;
-    & > input[type="search"]{
-        width: 100%;
+    width:100%;
+    & > input[type="search"], .form-control{
+        width: 80%;
         margin: 0 auto;
         height: 40px;
         outline: none;
@@ -60,10 +63,16 @@ export const Label = styled.label`
         padding-left: 10px;
         margin-bottom: 2rem;
 
+    @media screen and (max-width: 450px){
+        width: 100%;
     }
+}
 `
+
 
 export const UserInfo = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 `

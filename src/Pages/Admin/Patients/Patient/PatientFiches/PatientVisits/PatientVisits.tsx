@@ -9,9 +9,7 @@ const PatientVisits = () => {
 
   return (
     <Container>
-        <ReturnAndSyncButtons navigateTo={`/admin/patient/${param.id}`} syncFunction={function (): void {
-              throw new Error('Function not implemented.')
-          } } />
+        <ReturnAndSyncButtons navigateTo={`/admin/patients/${param.id}`} />
         <Title label={"Des Visites"} />
         PatientComplaint
         
@@ -20,11 +18,12 @@ const PatientVisits = () => {
 }
 
 const Container = styled.div`
-    width: 80%;
-    margin: 2rem auto;
+    width: 100%;
+    margin: 2rem auto 0 auto;
+    min-height: 100vh;
 
     @media screen and (max-width:450px){
-        width: 90%;
+        width: 95%;
     }
 `
 
