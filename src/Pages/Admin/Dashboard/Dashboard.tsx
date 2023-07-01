@@ -18,8 +18,6 @@ const Dashboard = () => {
     const user = localStorage.getItem('user');
     const userInfo = user ? JSON.parse(user): "Eda"
 
-    console.log(userInfo)
-
   return (
     <S.container >
       <div className="title">
@@ -76,7 +74,7 @@ const Dashboard = () => {
 
         <motion.div
         >
-        <S.Menu className="menu-button" onClick={() => navigate("/admin/statistic")}>
+        <S.Menu className="menu-button" onClick={() => navigate("/admin/rapport")}>
             <FcStatistics className="icon-menu" color={"white"} size={110} />
           <div className="label-menu" >
             RAPPORT

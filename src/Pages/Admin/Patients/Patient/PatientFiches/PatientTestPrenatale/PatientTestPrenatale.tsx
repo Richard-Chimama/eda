@@ -53,11 +53,11 @@ const PatientTestPrenatale = () => {
               <ItemInfo>
                 <div>
                   <strong>Assisté par:</strong>
-                  <span>{result.users[0].username}</span>
+                  <span>{result.users[0]?.username}</span>
                 </div>
                 <div>
                   <strong>Date:</strong>
-                  <span>{GET_DATE_TIME(result.createdAt)}</span>
+                  <span>{GET_DATE_TIME(result?.createdAt)}</span>
                 </div>
               </ItemInfo>
               <ItemIcons>
@@ -84,7 +84,7 @@ const Container = styled.div`
     min-height: 100vh;
 
     @media screen and (max-width:450px){
-        width: 90%;
+        width: 95%;
     }
 `
 const Item = styled.div`

@@ -41,6 +41,7 @@ import ServicePage from './Pages/Admin/ServicePage'
 import PatientTestPrenatale from './Pages/Admin/Patients/Patient/PatientFiches/PatientTestPrenatale'
 import { getMainDefinition } from '@apollo/client/utilities'
 import Posts from './Components/Posts'
+import Statistics from './Pages/Admin/Statistics'
 
 
 const DEVELOPMENT = import.meta.env.PROD
@@ -282,7 +283,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/admin/rapport",
-        element: <Rapport />
+        element: <Statistics />
       },
       {
         path:"/admin/posts",

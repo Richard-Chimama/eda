@@ -421,6 +421,29 @@ const findAllHospitalPost = gql`
 }
 `
 
+const findPatientsByHosptial = gql`
+  query PatientByHospital($hospitalId: String!) {
+    patientByHospital(hospitalId: $hospitalId) {
+      id
+      area
+      avatar
+      code
+      contact_person
+      contact_person_phone_number
+      createdAt
+      date_of_birth
+      first_name
+      gender
+      id_card
+      last_name
+      middle_name
+      patient_phone_number
+      street_address
+      updatedAt
+    }
+  }
+`;
+
 
 export default {
     checkHospital,
@@ -434,5 +457,6 @@ export default {
     findPatientExamData,
     findPatientFichePrenatale,
     findAllUserPosts,
-    findAllHospitalPost
+    findAllHospitalPost,
+    findPatientsByHosptial
 }
