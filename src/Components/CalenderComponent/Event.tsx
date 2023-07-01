@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Button from '../Button'
+//import Button from '../Button'
 import { AiOutlineCloseCircle } from "react-icons/ai"
+import { Modal } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button';
+
 
 interface Props{
     CloseButton: (state:boolean)=>void,
-    returnInputs: (data:any)=> void
+    returnInputs: (data:any)=> void,
+    show : boolean
 }
 
-const Event: React.FC<Props> = ({CloseButton, returnInputs}) => {
+const Event: React.FC<Props> = ({CloseButton, returnInputs, show}) => {
     const [inputs, setInputs ] = useState({
         title: "",
         description: ""
@@ -26,19 +30,28 @@ const Event: React.FC<Props> = ({CloseButton, returnInputs}) => {
     }
 
   return (
-    <Container>
-        <div className={"icon"} onClick={()=> CloseButton(false)}>
-            <AiOutlineCloseCircle size={20} />
-        </div>
-        <Label><span className="input-label">Titre:</span>
-            <input type="text" name="title" value={inputs.title} onChange={handleChange} />
-        </Label>
-        <Label>
-            <span className="input-label">Description:</span>
-            <input type="text" name="description" value={inputs.description} onChange={handleChange} />
-        </Label>
-        <Button value={"Sauvegarder"} onPress={handlePress} />
-    </Container>
+    <Modal show={show} onHide={()=>CloseButton(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Nouveau event</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Label><label className="input-label ">Titre:</label>
+                <input type="text" name="title" className='form-control' value={inputs.title} onChange={handleChange} />
+            </Label>
+            <Label>
+                <span className="input-label">Description:</span>
+                <textarea name="description" className='form-control' value={inputs.description} onChange={handleChange} />
+            </Label>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={()=> CloseButton(false)}>
+            Annuler
+          </Button>
+          <Button variant="success" onClick={handlePress}>
+            Confirmer
+          </Button>
+        </Modal.Footer>
+    </Modal>
   )
 }
 
@@ -71,14 +84,7 @@ const Label = styled.label`
     flex-direction: column;
     gap: 0.2rem;
 
-    & > input{
-        height:30px;
-        padding-left: 5px;
-        outline: none;
-        border: 1px solid #228558;
-        border-radius: 8px;
-
-    }
+  
 
 `
 

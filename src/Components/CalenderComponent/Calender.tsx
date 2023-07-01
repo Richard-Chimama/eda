@@ -149,8 +149,8 @@ const Calender = ({localizer, dayLayoutAlgorithm = 'no-overlap', selectable = tr
               popup
               scrollToTime={scrollToTime}
             />
-            {isOpen && <Event CloseButton={setIsOpen} returnInputs={setEventInput} />}
-            {isEventOpen && <ShowEvent event={openEvent} closeButton={setIsEventOpen} />}
+            {isOpen && <Event CloseButton={setIsOpen} show={isOpen} returnInputs={setEventInput} />}
+            {isEventOpen && <ShowEvent event={openEvent} show={isEventOpen} closeButton={setIsEventOpen} />}
           </CalendarWrapper>
         </Fragment>
       )

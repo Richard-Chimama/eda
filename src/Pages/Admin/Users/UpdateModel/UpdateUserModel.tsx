@@ -44,6 +44,7 @@ const UpdateUserModel:React.FC<Props> = ({title, content, handleShow, handleClos
 
     if(error){
       handleClose()
+      console.log(error)
       return <StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>
     }
 

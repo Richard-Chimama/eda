@@ -18,11 +18,12 @@ const Statistics = () => {
 
     const {loading, error, data} = useQuery(API.Queries.findPatientsByHosptial,
             {variables:{hospitalId:hospitalId}})
+
+            console.log(hospitalId)
             
     useEffect(() =>{
         if(!loading && !error && data){
             setResults(data.patientByHospital)
-            console.log(data)
         }
     },[loading, error, data])   
     
@@ -79,6 +80,7 @@ const Statistics = () => {
       }
 
       if(error){
+        console.log(error)
         return <StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>
       }
  

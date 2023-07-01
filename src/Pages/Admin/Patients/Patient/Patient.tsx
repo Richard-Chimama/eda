@@ -9,6 +9,7 @@ import PatientFiches from './PatientFiches'
 import { IoIosArrowForward } from "react-icons/io"
 import Title from '../../../../Components/Title'
 import ReturnAndSyncButtons from '../../../../Components/ReturnAndSyncButtons'
+import UserImg from "../../../../assets/user-img.png"
 
 const Patient = () => {
     const hospitalID = localStorage.getItem("hospitalID")
@@ -51,7 +52,7 @@ const Patient = () => {
         {error &&  <StateMessage><h3>{error.message}</h3></StateMessage>}
        { results.length > 0 && <S.Profile>
             <S.ProfileImage>
-            <S.Image src={results[0].avatar} alt={results[0].first_name} />
+            <S.Image src={results[0].avatar? results[0].avatar: UserImg} alt={results[0].first_name} />
             </S.ProfileImage>
             <S.ProfileInfo>
                 <div><span>Nom:</span> {results[0].first_name} {results[0].middle_name} {results[0].last_name}</div>
