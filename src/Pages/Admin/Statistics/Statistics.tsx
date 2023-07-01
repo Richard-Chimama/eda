@@ -7,6 +7,7 @@ import TotalPatients from './Charts/TotalPatients'
 //import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import StateMessage from '../../../Components/StateMessage'
 
 const Statistics = () => {
     const hospitalId = localStorage.getItem('hospitalID')
@@ -72,8 +73,14 @@ const Statistics = () => {
       
         return { dateCount, monthCount, yearCount };
       }
-    
- 
+      
+      if(loading){
+        return <StateMessage loading />
+      }
+
+      if(error){
+        return <StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>
+      }
  
 
   return (

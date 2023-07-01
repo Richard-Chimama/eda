@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Modal from 'react-bootstrap/Modal';
 import userImg from "../../assets/user-img.png"
 import api from '../../../../API';
+import StateMessage from '../../../../Components/StateMessage';
 
 
 interface Props{
@@ -19,7 +20,7 @@ interface Props{
 const UpdateUserModel:React.FC<Props> = ({title, content, handleShow, handleClose, refetch}) => {
     const [inputs, setInputs] = useState({ role: '' })
 
-    const [updateUserRole] = useMutation(api.Mutations.UPDATE_USER_ROLE) 
+    const [updateUserRole, {error}] = useMutation(api.Mutations.UPDATE_USER_ROLE) 
     
     
     function handleChange(e:any){
@@ -39,6 +40,11 @@ const UpdateUserModel:React.FC<Props> = ({title, content, handleShow, handleClos
                 handleClose()
             }
         })
+    }
+
+    if(error){
+      handleClose()
+      return <StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>
     }
 
 
