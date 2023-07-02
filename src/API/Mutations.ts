@@ -496,8 +496,8 @@ const NEW_POST = gql`
   mutation New_posts(
     $content: String!
     $image: Upload
-    $author: String
-    $hospital: String
+    $author: String!
+    $hospital: String!
   ) {
     new_posts(
       content: $content

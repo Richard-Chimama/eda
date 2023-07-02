@@ -24,7 +24,6 @@ const Posts = () => {
   useEffect(()=>{
     if(!loading && !error && data){
       setResults(data.postsByHospital)
-      console.log(data)
     }
   },[loading, error, data])
 
@@ -67,6 +66,7 @@ const Posts = () => {
       </div>
 
       {loading && <StateMessage loading />}
+      {error && <StateMessage error={error.message}><h3>{error.message}</h3></StateMessage>}
 
       {(results) && (
         [...results].reverse().map((item:any)=>{
