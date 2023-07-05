@@ -118,11 +118,7 @@ const handleLogout = (e:any)=>{
         style={{ width: "280px" }}
  
       >
-
         {screenSize < 800 && <button type="button" className="btn-close custom-close-btn" onClick={()=> toggleCollapsed(true)} id="closeButton" data-bs-dismiss="offcanvas" aria-label="Close"></button>}
-     
-
-        
         
         <div className="logo offcanvas-header">
           {hospitalData.hospital.logo ? (

@@ -9,7 +9,7 @@ import {motion} from "framer-motion"
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 const FirstPage = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
   const [screenWidth, setScrrenWidth] = useState(800);
 
 
@@ -28,6 +28,11 @@ const FirstPage = () => {
   const handleScreenResize = () => {
     const GET_WINDOW_WIDTH = window.screen.width;
     setScrrenWidth(GET_WINDOW_WIDTH);
+    if(GET_WINDOW_WIDTH >= 800){
+      setCollapsed(false);
+    }else{
+      setCollapsed(true)
+    }
   };
 
   window.onresize = handleScreenResize;

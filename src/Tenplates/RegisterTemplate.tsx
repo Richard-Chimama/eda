@@ -16,9 +16,15 @@ const RegisterTemplate = () => {
   useEffect(()=>{
     handleScreenResize()
   },[])
+
   const handleScreenResize = () => {
     const GET_WINDOW_WIDTH = window.screen.width;
     setScrrenWidth(GET_WINDOW_WIDTH);
+    if(GET_WINDOW_WIDTH >= 800){
+      setCollapsed(false);
+    }else{
+      setCollapsed(true)
+    }
   };
 
   window.onresize = handleScreenResize;
