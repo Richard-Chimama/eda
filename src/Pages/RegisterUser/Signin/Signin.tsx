@@ -5,7 +5,7 @@ import * as S from "./styled"
 import api from "../../../API"
 import { motion, useScroll } from "framer-motion"
 import Button from '../../../Components/Button';
-import { Form, FloatingLabel } from 'react-bootstrap';
+import { Form, FloatingLabel, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import Cookies from 'universal-cookie';
 
@@ -14,6 +14,7 @@ import Cookies from 'universal-cookie';
 const Signin: React.FC = () => {
     let userHospital:string
     const navigate = useNavigate()
+    const [isError, setisError] = useState(false)
     const cookies = new Cookies();
     const [rememberMe, setRememberMe] = useState(false);
     const { scrollYProgress } = useScroll();
@@ -42,6 +43,9 @@ const Signin: React.FC = () => {
         const name = event.target.name
         const value = event.target.value
         setInputs(values => ({...values, [name]: value}))
+        if(inputs.email === "" || inputs.password === ""){
+          setisError(false)
+        }
     }
     const {error: roleError, data:userRole} = useQuery(api.Queries.findSingleUser, {
         variables:{email: inputs.email.trim()}
@@ -84,11 +88,12 @@ const Signin: React.FC = () => {
                  
             },
             onError:(error)=>{
-                console.log(error)
+              setisError(true)
             }
         })
     }
- 
+  
+
   return (
     <S.Container className="form-signin w-100 m-auto">
           <motion.div style={{ scaleX: scrollYProgress }} /> 
@@ -103,7 +108,10 @@ const Signin: React.FC = () => {
       <input type="password" name="password" value={inputs.password} onChange={handleChange}  className="form-control" id="floatingPassword" placeholder="Mot de passe" />
       <label htmlFor="floatingPassword">Mot de passe</label>
     </div>
-      {error && <div style={{display:"block"}}className="invalid-feedback">Erreur de Connexion, Problème avec votre adresse e-mail ou votre mot de passe</div>}
+      {isError && <Alert style={{marginTop: '10px'}}variant="danger">
+        Les informations d'identification invalides.
+      </Alert>
+     }
 
     <div className="form-check text-start my-3">
       <input className="form-check-input" checked={rememberMe} type="checkbox" onChange={(e)=> setRememberMe(e.target.checked)} id="flexCheckDefault" />

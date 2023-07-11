@@ -52,13 +52,6 @@ const PrintFiche: React.FC<PrintFicheProps> = forwardRef<any, PrintFicheProps>((
             Télécharger PDF
             </Button>
           </Modal.Footer>
-       
-    {/*   <TwoActionButtons
-        label1="Annuler"
-        label2={"Télécharger PDF"}
-        action1={() => close(false)}
-        action2={handleAction2}
-      /> */}
 
 
         <PDFDownloadLink
@@ -77,31 +70,5 @@ const PrintFiche: React.FC<PrintFicheProps> = forwardRef<any, PrintFicheProps>((
   );
 });
 
-/* const Container = styled.div`
-  position: absolute;
-  background-color: #fff;
-  color: #000;
-  height: 200px;
-  width: 50%;
-  z-index: 9999;
-  box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.3);
-  border-radius:15px;
-  padding: 20px 50px;
-
-  & > .info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  @media (max-width: 768px) {
-        top:15%;
-        left: 5%;
-        width: 80%;
-        margin: 0 auto;
-        padding: 20px 20px;
-        height: 150px;
-  }
-`; */
 
 export default PrintFiche;
