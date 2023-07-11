@@ -4,6 +4,7 @@ import api from '../../API'
 import { useQuery } from '@apollo/client'
 import BellNotification from './BellNotification'
 import { CiMenuKebab } from 'react-icons/ci'
+import ReportProblem from './ReportProblem'
 
 interface Props{
   onPress: ()=> void
@@ -21,8 +22,8 @@ const Header:React.FC<Props> = ({onPress}) => {
             <S.Content className="content">
               <div></div>
               <div className='d-flex justify-center gap-3'>
-                <BellNotification count={14} />
-                <CiMenuKebab size={26} />
+                {/* <BellNotification count={14} /> */}
+               <ReportProblem />
               </div>
             </S.Content>
           </div>

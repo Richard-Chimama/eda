@@ -42,16 +42,13 @@ const Profile = () => {
 
   return (
     <Container>
-         <p>
-            This page is under development 😉 <Link to="..">Go back</Link>
-          </p>
-      {(data != undefined && result.length > 0) && (
-        <div>
          
-          <h1>Profile</h1>
-         {/*  <div>
-            <img src={result[0].avatar? result[0].avatar : profile} alt="profile " />
-          </div> */}
+      <h1>Profile</h1>
+      {(data != undefined && result.length > 0) && (
+        <Content>
+           <div>
+            <Image className='image' src={result[0].avatar? result[0].avatar : profile} alt="profile " />
+          </div> 
           <UserInfo>
             <span>
               <span>Non:</span> <span>{result[0].username}</span>
@@ -66,7 +63,7 @@ const Profile = () => {
               <span>Cnop:</span> <span>{result[0].cnop}</span>
             </span>
           </UserInfo>
-        </div>
+        </Content>
       )}
     </Container>
   );
@@ -78,13 +75,24 @@ const Container = styled.div`
     min-height: 100vh;
 `
 
+const Image = styled.img`
+  height: 200px;
+  width: 150px;
+`
+
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
 const UserInfo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     gap: 5px;
-    margin: 0 auto;
+    margin: 50px 0 auto 0;
 
     & > span{
         display: flex;

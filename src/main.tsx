@@ -179,7 +179,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/main/rapport",
-        element: <Rapport />
+        element: <Statistics />
       },
       {
         path:"/main/enregistrer_patient",

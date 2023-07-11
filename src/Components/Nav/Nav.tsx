@@ -265,7 +265,7 @@ const handleLogout = (e:any)=>{
               aria-expanded="false"
               onClick={ToolTip}
             >
-              <Image src={user !== null? user.avatar: UserImg} width="35px" height="35px" alt="user image" />
+              <Image src={user.avatar !== null? user.avatar: UserImg} width="35px" height="35px" alt="user image" />
               <strong>{user ? user.username: "user name"}</strong>
             </NavLinks>
           ) : (

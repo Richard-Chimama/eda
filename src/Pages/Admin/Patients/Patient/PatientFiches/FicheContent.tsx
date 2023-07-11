@@ -28,7 +28,7 @@ const FichContent = ({data}:{data:any})=>{
       </S.Icons>
       {isUpdate && <UpdateFiche close={setIsUpdate} data={data} state="update" />}
       {isView && <UpdateFiche close={setIsView} data={data} state="view" />}
-      {isPrint && <PrintFiche data={data} close={setIsPrint} />}
+      {isPrint && <PrintFiche data={data} show={isPrint} close={setIsPrint} />}
 </S.FicheContent>
 }
 

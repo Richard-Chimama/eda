@@ -4,7 +4,6 @@ import styled from "styled-components"
 import API from '../../../API'
 import MonthlyStatistic from './Charts/MonthlyStatistic'
 import TotalPatients from './Charts/TotalPatients'
-//import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StateMessage from '../../../Components/StateMessage'
@@ -19,7 +18,6 @@ const Statistics = () => {
     const {loading, error, data} = useQuery(API.Queries.findPatientsByHosptial,
             {variables:{hospitalId:hospitalId}})
 
-            console.log(hospitalId)
             
     useEffect(() =>{
         if(!loading && !error && data){

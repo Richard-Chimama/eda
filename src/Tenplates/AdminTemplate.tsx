@@ -51,8 +51,12 @@ const AdminTemplate = () => {
         <Nav screenSize={screenWidth} toggleCollapsed={setCollapsed} />
       </NavSide>
       <Section  collapsed={collapsed}>
+          <div style={{height:"70px", position: "sticky", top: "0"}}>
           <Header onPress={handleCollapse} />
-        <Outlet />
+          </div>
+          <div className={"pages"}>
+            <Outlet />
+          </div>
       </Section>
     </Container>
   );
@@ -80,8 +84,14 @@ const Section = styled.section<props>`
   background-color: #f6f0f0;
   margin-left: ${(props)=>props.collapsed ? "0px": "280px"};
   width: ${(props)=>props.collapsed? 'Calc(100%)' :'Calc(100%-290px)'};
-  height: 100%;
+  height: Calc(100%-100px);
   padding-top: 0px;
+  overflow: auto;
+
+  & > .pages{
+    min-height: Calc(100% - 100px)
+    overflow: auto;
+  }
 
   @media screen and (max-width: 480px) {
     width: 100%;
