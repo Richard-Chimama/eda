@@ -104,7 +104,7 @@ const Signin: React.FC = () => {
       <input type="email" name="email" className="form-control" id="floatingInput" value={inputs.email} onChange={handleChange} placeholder="name@example.com" />
       <label htmlFor="floatingInput">E-mail</label>
     </div>
-    <div className="form-floating">
+    <div className="form-floating" style={{marginTop: '10px'}}>
       <input type="password" name="password" value={inputs.password} onChange={handleChange}  className="form-control" id="floatingPassword" placeholder="Mot de passe" />
       <label htmlFor="floatingPassword">Mot de passe</label>
     </div>

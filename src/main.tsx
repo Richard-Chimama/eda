@@ -51,8 +51,8 @@ const cache = new InMemoryCache()
 let httpLink:any
 let wsLink:any
 if(DEVELOPMENT){
-  httpLink = createUploadLink({uri:"https://eda-server4-production.up.railway.app/api" })
-  wsLink = new GraphQLWsLink(createClient({url:"ws://eda-server4-production.up.railway.app/api",
+  httpLink = createUploadLink({uri:"https://edaservers.com/api" })
+  wsLink = new GraphQLWsLink(createClient({url:"ws://edaservers.com/api",
           connectionParams:{
             authToken: localStorage.getItem('token') || null
           }  
