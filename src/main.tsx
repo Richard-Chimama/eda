@@ -52,7 +52,7 @@ let httpLink:any
 let wsLink:any
 if(DEVELOPMENT){
   httpLink = createUploadLink({uri:"https://edaservers.com/api" })
-  wsLink = new GraphQLWsLink(createClient({url:"ws://edaservers.com/api",
+  wsLink = new GraphQLWsLink(createClient({url:"wss://edaservers.com/api",
           connectionParams:{
             authToken: localStorage.getItem('token') || null
           }  
